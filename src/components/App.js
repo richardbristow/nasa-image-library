@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { searchData: '' };
+    this.state = { searchData: {} };
 
     this.handleSearch = this.handleSearch.bind(this);
   }
