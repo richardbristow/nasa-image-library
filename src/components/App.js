@@ -7,7 +7,6 @@ import Gallery from './Gallery';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchData: '' };
     this.state = { searchData: {} };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -27,9 +26,8 @@ class App extends Component {
     const response = await fetch(url);
     const data = await response.json();
     this.setState({
-      searchData: data,
+      searchData: data.collection,
     });
-    console.log(this.state.searchData);
   }
 
   render() {
@@ -39,6 +37,7 @@ class App extends Component {
           <h2>Nasa Image Library</h2>
           <SearchBar onSearch={this.handleSearch} />
         </div>
+        <Gallery galleryData={this.state.searchData} />
       </div>
     );
   }
