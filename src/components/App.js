@@ -12,6 +12,15 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  componentDidMount() {
+    this.handleSearch({
+      searchTerm: 'galaxy',
+      image: true,
+      video: false,
+      audio: false,
+    });
+  }
+
   async handleSearch(searchObj) {
     const mediaTypes = [];
     let query = '';
