@@ -36,7 +36,7 @@ class Gallery extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="gallery-wrapper">
         {this.renderGalleryItems()}
       </div>
     );

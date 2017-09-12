@@ -42,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="app-header">
+        <div className="header-wrapper">
           <h2>Nasa Image Library</h2>
           <SearchBar onSearch={this.handleSearch} />
         </div>
