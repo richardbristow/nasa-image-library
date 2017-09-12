@@ -1,5 +1,6 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
+import '../styles/css/Gallery.css';
 
 // async function handleGetMediaData(url) {
 //   const response = await fetch(url);
