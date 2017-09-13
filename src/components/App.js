@@ -10,6 +10,7 @@ class App extends Component {
     this.state = { searchData: {} };
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +22,15 @@ class App extends Component {
     });
   }
 
-  async handleSearch(searchObj) {
+  async getData(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({
+      searchData: data.collection,
+    });
+  }
+
+  handleSearch(searchObj) {
     const mediaTypes = [];
     let query = '';
     Object.entries(searchObj).forEach(([key, value]) => {
@@ -32,11 +41,7 @@ class App extends Component {
       }
     });
     const url = `https://images-api.nasa.gov/search?q=${query}&media_type=${mediaTypes.toString()}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({
-      searchData: data.collection,
-    });
+    this.getData(url);
   }
 
   render() {
@@ -46,7 +51,7 @@ class App extends Component {
           <h2>Nasa Image Library</h2>
           <SearchBar onSearch={this.handleSearch} />
         </div>
-        <Gallery galleryData={this.state.searchData} />
+        <Gallery galleryData={this.state.searchData} onGetData={this.getData}/>
       </div>
     );
   }
