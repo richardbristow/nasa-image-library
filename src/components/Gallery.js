@@ -3,14 +3,24 @@ import '../styles/css/Gallery.css';
 
 import GalleryItem from './GalleryItem';
 import PageNavigation from './PageNavigation';
+import GalleryModal from './GalleryModal';
 
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { modalOpen: false };
 
     this.renderGalleryItems = this.renderGalleryItems.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.renderPageNavigation = this.renderPageNavigation.bind(this);
+    this.closeGalleryModal = this.closeGalleryModal.bind(this);
+    this.openGalleryModal = this.openGalleryModal.bind(this);
+  }
+
+  closeGalleryModal() {
+    this.setState({
+      modalOpen: false,
+    });
   }
 
   handlePageChange(event) {
@@ -19,11 +29,21 @@ class Gallery extends React.Component {
     this.props.onGetData(pageUrl);
   }
 
+  openGalleryModal(event) {
+    this.setState({
+      modalOpen: true,
+    });
+  }
+
   renderGalleryItems() {
     if (Object.prototype.hasOwnProperty.call(this.props.galleryData, 'items')) {
       const imageArr = this.props.galleryData.items;
       const galleryItems = imageArr.map((image) => {
-        return <GalleryItem key={image.data[0].nasa_id} imageData={image} />;
+        return (<GalleryItem
+          key={image.data[0].nasa_id}
+          imageData={image}
+          openModal={this.openGalleryModal}
+        />);
       });
       return (
         <div>
@@ -40,7 +60,7 @@ class Gallery extends React.Component {
       prev: null,
       totalHits: null,
     };
-    // Check for the metadata property and get the total hits
+    // Check for the metadata property, and get the total hits
     if (Object.prototype.hasOwnProperty.call(this.props.galleryData, 'metadata')) {
       pageNav.totalHits = this.props.galleryData.metadata.total_hits;
     }
@@ -66,7 +86,6 @@ class Gallery extends React.Component {
         });
       }
     }
-    console.log(pageNav);
     return pageNav;
   }
 
@@ -75,6 +94,7 @@ class Gallery extends React.Component {
 
     return (
       <div className="gallery-wrapper">
+        <GalleryModal isModalOpen={this.state.modalOpen} closeModal={this.closeGalleryModal} />
         {pageNav.prev !== null ? pageNav.prev : null}
         {pageNav.next !== null ? pageNav.next : null}
         {pageNav.totalHits !== null ? pageNav.totalHits : null}
