@@ -15,7 +15,7 @@ class App extends Component {
 
   componentDidMount() {
     this.handleSearch({
-      searchTerm: 'galaxy',
+      searchTerm: 'sun',
       image: true,
       video: false,
       audio: false,
