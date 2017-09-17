@@ -1,0 +1,9 @@
+@import "./variablesMixins.scss";
+
+.loading-spinner {
+  width: 100%;
+  font-size: 100px;
+  color: $lightGrey;
+  text-align: center;
+  margin-top: 20%;
+}

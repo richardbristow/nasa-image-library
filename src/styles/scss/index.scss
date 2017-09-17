@@ -1,11 +1,11 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-@import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,800');
+@import './variablesMixins.scss';
 
 // start css reset
 body {
-  font-family: sans-serif, serif;
+  font-family: 'Open Sans', sans-serif, serif;
   margin-bottom: 0;
-  // background: black;
 }
 
 li {
@@ -36,9 +36,11 @@ p {
 
 .wrapper {
   width: 100%;
-  min-width: 150px;
+  min-width: 200px;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  background: $ghostWhite;
+  height:100vh;
 }
 //  end css reset

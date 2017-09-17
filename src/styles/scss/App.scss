@@ -1,7 +1,51 @@
+@import './variablesMixins.scss';
+
 .header-wrapper {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  padding-top: 20px;
+  background: $grey;
+  color: $ghostWhite;
+  height: 180px;
   text-align: center;
+  margin-bottom: 1em;
+
+  @include mqMax(400px) {
+    height: 150px;
+    padding-top: 10px;
+  };
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 36px;
+    color: $ghostWhite;
+
+    @include mqMax(360px) {
+      font-size: 24px;
+    };
+
+    @include mqMax(700px) {
+      font-size: 28px;
+    };
+
+    @include mqMax(900px) {
+      font-size: 32px;
+    };
+
+    span {
+      font-weight: 200;
+    }
+  }
+}
+
+.loading-spinner {
+  background: $ghostWhite;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-wrapper {
+  background: $ghostWhite;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
