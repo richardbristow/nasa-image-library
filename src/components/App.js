@@ -3,26 +3,34 @@ import '../styles/css/App.css';
 
 import SearchBar from './SearchBar';
 import Gallery from './Gallery';
+import LoadingSpinner from './LoadingSpinner';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchData: {} };
+    this.state = { searchData: null };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.getData = this.getData.bind(this);
   }
 
+
+  // Fills the pages with images on initial load
   componentDidMount() {
     this.handleSearch({
-      searchTerm: 'sun',
+      searchTerm: 'iss',
       image: true,
       video: false,
       audio: false,
     });
   }
 
+
+  // Fetches data from the NASA api
   async getData(url) {
+    // this.setState({
+    //   searchData: null,
+    // });
     const response = await fetch(url);
     const data = await response.json();
     this.setState({
@@ -30,11 +38,13 @@ class App extends Component {
     });
   }
 
+
+  // Handles the search event
   handleSearch(searchObj) {
     const mediaTypes = [];
     let query = '';
 
-    // Polyfill for object entries IE compatibilty
+    // Polyfill for object entries. IE compatibilty
     if (!Object.entries) {
       Object.entries = (obj) => {
         const ownProps = Object.keys(obj);
@@ -54,18 +64,25 @@ class App extends Component {
         query = value;
       }
     });
-    const url = `https://images-api.nasa.gov/search?q=${query}&media_type=${mediaTypes.toString()}`;
+    let url = `https://images-api.nasa.gov/search?q=${query}&media_type=${mediaTypes.toString()}`;
+    url = url.replace(/ /g, '%20');
     this.getData(url);
   }
+
 
   render() {
     return (
       <div className="wrapper">
         <div className="header-wrapper">
-          <h2>Nasa Image Library</h2>
+          <h1>NASA <span>Media Library</span></h1>
           <SearchBar onSearch={this.handleSearch} />
         </div>
-        <Gallery galleryData={this.state.searchData} onGetData={this.getData}/>
+        {this.state.searchData ?
+          <Gallery
+            className="gallery-wrapper"
+            galleryData={this.state.searchData}
+            onGetData={this.getData}
+          /> : <LoadingSpinner />}
       </div>
     );
   }
