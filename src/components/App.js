@@ -33,6 +33,20 @@ class App extends Component {
   handleSearch(searchObj) {
     const mediaTypes = [];
     let query = '';
+
+    // Polyfill for object entries IE compatibilty
+    if (!Object.entries) {
+      Object.entries = (obj) => {
+        const ownProps = Object.keys(obj);
+        let i = ownProps.length;
+        const resArray = new Array(i);
+        while (i--) {
+          resArray[i] = [ownProps[i], obj[ownProps[i]]];
+        }
+        return resArray;
+      };
+    }
+
     Object.entries(searchObj).forEach(([key, value]) => {
       if (key !== 'searchTerm' && value === true) {
         mediaTypes.push(key);
