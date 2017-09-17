@@ -28,9 +28,9 @@ class App extends Component {
 
   // Fetches data from the NASA api
   async getData(url) {
-    // this.setState({
-    //   searchData: null,
-    // });
+    this.setState({
+      searchData: null,
+    });
     const response = await fetch(url);
     const data = await response.json();
     this.setState({
