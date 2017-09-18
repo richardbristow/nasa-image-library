@@ -4,6 +4,7 @@ import '../styles/css/Gallery.css';
 import GalleryItem from './GalleryItem';
 import PageNavigation from './PageNavigation';
 import GalleryModal from './GalleryModal';
+import LoadingSpinner from './LoadingSpinner';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Gallery extends React.Component {
     this.state = {
       modalOpen: false,
       modalDataObj: null,
-      imagesLoading: true,
+      imagesLoading: false,
     };
 
     this.renderGalleryItems = this.renderGalleryItems.bind(this);
@@ -41,7 +42,8 @@ class Gallery extends React.Component {
 
   // Querys the dom to check if the images in the gallery have loaded
   handleImagesLoaded() {
-    const images = this.galleryImages.querySelectorAll('img');
+    let images = null;
+    images = this.galleryImages.querySelectorAll('img');
     let allLoaded = true;
     for (let i = 0; i < images.length; i++) {
       if (!images[i].complete) {
@@ -74,6 +76,7 @@ class Gallery extends React.Component {
 
   // Loops through the api results and returns gallery items
   renderGalleryItems() {
+    const imagesLoading = this.state.imagesLoading;
     if (this.props.galleryData.items) {
       const imageArr = this.props.galleryData.items;
       const galleryItems = imageArr.map(image =>
@@ -85,7 +88,7 @@ class Gallery extends React.Component {
         />),
       );
       return (
-        <div className="gallery-items-wrapper">
+        <div className={imagesLoading ? 'gallery-items-wrapper-loading' : 'gallery-items-wrapper'}>
           {galleryItems}
         </div>
       );
@@ -140,16 +143,20 @@ class Gallery extends React.Component {
 
   render() {
     const pageNav = this.renderPageNavigation();
-
+    const imagesLoading = this.state.imagesLoading;
     return (
-      <div className="gallery-wrapper" ref={(c) => { this.galleryImages = c; }}>
+      <div
+        className="gallery-wrapper"
+        ref={(c) => { this.galleryImages = c; }}
+      >
         <GalleryModal
           modalDataObj={this.state.modalDataObj}
           isModalOpen={this.state.modalOpen}
           closeModal={this.closeGalleryModal}
         />
+        {imagesLoading ? <LoadingSpinner /> : null}
         {this.renderGalleryItems()}
-        <div className="page-navigation-wrapper">
+        <div className={imagesLoading ? 'page-navigation-wrapper-loading' : 'page-navigation-wrapper'}>
           <div className="page-navigation-buttons">
             {pageNav.prev !== null ? pageNav.prev : null}
             {pageNav.next !== null ? pageNav.next : null}
