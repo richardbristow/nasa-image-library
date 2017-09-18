@@ -8,7 +8,7 @@ import LoadingSpinner from './LoadingSpinner';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchData: null };
+    this.state = { searchData: null, err: false };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.getData = this.getData.bind(this);
@@ -31,9 +31,17 @@ class App extends Component {
     this.setState({
       searchData: null,
     });
-    const response = await fetch(url);
-    const data = await response.json();
+    let data = {};
+    let err = false;
+    try {
+      const response = await fetch(url);
+      data = await response.json();
+    } catch (e) {
+      console.log('Houston we have a problem.');
+      err = true;
+    }
     this.setState({
+      err,
       searchData: data.collection,
     });
   }
@@ -71,18 +79,32 @@ class App extends Component {
 
 
   render() {
+    let content = null;
+    if (this.state.err) {
+      content = (
+        <div className="fetch-errors">
+          <p>Houston we have a problem.</p>
+          <p>Something went wrong.</p>
+        </div>
+      );
+    } else if (!this.state.searchData) {
+      content = <LoadingSpinner />;
+    } else {
+      content = (
+        <Gallery
+          className="gallery-wrapper"
+          galleryData={this.state.searchData}
+          onGetData={this.getData}
+        />
+      );
+    }
     return (
       <div className="wrapper">
         <div className="header-wrapper">
           <h1>NASA <span>Media Library</span></h1>
           <SearchBar onSearch={this.handleSearch} />
         </div>
-        {this.state.searchData ?
-          <Gallery
-            className="gallery-wrapper"
-            galleryData={this.state.searchData}
-            onGetData={this.getData}
-          /> : <LoadingSpinner />}
+        {content}
       </div>
     );
   }
