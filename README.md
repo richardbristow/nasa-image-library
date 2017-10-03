@@ -23,7 +23,7 @@ A deployed demo site is available at:
 https://richardbristow.github.io/nasa-image-library
 
 
-## Notes
+## Notes
 
 Tested in Chrome 62, IE 11, Edge 40, Safari (macOS & iOS), Firefox
 
