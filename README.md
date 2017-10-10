@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/richardbristow/nasa-image-library.svg?branch=master)](https://travis-ci.org/richardbristow/nasa-image-library)
+
 # NASA Image Library
 
 To run the code after cloning, install third party modules:

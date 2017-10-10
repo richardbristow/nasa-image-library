@@ -79,14 +79,14 @@ class Gallery extends React.Component {
     const imagesLoading = this.state.imagesLoading;
     if (this.props.galleryData.items) {
       const imageArr = this.props.galleryData.items;
-      const galleryItems = imageArr.map(image =>
-        (<GalleryItem
+      const galleryItems = imageArr.map(image => (
+        <GalleryItem
           onImagesLoaded={this.handleImagesLoaded}
           key={image.data[0].nasa_id}
           imageData={image}
           openModal={this.openGalleryModal}
-        />),
-      );
+        />
+      ));
       return (
         <div className={imagesLoading ? 'gallery-items-wrapper-loading' : 'gallery-items-wrapper'}>
           {galleryItems}
@@ -108,12 +108,14 @@ class Gallery extends React.Component {
     };
     // Check for the metadata property, and get the total hits
     if (this.props.galleryData.metadata) {
-      pageNav.totalHits = (<div className="page-nav-total-hits">
-        <span className="totalHitsText">Found <span className="totalHitsTextBold">
-          {this.props.galleryData.metadata.total_hits} </span>
-          results.
-        </span>
-      </div>);
+      pageNav.totalHits = (
+        <div className="page-nav-total-hits">
+          <span className="totalHitsText">Found <span className="totalHitsTextBold">
+            {this.props.galleryData.metadata.total_hits} </span>
+            results.
+          </span>
+        </div>
+      );
     }
     // Check for the links property
     if (this.props.galleryData.links) {
@@ -122,17 +124,21 @@ class Gallery extends React.Component {
       if (linkArr.length > 0) {
         linkArr.forEach((link) => {
           if ((link.rel).toLowerCase() === 'next') {
-            pageNav.next = (<PageNavigation
-              navType="Next"
-              onPageChange={this.handlePageChange}
-              dataUrl={link.href}
-            />);
+            pageNav.next = (
+              <PageNavigation
+                navType="Next"
+                onPageChange={this.handlePageChange}
+                dataUrl={link.href}
+              />
+            );
           } else if ((link.rel).toLowerCase() === 'prev') {
-            pageNav.prev = (<PageNavigation
-              navType="Previous"
-              onPageChange={this.handlePageChange}
-              dataUrl={link.href}
-            />);
+            pageNav.prev = (
+              <PageNavigation
+                navType="Previous"
+                onPageChange={this.handlePageChange}
+                dataUrl={link.href}
+              />
+            );
           }
         });
       }

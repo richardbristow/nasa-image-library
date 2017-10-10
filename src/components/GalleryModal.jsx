@@ -20,6 +20,22 @@ class GalleryModal extends React.Component {
 
   // Perfom another api call to get the info for the modal
   async getModalContent() {
+    // Polyfill for object endswith. IE compatibilty
+    if (!String.prototype.endsWith) {
+      /* eslint-disable */
+      String.prototype.endsWith = (searchStr, Position) => {
+        // This works much better than >= because
+        // it compensates for NaN:
+        if (!(Position < this.length)) {
+          Position = this.length;
+        } else {
+          Position |= 0; // round position
+        }
+        return this.substr(Position - searchStr.length, searchStr.length) === searchStr;
+      };
+      /* eslint-enable */
+    }
+
     const modalData = this.props.modalDataObj;
     let metaUrl = `https://images-api.nasa.gov/asset/${modalData.modalNasaId}`;
     metaUrl = metaUrl.replace(/ /g, '%20');
