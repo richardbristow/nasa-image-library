@@ -32,16 +32,6 @@ class SearchBar extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.onSearch(this.state);
-
-    // if (input.searchTerm === '') {
-    //   console.log('please enter searchterm');
-    // } else if (!input.image && !input.image && !input.image) {
-    //   console.log('please select a media type');
-    // } else if ((input.searchTerm === '') && (!input.image && !input.image && !input.image)) {
-    //   console.log('no media or search propvede');
-    // } else {
-    //   this.props.onSearch(this.state);
-    // }
   }
 
 
