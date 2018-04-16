@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "gh-pages": "^1.0.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13"
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-scripts": "1.1.4"
   },
   "homepage": "https://richardbristow.github.io/nasa-image-library",
   "scripts": {
@@ -22,11 +22,11 @@
   },
   "devDependencies": {
     "eslint": "^4.6.1",
-    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.3.0",
-    "node-sass-chokidar": "0.0.3",
+    "node-sass-chokidar": "1.2.2",
     "npm-run-all": "^4.1.1"
   }
 }
