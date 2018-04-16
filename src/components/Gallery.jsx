@@ -45,7 +45,7 @@ class Gallery extends React.Component {
     let images = null;
     images = this.galleryImages.querySelectorAll('img');
     let allLoaded = true;
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0; i < images.length; i += 1) {
       if (!images[i].complete) {
         allLoaded = false;
       }
