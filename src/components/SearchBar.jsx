@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/css/SearchBar.css';
+import SearchBarCheckbox from './SearchBarCheckbox';
+import SearchBarInput from './SearchBarInput';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -36,48 +38,15 @@ class SearchBar extends React.Component {
 
 
   render() {
+    const { image, video, audio, searchTerm } = this.state;
     return (
       <div className="search-wrapper">
         <form id="search-form" onSubmit={this.handleSubmit}>
-          <div id="search-bar">
-            <div id="search-bar-flex">
-              <input
-                name="searchTerm"
-                type="text"
-                value={this.state.searchTerm}
-                onChange={this.handleInputChange}
-                placeholder="e.g. Jupiter"
-              />
-              <button type="submit">
-                <span className="fa fa-search" aria-hidden="true" />
-              </button>
-            </div>
-          </div>
+          <SearchBarInput value={searchTerm} handleInputChange={this.handleInputChange} />
           <div id="search-checkboxes">
-            <label htmlFor="imageCheckbox">Images</label>
-            <input
-              name="image"
-              type="checkbox"
-              id="imageCheckbox"
-              checked={this.state.image}
-              onChange={this.handleInputChange}
-            />
-            <label htmlFor="videoCheckbox">Videos</label>
-            <input
-              name="video"
-              type="checkbox"
-              id="videoCheckbox"
-              checked={this.state.video}
-              onChange={this.handleInputChange}
-            />
-            <label htmlFor="audioCheckbox">Audio</label>
-            <input
-              name="audio"
-              type="checkbox"
-              id="audioCheckbox"
-              checked={this.state.audio}
-              onChange={this.handleInputChange}
-            />
+            <SearchBarCheckbox label="Images" name="image" checked={image} />
+            <SearchBarCheckbox label="Videos" name="video" checked={video} />
+            <SearchBarCheckbox label="Audio" name="audio" checked={audio} />
           </div>
         </form>
       </div>

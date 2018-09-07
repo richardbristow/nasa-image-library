@@ -80,20 +80,21 @@ class App extends Component {
 
   render() {
     let content = null;
-    if (this.state.err) {
+    const { err, searchData } = this.state; 
+    if (err) {
       content = (
         <div className="fetch-errors">
           <p>Houston we have a problem.</p>
           <p>Something went wrong.</p>
         </div>
       );
-    } else if (!this.state.searchData) {
+    } else if (!searchData) {
       content = <LoadingSpinner />;
     } else {
       content = (
         <Gallery
           className="gallery-wrapper"
-          galleryData={this.state.searchData}
+          galleryData={searchData}
           onGetData={this.getData}
         />
       );
