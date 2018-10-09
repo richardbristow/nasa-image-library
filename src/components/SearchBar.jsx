@@ -44,9 +44,9 @@ class SearchBar extends React.Component {
         <form id="search-form" onSubmit={this.handleSubmit}>
           <SearchBarInput value={searchTerm} handleInputChange={this.handleInputChange} />
           <div id="search-checkboxes">
-            <SearchBarCheckbox label="Images" name="image" checked={image} />
-            <SearchBarCheckbox label="Videos" name="video" checked={video} />
-            <SearchBarCheckbox label="Audio" name="audio" checked={audio} />
+            <SearchBarCheckbox label="Images" name="image" checked={image} handleInputChange={this.handleInputChange} />
+            <SearchBarCheckbox label="Videos" name="video" checked={video} handleInputChange={this.handleInputChange} />
+            <SearchBarCheckbox label="Audio" name="audio" checked={audio} handleInputChange={this.handleInputChange} />
           </div>
         </form>
       </div>
