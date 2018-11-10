@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SearchBarInput = ({ searchTerm, handleInputChange }) => (
   <div id="search-bar">
@@ -16,5 +17,10 @@ const SearchBarInput = ({ searchTerm, handleInputChange }) => (
     </div>
   </div>
 );
+
+SearchBarInput.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+};
 
 export default SearchBarInput;

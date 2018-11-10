@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/css/App.css';
+import '../polyfills';
 
 import SearchBar from './SearchBar';
 import Gallery from './Gallery';
@@ -14,7 +15,6 @@ class App extends Component {
     this.getData = this.getData.bind(this);
   }
 
-
   // Fills the pages with images on initial load
   componentDidMount() {
     this.handleSearch({
@@ -24,7 +24,6 @@ class App extends Component {
       audio: false,
     });
   }
-
 
   // Fetches data from the NASA api
   async getData(url) {
@@ -46,25 +45,10 @@ class App extends Component {
     });
   }
 
-
   // Handles the search event
   handleSearch(searchObj) {
     const mediaTypes = [];
     let query = '';
-
-    // Polyfill for object entries. IE compatibilty
-    if (!Object.entries) {
-      Object.entries = (obj) => {
-        const ownProps = Object.keys(obj);
-        let i = ownProps.length;
-        const resArray = new Array(i);
-        while (i--) {
-          resArray[i] = [ownProps[i], obj[ownProps[i]]];
-        }
-        return resArray;
-      };
-    }
-
     Object.entries(searchObj).forEach(([key, value]) => {
       if (key !== 'searchTerm' && value === true) {
         mediaTypes.push(key);
@@ -80,7 +64,7 @@ class App extends Component {
 
   render() {
     let content = null;
-    const { err, searchData } = this.state; 
+    const { err, searchData } = this.state;
     if (err) {
       content = (
         <div className="fetch-errors">
@@ -102,7 +86,10 @@ class App extends Component {
     return (
       <div className="wrapper">
         <div className="header-wrapper">
-          <h1>NASA <span>Media Library</span></h1>
+          <h1>
+            NASA&nbsp;
+            <span>Media Library</span>
+          </h1>
           <SearchBar onSearch={this.handleSearch} />
         </div>
         {content}

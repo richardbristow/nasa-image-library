@@ -18,12 +18,9 @@ class SearchBar extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-  // Updates the state based on user input
-  handleInputChange(event) {
-    const target = event.target;
+  handleInputChange({ target }) {
+    const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
     this.setState({
       [name]: value,
     });
@@ -38,7 +35,9 @@ class SearchBar extends React.Component {
 
 
   render() {
-    const { image, video, audio, searchTerm } = this.state;
+    const {
+      image, video, audio, searchTerm,
+    } = this.state;
     return (
       <div className="search-wrapper">
         <form id="search-form" onSubmit={this.handleSubmit}>
