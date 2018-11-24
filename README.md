@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/richardbristow/nasa-image-library.svg?branch=master)](https://travis-ci.org/richardbristow/nasa-image-library)
-
 # NASA Image Library
+
+[![Build Status](https://travis-ci.org/richardbristow/nasa-image-library.svg?branch=master)](https://travis-ci.org/richardbristow/nasa-image-library)
 
 To run the code after cloning, install third party modules:
 
@@ -10,22 +10,17 @@ Then start the development server:
 
 `npm start`
 
-The app will be available at http://localhost:3000/
-
+The app will be available at: <http://localhost:3000/>
 
 To create a production build:
 
 `npm run build`
 
-
 ## Demo site
 
-A deployed demo site is available at:
+A deployed demo site is available [here](https://richardbristow.github.io/nasa-image-library)
 
-https://richardbristow.github.io/nasa-image-library
-
-
-## Notes
+## Notes
 
 Tested in Chrome 62, IE 11, Edge 40, Safari (macOS & iOS), Firefox
 
@@ -33,10 +28,9 @@ Tested in Chrome 62, IE 11, Edge 40, Safari (macOS & iOS), Firefox
 
 The loading spinner doesn't quite work as I intended as the images are briefly viewable underneath it; but I felt it was better to submit now rather than delay whilst trying to fix.
 
-
 ## Other Info
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.<br>
+Below you will find some information on how to perform common tasks.\
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
