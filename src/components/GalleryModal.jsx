@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles/css/GalleryModal.css';
 
 // import LoadingSpinner from './LoadingSpinner';
 
-class GalleryModal extends React.Component {
+class GalleryModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -112,8 +112,9 @@ class GalleryModal extends React.Component {
 
   // Creates the modal
   renderModal() {
+    const { loading } = this.state;
     let modalContent;
-    if (this.state.loading) {
+    if (loading) {
       // the modal is in a loading state, render loading spinner
       modalContent = (
         <div className="modalLoading">

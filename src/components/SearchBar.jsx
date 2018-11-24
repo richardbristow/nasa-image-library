@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles/css/SearchBar.css';
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
 

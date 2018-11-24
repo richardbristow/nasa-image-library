@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles/css/Gallery.css';
 
 import GalleryItem from './GalleryItem';
@@ -6,7 +6,7 @@ import PageNavigation from './PageNavigation';
 import GalleryModal from './GalleryModal';
 import LoadingSpinner from './LoadingSpinner';
 
-class Gallery extends React.Component {
+class Gallery extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +76,7 @@ class Gallery extends React.Component {
 
   // Loops through the api results and returns gallery items
   renderGalleryItems() {
-    const imagesLoading = this.state.imagesLoading;
+    const { imagesLoading } = this.state;
     if (this.props.galleryData.items) {
       const imageArr = this.props.galleryData.items;
       const galleryItems = imageArr.map(image => (
