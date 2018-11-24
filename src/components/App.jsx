@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
+import styled, { ThemeProvider } from 'styled-components/macro';
+
+import { GlobalStyle, globalTheme } from '../theme/globalStyle';
+
 import '../styles/css/App.css';
 import '../polyfills';
 
 import SearchBar from './SearchBar';
 import Gallery from './Gallery';
 import LoadingSpinner from './LoadingSpinner';
+
+const StyledAppWrapper = styled.div`
+  width: 100%;
+  min-width: 200px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background: ${({ theme }) => theme.ghostWhite};
+  height:100vh;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -84,16 +98,19 @@ class App extends Component {
       );
     }
     return (
-      <div className="wrapper">
-        <div className="header-wrapper">
-          <h1>
-            NASA&nbsp;
-            <span>Media Library</span>
-          </h1>
-          <SearchBar onSearch={this.handleSearch} />
-        </div>
-        {content}
-      </div>
+      <ThemeProvider theme={globalTheme}>
+        <StyledAppWrapper>
+          <GlobalStyle />
+          <div className="header-wrapper">
+            <h1>
+              NASA&nbsp;
+              <span>Media Library</span>
+            </h1>
+            <SearchBar onSearch={this.handleSearch} />
+          </div>
+          {content}
+        </StyledAppWrapper>
+      </ThemeProvider>
     );
   }
 }
