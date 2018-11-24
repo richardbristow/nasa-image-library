@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/css/SearchBar.css';
+import '../../styles/css/SearchBar.css';
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
 

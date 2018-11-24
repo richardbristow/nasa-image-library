@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/css/GalleryModal.css';
 
-// import LoadingSpinner from './LoadingSpinner';
+// import Loading from './Loading';
 
 class GalleryModal extends Component {
   constructor(props) {
@@ -118,7 +118,7 @@ class GalleryModal extends Component {
       // the modal is in a loading state, render loading spinner
       modalContent = (
         <div className="modalLoading">
-          {/* <LoadingSpinner /> */}
+          {/* <Loading /> */}
         </div>
       );
       // fetch the data needed

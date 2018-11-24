@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
 import '../styles/css/Gallery.css';
 
 import GalleryItem from './GalleryItem';
-import PageNavigation from './PageNavigation';
 import GalleryModal from './GalleryModal';
-import LoadingSpinner from './LoadingSpinner';
+import Loading from './shared/Loading';
+import GalleryNavigation from './gallery-navigation/GalleryNavigation';
 
 class Gallery extends Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class Gallery extends Component {
 
     this.renderGalleryItems = this.renderGalleryItems.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    this.renderPageNavigation = this.renderPageNavigation.bind(this);
     this.closeGalleryModal = this.closeGalleryModal.bind(this);
     this.openGalleryModal = this.openGalleryModal.bind(this);
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
@@ -96,79 +96,23 @@ class Gallery extends Component {
     return null;
   }
 
-
-  // Creates the next and previous buttons, based on whether there
-  // are more results to display.
-  // Also gets the total results for the search
-  renderPageNavigation() {
-    const pageNav = {
-      next: null,
-      prev: null,
-      totalHits: null,
-    };
-    // Check for the metadata property, and get the total hits
-    if (this.props.galleryData.metadata) {
-      pageNav.totalHits = (
-        <div className="page-nav-total-hits">
-          <span className="totalHitsText">Found <span className="totalHitsTextBold">
-            {this.props.galleryData.metadata.total_hits} </span>
-            results.
-          </span>
-        </div>
-      );
-    }
-    // Check for the links property
-    if (this.props.galleryData.links) {
-      const linkArr = this.props.galleryData.links;
-      // If linkArr > 0 there are buttons to display
-      if (linkArr.length > 0) {
-        linkArr.forEach((link) => {
-          if ((link.rel).toLowerCase() === 'next') {
-            pageNav.next = (
-              <PageNavigation
-                navType="Next"
-                onPageChange={this.handlePageChange}
-                dataUrl={link.href}
-              />
-            );
-          } else if ((link.rel).toLowerCase() === 'prev') {
-            pageNav.prev = (
-              <PageNavigation
-                navType="Previous"
-                onPageChange={this.handlePageChange}
-                dataUrl={link.href}
-              />
-            );
-          }
-        });
-      }
-    }
-    return pageNav;
-  }
-
-
   render() {
-    const pageNav = this.renderPageNavigation();
-    const imagesLoading = this.state.imagesLoading;
+    const { imagesLoading, modalDataObj, modalOpen } = this.state;
+    const { galleryData } = this.props;
     return (
       <div
         className="gallery-wrapper"
         ref={(c) => { this.galleryImages = c; }}
       >
         <GalleryModal
-          modalDataObj={this.state.modalDataObj}
-          isModalOpen={this.state.modalOpen}
+          modalDataObj={modalDataObj}
+          isModalOpen={modalOpen}
           closeModal={this.closeGalleryModal}
         />
-        {imagesLoading ? <LoadingSpinner /> : null}
+        {imagesLoading && <Loading />}
         {this.renderGalleryItems()}
-        <div className={imagesLoading ? 'page-navigation-wrapper-loading' : 'page-navigation-wrapper'}>
-          <div className="page-navigation-buttons">
-            {pageNav.prev !== null ? pageNav.prev : null}
-            {pageNav.next !== null ? pageNav.next : null}
-          </div>
-          {pageNav.totalHits !== null ? pageNav.totalHits : null}
-        </div>
+        {!imagesLoading
+          && <GalleryNavigation galleryData={galleryData} onPageChange={this.handlePageChange} />}
       </div>
     );
   }
