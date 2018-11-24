@@ -23,6 +23,9 @@ class Gallery extends Component {
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
   }
 
+  componentDidUpdate() {
+    window.scrollTo(0, 0);
+  }
 
   // Closes the modal
   closeGalleryModal() {
@@ -77,8 +80,9 @@ class Gallery extends Component {
   // Loops through the api results and returns gallery items
   renderGalleryItems() {
     const { imagesLoading } = this.state;
-    if (this.props.galleryData.items) {
-      const imageArr = this.props.galleryData.items;
+    const { galleryData } = this.props;
+    if (galleryData.items) {
+      const imageArr = galleryData.items;
       const galleryItems = imageArr.map(image => (
         <GalleryItem
           onImagesLoaded={this.handleImagesLoaded}
