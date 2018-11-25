@@ -29,7 +29,6 @@ class SearchBar extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange({ target }) {
@@ -53,20 +52,13 @@ class SearchBar extends Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { getData } = this.props;
-    const { searchTerm, mediaTypes } = this.state;
-    const url = encodeURI(`https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`);
-    getData(url);
-  }
-
-
   render() {
+    const { handleSearch } = this.props;
     const { searchTerm, mediaTypes } = this.state;
+    const url = `https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`;
     return (
       <StyledSearchBar>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={e => handleSearch(url, e)}>
           <SearchBarInput searchTerm={searchTerm} handleInputChange={this.handleInputChange} />
           <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
           <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />
@@ -78,7 +70,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  getData: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

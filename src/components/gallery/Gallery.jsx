@@ -23,7 +23,6 @@ class Gallery extends Component {
       imagesLoading: false,
     };
 
-    this.handlePageChange = this.handlePageChange.bind(this);
     this.closeGalleryModal = this.closeGalleryModal.bind(this);
     this.openGalleryModal = this.openGalleryModal.bind(this);
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
@@ -39,14 +38,6 @@ class Gallery extends Component {
       clickedModalMetadata: null,
     });
   }
-
-
-  // Handles the click event for the previous and next buttons
-  handlePageChange(url) {
-    const { getData } = this.props;
-    getData(url);
-  }
-
 
   // Querys the dom to check if the images in the gallery have loaded
   handleImagesLoaded() {
@@ -76,7 +67,7 @@ class Gallery extends Component {
 
   render() {
     const { imagesLoading, clickedModalMetadata } = this.state;
-    const { searchData } = this.props;
+    const { searchData, handlePageChange } = this.props;
     const { items } = searchData;
     return (
       <StyledGallery ref={(c) => { this.galleryImages = c; }}>
@@ -89,14 +80,14 @@ class Gallery extends Component {
         {imagesLoading && <Loading />}
         <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
         {!imagesLoading
-          && <GalleryNavigation searchData={searchData} handlePageChange={this.handlePageChange} />}
+          && <GalleryNavigation searchData={searchData} handlePageChange={handlePageChange} />}
       </StyledGallery>
     );
   }
 }
 
 Gallery.propTypes = {
-  getData: PropTypes.func.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
   searchData: PropTypes.object.isRequired,
 };
 

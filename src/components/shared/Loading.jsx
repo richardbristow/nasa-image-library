@@ -28,11 +28,11 @@ const Loading = ({ error }) => (
 );
 
 Loading.defaultProps = {
-  error: false,
+  error: null,
 };
 
 Loading.propTypes = {
-  error: PropTypes.bool,
+  error: PropTypes.object,
 };
 
 export default Loading;

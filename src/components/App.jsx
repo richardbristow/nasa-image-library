@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from 'styled-components/macro';
 import '../styles/css/App.css';
 
 import '../polyfills';
+import getData from '../utils/getData';
 import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 
 import Header from './header/Header';
@@ -23,31 +24,20 @@ const StyledAppWrapper = styled.div`
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { errorFetching: false };
+    this.state = { errorFetching: null };
 
-    this.getData = this.getData.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
-    const url = encodeURI('https://images-api.nasa.gov/search?q=iss&media_type=image');
-    this.getData(url);
+    const url = 'https://images-api.nasa.gov/search?q=iss&media_type=image';
+    this.handleSearch(url);
   }
 
-  async getData(url) {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      this.setState({
-        errorFetching: false,
-        searchData: data.collection,
-      });
-    } catch (error) {
-      console.error('Fetch error', error); // eslint-disable-line no-console
-      this.setState({
-        errorFetching: true,
-        searchData: null,
-      });
-    }
+  async handleSearch(url, event) {
+    if (event) { event.preventDefault(); }
+    const { errorFetching, data } = await getData(encodeURI(url));
+    this.setState({ errorFetching, searchData: data });
   }
 
   render() {
@@ -56,9 +46,9 @@ class App extends Component {
       <ThemeProvider theme={globalTheme}>
         <StyledAppWrapper>
           <GlobalStyle />
-          <Header getData={this.getData} />
+          <Header handleSearch={this.handleSearch} />
           {searchData
-            ? <Gallery searchData={searchData} getData={this.getData} />
+            ? <Gallery searchData={searchData} handlePageChange={this.handleSearch} />
             : <Loading error={errorFetching} />
           }
         </StyledAppWrapper>

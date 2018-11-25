@@ -40,18 +40,18 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ getData }) => (
+const Header = ({ handleSearch }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar getData={getData} />
+    <SearchBar handleSearch={handleSearch} />
   </StyledHeader>
 );
 
 Header.propTypes = {
-  getData: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default Header;
