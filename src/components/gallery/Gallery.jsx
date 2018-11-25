@@ -19,8 +19,7 @@ class Gallery extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalOpen: false,
-      modalDataObj: null,
+      clickedModalMetadata: null,
       imagesLoading: false,
     };
 
@@ -37,8 +36,7 @@ class Gallery extends Component {
   // Closes the modal
   closeGalleryModal() {
     this.setState({
-      modalOpen: false,
-      modalDataObj: null,
+      clickedModalMetadata: null,
     });
   }
 
@@ -65,35 +63,29 @@ class Gallery extends Component {
     });
   }
 
-
-  // Handles the click event to open a modal
-  openGalleryModal(event) {
-    let itemData = event.target.parentNode.dataset;
-    if (event.target.parentNode.className === 'gallery-items-wrapper') {
-      itemData = event.target.dataset;
-    }
+  openGalleryModal(itemData) {
+    const {
+      media_type: mediaType, title, description, nasa_id: nasaId,
+    } = itemData;
     this.setState({
-      modalOpen: true,
-      modalDataObj: {
-        modalNasaId: itemData.nasaId,
-        modalTitle: itemData.mediaTitle,
-        modalDescription: itemData.mediaDesc,
-        modalType: itemData.mediaType,
+      clickedModalMetadata: {
+        nasaId, title, description, mediaType,
       },
     });
   }
 
   render() {
-    const { imagesLoading, modalDataObj, modalOpen } = this.state;
+    const { imagesLoading, clickedModalMetadata } = this.state;
     const { searchData } = this.props;
     const { items } = searchData;
     return (
       <StyledGallery ref={(c) => { this.galleryImages = c; }}>
-        <GalleryModal
-          modalDataObj={modalDataObj}
-          isModalOpen={modalOpen}
-          closeModal={this.closeGalleryModal}
-        />
+        {clickedModalMetadata
+          && (
+          <GalleryModal
+            clickedModalMetadata={clickedModalMetadata}
+            closeModal={this.closeGalleryModal}
+          />)}
         {imagesLoading && <Loading />}
         <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
         {!imagesLoading

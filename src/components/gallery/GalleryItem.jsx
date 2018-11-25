@@ -12,11 +12,11 @@ const GalleryItem = ({ itemData, itemLinks, openGalleryModal }) => {
     <div
       className={`gallery-item gallery-item-${mediaType !== 'image' && 'audio-video'}`}
       role="presentation"
-      onClick={openGalleryModal}
-      data-media-type={mediaType}
-      data-media-title={title}
-      data-media-desc={description}
-      data-nasa-id={nasaId}
+      onClick={() => openGalleryModal(itemData)}
+      // data-media-type={mediaType}
+      // data-media-title={title}
+      // data-media-desc={description}
+      // data-nasa-id={nasaId}
     >
       {mediaType === 'image'
         ? <img src={href} alt={title} />

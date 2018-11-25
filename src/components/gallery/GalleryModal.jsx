@@ -17,6 +17,9 @@ class GalleryModal extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentDidMount() {
+    console.log('i mounted');
+  }
 
   // Perfom another api call to get the info for the modal
   async getModalContent() {
@@ -36,8 +39,11 @@ class GalleryModal extends Component {
       /* eslint-enable */
     }
 
-    const modalData = this.props.modalDataObj;
-    let metaUrl = `https://images-api.nasa.gov/asset/${modalData.modalNasaId}`;
+    const { clickedModalMetadata } = this.props;
+    const {
+      mediaType, title, description, nasaId,
+    } = clickedModalMetadata;
+    let metaUrl = `https://images-api.nasa.gov/asset/${nasaId}`;
     metaUrl = metaUrl.replace(/ /g, '%20');
 
     // fetch the data to display in the modal
@@ -46,6 +52,7 @@ class GalleryModal extends Component {
     try {
       const response = await fetch(metaUrl);
       assetData = await response.json();
+      console.log('assetData', assetData);
     } catch (e) {
       console.log('this another errro');
       err = true;
@@ -54,7 +61,7 @@ class GalleryModal extends Component {
     const assetObj = {};
     if (!err) {
       assetData = assetData.collection;
-      if (modalData.modalType.toLowerCase() === 'image') {
+      if (mediaType.toLowerCase() === 'image') {
         // Get a better quality image
         assetObj.imageHref = assetData.items[0].href;
         assetData.items.forEach((img) => {
@@ -66,7 +73,7 @@ class GalleryModal extends Component {
             assetObj.imageHref = img.href;
           }
         });
-      } else if (modalData.modalType.toLowerCase() === 'video') {
+      } else if (mediaType.toLowerCase() === 'video') {
         // Get the video link and video thumbnail to display
         assetObj.subsHref = [];
         const vidThumb = [];
@@ -113,6 +120,10 @@ class GalleryModal extends Component {
   // Creates the modal
   renderModal() {
     const { loading } = this.state;
+    const { clickedModalMetadata } = this.props;
+    const {
+      mediaType, title, description, nasaId,
+    } = clickedModalMetadata;
     let modalContent;
     if (loading) {
       // the modal is in a loading state, render loading spinner
@@ -138,30 +149,29 @@ class GalleryModal extends Component {
               &times;
             </span>
             {/* Create the image modal */}
-            {this.props.modalDataObj.modalType === 'image' ?
-              <img alt={this.props.modalDataObj.modalTitle} src={data.imageHref} /> : null}
+            {mediaType === 'image' && <img alt={title} src={data.imageHref} />}
 
             {/* Create the video modal element */}
-            {this.props.modalDataObj.modalType === 'video' ?
-              <video controls poster={data.vidThumb}>
-                <source src={data.vidHref} />
-                {data.subsHref.forEach(sub =>
-                  <track src={sub} kind="subtitles" />,
-                )}
-                Please use a more modern browser to play this video.
-              </video> : null}
+            {mediaType === 'video'
+              ? <video controls poster={data.vidThumb}>
+                  <source src={data.vidHref} />
+                  {data.subsHref.forEach(sub =>
+                    <track src={sub} kind="subtitles" />,
+                  )}
+                  Please use a more modern browser to play this video.
+                </video> : null}
 
             {/* Create the audio modal */}
-            {this.props.modalDataObj.modalType === 'audio' ?
-              <audio controls>
-                <source src={data.audioHref.href} type="audio/mp4" />
-                Please use a more modern browser to play this audio.
-              </audio> : null
+            {mediaType === 'audio'
+              ? <audio controls>
+                  <source src={data.audioHref.href} type="audio/mp4" />
+                  Please use a more modern browser to play this audio.
+                </audio> : null
             }
             {/* Render the description for the media item */}
-            <div className={`modal-text-${this.props.modalDataObj.modalType}`}>
-              <h2>{this.props.modalDataObj.modalTitle}</h2>
-              <p>{this.props.modalDataObj.modalDescription}</p>
+            <div className={`modal-text-${mediaType}`}>
+              <h2>{title}</h2>
+              <p>{description}</p>
             </div>
           </div>
         </div>
@@ -172,17 +182,14 @@ class GalleryModal extends Component {
 
 
   render() {
-    if (this.props.isModalOpen === false) {
-      // If modal is not open do not render
-      return null;
-    } else if (this.state.err) {
-      return (
-        <div className="fetch-errors-modal">
-          <p>Oops!</p>
-          <p>Something went wrong trying to fetch your data.</p>
-        </div>);
-    }
-    return this.renderModal();
+    if (this.state.err) {
+        return (
+          <div className="fetch-errors-modal">
+            <p>Oops!</p>
+            <p>Something went wrong trying to fetch your data.</p>
+          </div>);
+      }
+      return this.renderModal();
   }
 }
 
