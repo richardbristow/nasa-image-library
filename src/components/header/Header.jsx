@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import SearchBar from './SearchBar';
@@ -48,5 +49,9 @@ const Header = ({ getData }) => (
     <SearchBar getData={getData} />
   </StyledHeader>
 );
+
+Header.propTypes = {
+  getData: PropTypes.func.isRequired,
+};
 
 export default Header;

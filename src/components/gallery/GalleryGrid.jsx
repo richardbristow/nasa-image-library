@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import GalleryItem from './GalleryItem';
@@ -27,21 +28,27 @@ const StyledGalleryGrid = styled.div`
   }; */
 `;
 
-const GalleryGrid = ({ searchData, openGalleryModal }) => {
-  const { items } = searchData;
-
-  return (
-    <StyledGalleryGrid>
-      {items.map(item => (
+const GalleryGrid = ({ items, openGalleryModal }) => (
+  <StyledGalleryGrid>
+    {items.map((item) => {
+      const [itemData] = item.data;
+      const [itemLinks] = item.links;
+      return (
         <GalleryItem
-          // onImagesLoaded={this.handleImagesLoaded}
-          key={item.data[0].nasa_id}
-          imageData={item}
-          openModal={openGalleryModal}
+          // handleImagesLoaded={handleImagesLoaded}
+          key={itemData.nasa_id}
+          itemData={itemData}
+          itemLinks={itemLinks}
+          openGalleryModal={openGalleryModal}
         />
-      ))}
-    </StyledGalleryGrid>
-  );
+      );
+    })}
+  </StyledGalleryGrid>
+);
+
+GalleryGrid.propTypes = {
+  items: PropTypes.array.isRequired,
+  openGalleryModal: PropTypes.func.isRequired,
 };
 
 export default GalleryGrid;

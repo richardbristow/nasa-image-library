@@ -1,29 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import '../../styles/css/GalleryItem.css';
 
-const GalleryItem = (props) => {
-  const itemData = props.imageData.data[0];
+const GalleryItem = ({ itemData, itemLinks, openGalleryModal }) => {
+  const {
+    media_type: mediaType, title, description, nasa_id: nasaId,
+  } = itemData;
+  const { href } = itemLinks;
   return (
     <div
-      className={`gallery-item gallery-item-${itemData.media_type !== 'image' && 'audio-video'}`}
+      className={`gallery-item gallery-item-${mediaType !== 'image' && 'audio-video'}`}
       role="presentation"
-      onClick={props.openModal}
-      data-media-type={itemData.media_type}
-      data-media-title={itemData.title}
-      data-media-desc={itemData.description}
-      data-nasa-id={itemData.nasa_id}
+      onClick={openGalleryModal}
+      data-media-type={mediaType}
+      data-media-title={title}
+      data-media-desc={description}
+      data-nasa-id={nasaId}
     >
-      {itemData.media_type === 'image'
-        ? <img onLoad={props.onImagesLoaded} src={props.imageData.links[0].href} alt={itemData.title} />
+      {mediaType === 'image'
+        ? <img src={href} alt={title} />
         : (
           <React.Fragment>
-            <i className={`fa ${itemData.media_type === 'audio' ? 'fa-volume-up' : 'fa-video-camera'}`} aria-hidden="true" />
-            <p>{itemData.title}</p>
+            <i className={`fa ${mediaType === 'audio' ? 'fa-volume-up' : 'fa-video-camera'}`} aria-hidden="true" />
+            <p>{title}</p>
           </React.Fragment>
         )
       }
     </div>
   );
+};
+
+GalleryItem.propTypes = {
+  itemData: PropTypes.object.isRequired,
+  itemLinks: PropTypes.object.isRequired,
+  openGalleryModal: PropTypes.func.isRequired,
 };
 
 export default GalleryItem;

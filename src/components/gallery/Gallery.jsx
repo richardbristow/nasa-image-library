@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import GalleryModal from './GalleryModal';
@@ -85,6 +86,7 @@ class Gallery extends Component {
   render() {
     const { imagesLoading, modalDataObj, modalOpen } = this.state;
     const { searchData } = this.props;
+    const { items } = searchData;
     return (
       <StyledGallery ref={(c) => { this.galleryImages = c; }}>
         <GalleryModal
@@ -93,12 +95,17 @@ class Gallery extends Component {
           closeModal={this.closeGalleryModal}
         />
         {imagesLoading && <Loading />}
-        <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
+        <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
         {!imagesLoading
           && <GalleryNavigation searchData={searchData} handlePageChange={this.handlePageChange} />}
       </StyledGallery>
     );
   }
 }
+
+Gallery.propTypes = {
+  getData: PropTypes.func.isRequired,
+  searchData: PropTypes.object.isRequired,
+};
 
 export default Gallery;

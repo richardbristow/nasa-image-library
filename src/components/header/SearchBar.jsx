@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-// import '../../styles/css/SearchBar.css';
+
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
 
@@ -66,7 +67,7 @@ class SearchBar extends Component {
     return (
       <StyledSearchBar>
         <form onSubmit={this.handleSubmit}>
-          <SearchBarInput value={searchTerm} handleInputChange={this.handleInputChange} />
+          <SearchBarInput searchTerm={searchTerm} handleInputChange={this.handleInputChange} />
           <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
           <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />
           <SearchBarCheckbox label="Audio" name="audio" checked={mediaTypes.includes('audio')} handleCheckboxChange={this.handleCheckboxChange} />
@@ -75,5 +76,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  getData: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
