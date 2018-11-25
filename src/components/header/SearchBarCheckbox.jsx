@@ -1,28 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const StyledSearchBarCheckbox = styled.label`
+  input {
+    margin-right: 5%;
+  }
+
+  /* @include mqMax(500px) {
+    font-size: 14px;
+  }; */
+`;
+
 const SearchBarCheckbox = ({
-  label, name, checked, handleInputChange,
+  label, name, checked, handleCheckboxChange,
 }) => (
-  <React.Fragment>
-    <label htmlFor={`${name}Checkbox`}>
-      {label}
-      <input
-        name={name}
-        type="checkbox"
-        id={`${name}Checkbox`}
-        checked={checked}
-        onChange={handleInputChange}
-      />
-    </label>
-  </React.Fragment>
+  <StyledSearchBarCheckbox>
+    {label}
+    <input
+      name={name}
+      type="checkbox"
+      checked={checked}
+      onChange={handleCheckboxChange}
+    />
+  </StyledSearchBarCheckbox>
 );
 
 SearchBarCheckbox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
 };
 
 export default SearchBarCheckbox;

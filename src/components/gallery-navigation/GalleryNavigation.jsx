@@ -25,7 +25,7 @@ const GalleryNavigation = ({ galleryData, onPageChange }) => {
   return (
     <StyledGalleryNavigation>
       <div>
-        {links.map(link => (
+        {links && links.map(link => (
           <NavigationButton
             navType={link.rel.charAt(0).toUpperCase() + link.rel.slice(1)}
             onPageChange={onPageChange}

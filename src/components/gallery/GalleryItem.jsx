@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/css/GalleryItem.css';
+import '../../styles/css/GalleryItem.css';
 
 const GalleryItem = (props) => {
   const itemData = props.imageData.data[0];

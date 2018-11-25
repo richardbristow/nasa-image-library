@@ -7,7 +7,7 @@ import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 import '../styles/css/App.css';
 
 import Header from './header/Header';
-import Gallery from './Gallery';
+import Gallery from './gallery/Gallery';
 import Loading from './shared/Loading';
 
 const StyledAppWrapper = styled.div`
@@ -30,10 +30,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.handleSearch({
-      searchTerm: 'iss',
-      mediaTypes: ['image'],
-    });
+    this.handleSearch('iss', ['image']);
   }
 
   async getData(url) {
@@ -53,7 +50,7 @@ class App extends Component {
     }
   }
 
-  handleSearch({ searchTerm, mediaTypes }) {
+  handleSearch(searchTerm, mediaTypes) {
     const url = encodeURI(`https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`);
     this.getData(url);
   }
@@ -65,7 +62,7 @@ class App extends Component {
       <ThemeProvider theme={globalTheme}>
         <StyledAppWrapper>
           <GlobalStyle />
-          <Header onSearch={this.handleSearch} />
+          <Header handleSearch={this.handleSearch} />
           {searchData
             ? <Gallery className="gallery-wrapper" galleryData={searchData} onGetData={this.getData} />
             : <Loading error={errorFetching} />

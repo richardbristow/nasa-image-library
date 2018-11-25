@@ -3,22 +3,3 @@
 .fetch-errors-modal {
     text-align: center;
 }
-
-.loading-spinner {
-  background: $ghostWhite;
-  max-width: 100%;
-  // max-width: 1200px;
-  margin: 0 auto;
-}
-
-.gallery-wrapper {
-  background: $ghostWhite;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
-}
-
-.gallery-wrapper-loading {
-  display: none;
-}

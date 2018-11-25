@@ -39,13 +39,13 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ onSearch }) => (
+const Header = ({ handleSearch }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar onSearch={onSearch} />
+    <SearchBar handleSearch={handleSearch} />
   </StyledHeader>
 );
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/css/GalleryModal.css';
+import '../../styles/css/GalleryModal.css';
 
 // import Loading from './Loading';
 

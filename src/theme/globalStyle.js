@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
 
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,800');
+  /* TODO: remove the mixin import line below */
   @import './variablesMixins.scss';
 
   body {

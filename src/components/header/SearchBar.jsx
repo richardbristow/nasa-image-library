@@ -1,54 +1,76 @@
 import React, { Component } from 'react';
-import '../../styles/css/SearchBar.css';
+import styled from 'styled-components';
+// import '../../styles/css/SearchBar.css';
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
+
+const StyledSearchBar = styled.div`
+  width: 50%;
+  margin: 0 auto;
+
+  /* @include mqMax(360px) {
+    width: 80%;
+  };
+
+  @include mqMax(700px) {
+    width: 70%;
+  };
+
+  @include mqMax(900px) {
+    width: 60%;
+  }; */
+`;
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchTerm: '',
-      image: true,
-      video: true,
-      audio: true,
-    };
+    this.state = { searchTerm: '', mediaTypes: ['image'] };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name, value } = target;
     this.setState({
       [name]: value,
     });
   }
 
+  handleCheckboxChange({ target }) {
+    const { name } = target;
+    const { mediaTypes } = this.state;
+    if (mediaTypes.includes(name)) {
+      this.setState(prevState => ({
+        mediaTypes: prevState.mediaTypes.filter(type => type !== name),
+      }));
+    } else {
+      this.setState(prevState => ({
+        mediaTypes: [...prevState.mediaTypes, name],
+      }));
+    }
+  }
 
-  // Handles the submit event
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onSearch(this.state);
+    const { handleSearch } = this.props;
+    const { searchTerm, mediaTypes } = this.state;
+    handleSearch(searchTerm, mediaTypes);
   }
 
 
   render() {
-    const {
-      image, video, audio, searchTerm,
-    } = this.state;
+    const { searchTerm, mediaTypes } = this.state;
     return (
-      <div className="search-wrapper">
+      <StyledSearchBar>
         <form id="search-form" onSubmit={this.handleSubmit}>
           <SearchBarInput value={searchTerm} handleInputChange={this.handleInputChange} />
-          <div id="search-checkboxes">
-            <SearchBarCheckbox label="Images" name="image" checked={image} handleInputChange={this.handleInputChange} />
-            <SearchBarCheckbox label="Videos" name="video" checked={video} handleInputChange={this.handleInputChange} />
-            <SearchBarCheckbox label="Audio" name="audio" checked={audio} handleInputChange={this.handleInputChange} />
-          </div>
+          <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
+          <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />
+          <SearchBarCheckbox label="Audio" name="audio" checked={mediaTypes.includes('audio')} handleCheckboxChange={this.handleCheckboxChange} />
         </form>
-      </div>
+      </StyledSearchBar>
     );
   }
 }

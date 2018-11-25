@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
-import '../styles/css/Gallery.css';
-
-import GalleryItem from './GalleryItem';
 import GalleryModal from './GalleryModal';
-import Loading from './shared/Loading';
-import GalleryNavigation from './gallery-navigation/GalleryNavigation';
+import Loading from '../shared/Loading';
+import GalleryNavigation from '../gallery-navigation/GalleryNavigation';
+import GalleryGrid from './GalleryGrid';
+
+const StyledGallery = styled.div`
+  background: ${({ theme }) => theme.ghostWhite};
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+`;
 
 class Gallery extends Component {
   constructor(props) {
@@ -16,7 +23,6 @@ class Gallery extends Component {
       imagesLoading: false,
     };
 
-    this.renderGalleryItems = this.renderGalleryItems.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.closeGalleryModal = this.closeGalleryModal.bind(this);
     this.openGalleryModal = this.openGalleryModal.bind(this);
@@ -76,48 +82,21 @@ class Gallery extends Component {
     });
   }
 
-
-  // Loops through the api results and returns gallery items
-  renderGalleryItems() {
-    const { imagesLoading } = this.state;
-    const { galleryData } = this.props;
-    if (galleryData.items) {
-      const imageArr = galleryData.items;
-      const galleryItems = imageArr.map(image => (
-        <GalleryItem
-          onImagesLoaded={this.handleImagesLoaded}
-          key={image.data[0].nasa_id}
-          imageData={image}
-          openModal={this.openGalleryModal}
-        />
-      ));
-      return (
-        <div className={imagesLoading ? 'gallery-items-wrapper-loading' : 'gallery-items-wrapper'}>
-          {galleryItems}
-        </div>
-      );
-    }
-    return null;
-  }
-
   render() {
     const { imagesLoading, modalDataObj, modalOpen } = this.state;
     const { galleryData } = this.props;
     return (
-      <div
-        className="gallery-wrapper"
-        ref={(c) => { this.galleryImages = c; }}
-      >
+      <StyledGallery ref={(c) => { this.galleryImages = c; }}>
         <GalleryModal
           modalDataObj={modalDataObj}
           isModalOpen={modalOpen}
           closeModal={this.closeGalleryModal}
         />
         {imagesLoading && <Loading />}
-        {this.renderGalleryItems()}
+        <GalleryGrid galleryData={galleryData} openGalleryModal={this.openGalleryModal} />
         {!imagesLoading
           && <GalleryNavigation galleryData={galleryData} onPageChange={this.handlePageChange} />}
-      </div>
+      </StyledGallery>
     );
   }
 }
