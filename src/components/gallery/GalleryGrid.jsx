@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import GalleryItem from './GalleryItem';
 
@@ -27,8 +27,8 @@ const StyledGalleryGrid = styled.div`
   }; */
 `;
 
-const GalleryGrid = ({ galleryData, openGalleryModal }) => {
-  const { items } = galleryData;
+const GalleryGrid = ({ searchData, openGalleryModal }) => {
+  const { items } = searchData;
 
   return (
     <StyledGalleryGrid>

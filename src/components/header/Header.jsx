@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import SearchBar from './SearchBar';
 
@@ -39,15 +39,14 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ handleSearch }) => (
+const Header = ({ getData }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar handleSearch={handleSearch} />
+    <SearchBar getData={getData} />
   </StyledHeader>
 );
-
 
 export default Header;

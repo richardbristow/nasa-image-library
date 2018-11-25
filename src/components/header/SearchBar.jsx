@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 // import '../../styles/css/SearchBar.css';
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
@@ -54,9 +54,10 @@ class SearchBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleSearch } = this.props;
+    const { getData } = this.props;
     const { searchTerm, mediaTypes } = this.state;
-    handleSearch(searchTerm, mediaTypes);
+    const url = encodeURI(`https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`);
+    getData(url);
   }
 
 
@@ -64,7 +65,7 @@ class SearchBar extends Component {
     const { searchTerm, mediaTypes } = this.state;
     return (
       <StyledSearchBar>
-        <form id="search-form" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <SearchBarInput value={searchTerm} handleInputChange={this.handleInputChange} />
           <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
           <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />

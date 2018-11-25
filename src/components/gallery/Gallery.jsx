@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import GalleryModal from './GalleryModal';
 import Loading from '../shared/Loading';
@@ -43,9 +43,9 @@ class Gallery extends Component {
 
 
   // Handles the click event for the previous and next buttons
-  handlePageChange(event) {
-    const pageUrl = event.target.dataset.pageUrl;
-    this.props.onGetData(pageUrl);
+  handlePageChange(url) {
+    const { getData } = this.props;
+    getData(url);
   }
 
 
@@ -84,7 +84,7 @@ class Gallery extends Component {
 
   render() {
     const { imagesLoading, modalDataObj, modalOpen } = this.state;
-    const { galleryData } = this.props;
+    const { searchData } = this.props;
     return (
       <StyledGallery ref={(c) => { this.galleryImages = c; }}>
         <GalleryModal
@@ -93,9 +93,9 @@ class Gallery extends Component {
           closeModal={this.closeGalleryModal}
         />
         {imagesLoading && <Loading />}
-        <GalleryGrid galleryData={galleryData} openGalleryModal={this.openGalleryModal} />
+        <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
         {!imagesLoading
-          && <GalleryNavigation galleryData={galleryData} onPageChange={this.handlePageChange} />}
+          && <GalleryNavigation searchData={searchData} handlePageChange={this.handlePageChange} />}
       </StyledGallery>
     );
   }

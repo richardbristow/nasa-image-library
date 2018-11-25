@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import NavigationButton from './NavigationButton';
 
@@ -20,16 +20,16 @@ const StyledTotalHits = styled.span`
   }
 `;
 
-const GalleryNavigation = ({ galleryData, onPageChange }) => {
-  const { metadata, links } = galleryData;
+const GalleryNavigation = ({ searchData, handlePageChange }) => {
+  const { metadata, links } = searchData;
   return (
     <StyledGalleryNavigation>
       <div>
         {links && links.map(link => (
           <NavigationButton
             navType={link.rel.charAt(0).toUpperCase() + link.rel.slice(1)}
-            onPageChange={onPageChange}
-            dataUrl={link.href}
+            handlePageChange={handlePageChange}
+            url={link.href}
             key={link.rel}
           />
         ))}

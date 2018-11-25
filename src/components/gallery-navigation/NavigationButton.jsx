@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
 const StyledNavigationButton = styled.button`
@@ -29,16 +29,16 @@ const StyledNavigationButton = styled.button`
   }; */
 `;
 
-const NavigationButton = ({ onPageChange, dataUrl, navType }) => (
-  <StyledNavigationButton onClick={onPageChange} data-page-url={dataUrl}>
+const NavigationButton = ({ handlePageChange, navType, url }) => (
+  <StyledNavigationButton onClick={() => handlePageChange(url)}>
     {navType}
   </StyledNavigationButton>
 );
 
 NavigationButton.propTypes = {
-  onPageChange: PropTypes.func.isRequired,
-  dataUrl: PropTypes.string.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
   navType: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default NavigationButton;

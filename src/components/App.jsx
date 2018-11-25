@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components/macro';
-import '../polyfills';
-
-import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 
 import '../styles/css/App.css';
+
+import '../polyfills';
+import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
@@ -25,12 +25,12 @@ class App extends Component {
     super(props);
     this.state = { errorFetching: false };
 
-    this.handleSearch = this.handleSearch.bind(this);
     this.getData = this.getData.bind(this);
   }
 
   componentDidMount() {
-    this.handleSearch('iss', ['image']);
+    const url = encodeURI('https://images-api.nasa.gov/search?q=iss&media_type=image');
+    this.getData(url);
   }
 
   async getData(url) {
@@ -50,21 +50,15 @@ class App extends Component {
     }
   }
 
-  handleSearch(searchTerm, mediaTypes) {
-    const url = encodeURI(`https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`);
-    this.getData(url);
-  }
-
-
   render() {
     const { errorFetching, searchData } = this.state;
     return (
       <ThemeProvider theme={globalTheme}>
         <StyledAppWrapper>
           <GlobalStyle />
-          <Header handleSearch={this.handleSearch} />
+          <Header getData={this.getData} />
           {searchData
-            ? <Gallery className="gallery-wrapper" galleryData={searchData} onGetData={this.getData} />
+            ? <Gallery searchData={searchData} getData={this.getData} />
             : <Loading error={errorFetching} />
           }
         </StyledAppWrapper>
