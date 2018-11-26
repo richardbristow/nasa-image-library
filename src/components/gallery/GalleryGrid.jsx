@@ -38,7 +38,6 @@ const GalleryGrid = ({ items, openGalleryModal }) => (
       }
       return (
         <GalleryItem
-          // handleImagesLoaded={handleImagesLoaded}
           key={itemData.nasa_id}
           itemData={itemData}
           imageThumbnail={imageThumbnail}
