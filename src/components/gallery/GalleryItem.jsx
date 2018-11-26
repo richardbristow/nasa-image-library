@@ -1,22 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import '../../styles/css/GalleryItem.css';
+const StyledGalleryItem = styled.div`
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  margin: 0 0 1em;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: auto;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .gallery-item-audio-video {
+    height: 140px;
+    width: 100%;
+    background: lighten($grey, 5%);
+    text-align: center;
+    color: $lightGrey;
+    overflow: hidden;
+
+    i {
+      padding: 3%;
+      font-size: 60px;
+    }
+
+    p {
+      padding: 3%;
+      font-size: 12px;
+      line-height: 20px;
+      overflow: hidden;
+    }
+  }
+`;
 
 const GalleryItem = ({ itemData, itemLinks, openGalleryModal }) => {
-  const {
-    media_type: mediaType, title, description, nasa_id: nasaId,
-  } = itemData;
+  const { media_type: mediaType, title } = itemData;
   const { href } = itemLinks;
   return (
-    <div
-      className={`gallery-item gallery-item-${mediaType !== 'image' && 'audio-video'}`}
+    <StyledGalleryItem
+      className={`gallery-item-${mediaType !== 'image' && 'audio-video'}`}
       role="presentation"
       onClick={() => openGalleryModal(itemData)}
-      // data-media-type={mediaType}
-      // data-media-title={title}
-      // data-media-desc={description}
-      // data-nasa-id={nasaId}
     >
       {mediaType === 'image'
         ? <img src={href} alt={title} />
@@ -27,7 +57,7 @@ const GalleryItem = ({ itemData, itemLinks, openGalleryModal }) => {
           </React.Fragment>
         )
       }
-    </div>
+    </StyledGalleryItem>
   );
 };
 

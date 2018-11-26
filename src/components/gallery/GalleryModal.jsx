@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/css/GalleryModal.css';
 
-// import Loading from './Loading';
-
 class GalleryModal extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +13,6 @@ class GalleryModal extends Component {
     this.getModalContent = this.getModalContent.bind(this);
     this.renderModal = this.renderModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentDidMount() {
-    console.log('i mounted');
   }
 
   // Perfom another api call to get the info for the modal
