@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
-import '../styles/css/App.css';
-
 import '../polyfills';
 import getData from '../utils/getData';
 import { GlobalStyle, globalTheme } from '../theme/globalStyle';

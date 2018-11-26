@@ -12,7 +12,7 @@ const StyledLoading = styled.div`
   margin-top: 20%;
 
   /* This was in App scss */
-  /* background: $ghostWhite;
+  /* background: ${({ theme }) => theme.ghostWhite};
   max-width: 100%;
   // max-width: 1200px;
   margin: 0 auto; */

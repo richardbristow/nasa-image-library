@@ -31,7 +31,7 @@ const StyledSearchBarInput = styled.div`
   button {
     .fa-search {
       font-size: 18px;
-      color: $grey;
+      color: ${({ theme }) => theme.grey};
       font-size: 25px;
       text-align: center;
     };

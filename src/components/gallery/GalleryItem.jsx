@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const StyledGalleryItem = styled.div`
   width: 100%;
@@ -20,9 +20,9 @@ const StyledGalleryItem = styled.div`
   .gallery-item-audio-video {
     height: 140px;
     width: 100%;
-    background: lighten($grey, 5%);
+    background: ${({ theme }) => theme.grey};
     text-align: center;
-    color: $lightGrey;
+    color: ${({ theme }) => theme.lightGrey};
     overflow: hidden;
 
     i {
@@ -39,31 +39,35 @@ const StyledGalleryItem = styled.div`
   }
 `;
 
-const GalleryItem = ({ itemData, itemLinks, openGalleryModal }) => {
+const GalleryItem = ({ itemData, imageThumbnail, openGalleryModal }) => {
   const { media_type: mediaType, title } = itemData;
-  const { href } = itemLinks;
   return (
     <StyledGalleryItem
-      className={`gallery-item-${mediaType !== 'image' && 'audio-video'}`}
+      // className={`gallery-item-${mediaType !== 'image' && 'audio-video'}`}
       role="presentation"
       onClick={() => openGalleryModal(itemData)}
     >
       {mediaType === 'image'
-        ? <img src={href} alt={title} />
+        ? <img src={imageThumbnail.href} alt={title} />
         : (
-          <React.Fragment>
+          <div className="gallery-item-audio-video">
             <i className={`fa ${mediaType === 'audio' ? 'fa-volume-up' : 'fa-video-camera'}`} aria-hidden="true" />
             <p>{title}</p>
-          </React.Fragment>
+          </div>
         )
       }
     </StyledGalleryItem>
   );
 };
 
+// TODO: add an image thumbnail image here
+GalleryItem.defaultProps = {
+  imageThumbnail: { href: '#' },
+};
+
 GalleryItem.propTypes = {
   itemData: PropTypes.object.isRequired,
-  itemLinks: PropTypes.object.isRequired,
+  imageThumbnail: PropTypes.object,
   openGalleryModal: PropTypes.func.isRequired,
 };
 

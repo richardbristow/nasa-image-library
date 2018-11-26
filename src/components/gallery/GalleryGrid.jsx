@@ -32,13 +32,16 @@ const GalleryGrid = ({ items, openGalleryModal }) => (
   <StyledGalleryGrid>
     {items.map((item) => {
       const [itemData] = item.data;
-      const [itemLinks] = item.links;
+      let imageThumbnail;
+      if (item.links) {
+        [imageThumbnail] = item.links;
+      }
       return (
         <GalleryItem
           // handleImagesLoaded={handleImagesLoaded}
           key={itemData.nasa_id}
           itemData={itemData}
-          itemLinks={itemLinks}
+          imageThumbnail={imageThumbnail}
           openGalleryModal={openGalleryModal}
         />
       );

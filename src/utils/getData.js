@@ -5,7 +5,7 @@ const getData = async (url) => {
     return { errorFetching: null, data: data.collection };
   } catch (error) {
     console.error('Fetch error', error); // eslint-disable-line no-console
-    return { errorFetching: error, da: null };
+    return { errorFetching: error, data: null };
   }
 };
 
