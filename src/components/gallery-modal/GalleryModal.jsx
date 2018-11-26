@@ -12,7 +12,6 @@ class GalleryModal extends Component {
 
     this.getModalContent = this.getModalContent.bind(this);
     this.renderModal = this.renderModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   // Perfom another api call to get the info for the modal
@@ -98,23 +97,23 @@ class GalleryModal extends Component {
     });
   }
 
-
-  // when close button or backdrop is clicked reset state,
-  closeModal(e) {
-    if (e.target.className === 'modal-wrapper' || e.target.className === 'modal-close-button') {
-      this.props.closeModal();
-      this.setState({
-        loading: true,
-        assetData: {},
-      });
-    }
-  }
+  // TODO: Move the below into the closeModal function prop changing to setTimeout method
+  // // when close button or backdrop is clicked reset state,
+  // closeModal(e) {
+  //   if (e.target.className === 'modal-wrapper' || e.target.className === 'modal-close-button') {
+  //     this.props.closeModal();
+  //     this.setState({
+  //       loading: true,
+  //       assetData: {},
+  //     });
+  //   }
+  // }
 
 
   // Creates the modal
   renderModal() {
     const { loading } = this.state;
-    const { clickedModalMetadata } = this.props;
+    const { clickedModalMetadata, closeGalleryModal } = this.props;
     const {
       mediaType, title, description, nasaId,
     } = clickedModalMetadata;
@@ -132,13 +131,13 @@ class GalleryModal extends Component {
       const data = this.state.assetData;
       // display the modal
       modalContent = (
-        <div role="presentation" className="modal-wrapper" onClick={e => this.closeModal(e)}>
+        <div role="presentation" className="modal-wrapper" onClick={e => closeGalleryModal(e)}>
           <div className="modal-content">
             <span
               role="button"
               tabIndex={0}
               className="modal-close-button"
-              onClick={this.closeModal}
+              onClick={closeGalleryModal}
             >
               &times;
             </span>

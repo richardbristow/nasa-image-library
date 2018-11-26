@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import GalleryModal from './GalleryModal';
+import GalleryModal from '../gallery-modal/GalleryModal';
 import Loading from '../shared/Loading';
 import GalleryNavigation from '../gallery-navigation/GalleryNavigation';
 import GalleryGrid from './GalleryGrid';
@@ -32,7 +32,6 @@ class Gallery extends Component {
     window.scrollTo(0, 0);
   }
 
-  // Closes the modal
   closeGalleryModal() {
     this.setState({
       clickedModalMetadata: null,
@@ -75,7 +74,7 @@ class Gallery extends Component {
           && (
           <GalleryModal
             clickedModalMetadata={clickedModalMetadata}
-            closeModal={this.closeGalleryModal}
+            closeGalleryModal={this.closeGalleryModal}
           />)}
         {imagesLoading && <Loading />}
         <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
