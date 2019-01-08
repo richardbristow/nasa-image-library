@@ -1,111 +1,56 @@
 import React, { Component } from 'react';
-import '../styles/css/App.css';
+import styled, { ThemeProvider } from 'styled-components/macro';
 
-import SearchBar from './SearchBar';
-import Gallery from './Gallery';
-import LoadingSpinner from './LoadingSpinner';
+import '../polyfills';
+import getData from '../utils/getData';
+import { GlobalStyle, globalTheme } from '../theme/globalStyle';
+
+import Header from './header/Header';
+import Gallery from './gallery/Gallery';
+import Loading from './shared/Loading';
+
+const StyledAppWrapper = styled.div`
+  width: 100%;
+  min-width: 200px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background: ${({ theme }) => theme.ghostWhite};
+  height:100vh;
+`;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchData: null, err: false };
+    this.state = { errorFetching: null };
 
     this.handleSearch = this.handleSearch.bind(this);
-    this.getData = this.getData.bind(this);
   }
 
-
-  // Fills the pages with images on initial load
   componentDidMount() {
-    this.handleSearch({
-      searchTerm: 'iss',
-      image: true,
-      video: false,
-      audio: false,
-    });
+    const url = 'https://images-api.nasa.gov/search?q=iss&media_type=image';
+    this.handleSearch(url);
   }
 
-
-  // Fetches data from the NASA api
-  async getData(url) {
-    this.setState({
-      searchData: null,
-    });
-    let data = {};
-    let err = false;
-    try {
-      const response = await fetch(url);
-      data = await response.json();
-    } catch (e) {
-      console.log('Houston we have a problem.');
-      err = true;
-    }
-    this.setState({
-      err,
-      searchData: data.collection,
-    });
+  async handleSearch(url, event) {
+    if (event) { event.preventDefault(); }
+    const { errorFetching, data } = await getData(encodeURI(url));
+    this.setState({ errorFetching, searchData: data });
   }
-
-
-  // Handles the search event
-  handleSearch(searchObj) {
-    const mediaTypes = [];
-    let query = '';
-
-    // Polyfill for object entries. IE compatibilty
-    if (!Object.entries) {
-      Object.entries = (obj) => {
-        const ownProps = Object.keys(obj);
-        let i = ownProps.length;
-        const resArray = new Array(i);
-        while (i--) {
-          resArray[i] = [ownProps[i], obj[ownProps[i]]];
-        }
-        return resArray;
-      };
-    }
-
-    Object.entries(searchObj).forEach(([key, value]) => {
-      if (key !== 'searchTerm' && value === true) {
-        mediaTypes.push(key);
-      } else if (value !== false) {
-        query = value;
-      }
-    });
-    let url = `https://images-api.nasa.gov/search?q=${query}&media_type=${mediaTypes.toString()}`;
-    url = url.replace(/ /g, '%20');
-    this.getData(url);
-  }
-
 
   render() {
-    let content = null;
-    if (this.state.err) {
-      content = (
-        <div className="fetch-errors">
-          <p>Houston we have a problem.</p>
-          <p>Something went wrong.</p>
-        </div>
-      );
-    } else if (!this.state.searchData) {
-      content = <LoadingSpinner />;
-    } else {
-      content = (
-        <Gallery
-          className="gallery-wrapper"
-          galleryData={this.state.searchData}
-          onGetData={this.getData}
-        />
-      );
-    }
+    const { errorFetching, searchData } = this.state;
     return (
-      <div className="wrapper">
-        <div className="header-wrapper">
-          <h1>NASA <span>Media Library</span></h1>
-          <SearchBar onSearch={this.handleSearch} />
-        </div>
-        {content}
-      </div>
+      <ThemeProvider theme={globalTheme}>
+        <StyledAppWrapper>
+          <GlobalStyle />
+          <Header handleSearch={this.handleSearch} />
+          {searchData
+            ? <Gallery searchData={searchData} handlePageChange={this.handleSearch} />
+            : <Loading error={errorFetching} />
+          }
+        </StyledAppWrapper>
+      </ThemeProvider>
     );
   }
 }
