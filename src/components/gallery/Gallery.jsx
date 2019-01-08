@@ -52,7 +52,7 @@ class Gallery extends Component {
     const { searchData, handlePageChange } = this.props;
     const { items } = searchData;
     return (
-      <StyledGallery ref={(c) => { this.galleryImages = c; }}>
+      <StyledGallery>
         {clickedModalMetadata
           && (
           <GalleryModal

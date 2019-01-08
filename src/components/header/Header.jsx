@@ -12,27 +12,27 @@ const StyledHeader = styled.div`
   text-align: center;
   margin-bottom: 1em;
 
-  /* @include mqMax(400px) {
+  @media screen and (max-width: 400px) {
     height: 150px;
     padding-top: 10px;
-  }; */
+  }
 
   h1 {
     margin-bottom: 20px;
     font-size: 36px;
     color: ${({ theme }) => theme.ghostWhite};
 
-    /* @include mqMax(360px) {
+    @media screen and (max-width: 360px) {
       font-size: 24px;
-    };
+    }
 
-    @include mqMax(700px) {
+    @media screen and (max-width: 700px) {
       font-size: 28px;
-    };
+    }
 
-    @include mqMax(900px) {
+    @media screen and (max-width: 900px) {
       font-size: 32px;
-    }; */
+    }
 
     span {
       font-weight: 200;

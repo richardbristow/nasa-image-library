@@ -23,10 +23,10 @@ const StyledNavigationButton = styled.button`
     border: 2px solid ${({ theme }) => theme.grey};
   }
 
-  /* @include mqMax(700px) {
+  @media screen and (max-width: 700px) {
     font-size: 14px;
     padding: 10px 18px;
-  }; */
+  }
 `;
 
 const NavigationButton = ({ handlePageChange, navType, url }) => (

@@ -18,14 +18,14 @@ const StyledSearchBarInput = styled.div`
     border-radius: 4px 0 0 4px;
     color: ${({ theme }) => theme.grey};
 
-    /* @include mqMax(360px) {
+    @media screen and (max-width: 360px) {
       padding: 8px 12px;
-    };
+    }
 
-    @include mqMax(500px) {
+    @media screen and (max-width: 500px) {
       font-size: 14px;
       padding: 8px 14px;
-    }; */
+    }
   }
 
   button {

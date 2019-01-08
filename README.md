@@ -24,10 +24,6 @@ A deployed demo site is available [here](https://richardbristow.github.io/nasa-i
 
 Tested in Chrome 62, IE 11, Edge 40, Safari (macOS & iOS), Firefox
 
-## Issues
-
-The loading spinner doesn't quite work as I intended as the images are briefly viewable underneath it; but I felt it was better to submit now rather than delay whilst trying to fix.
-
 ## Other Info
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

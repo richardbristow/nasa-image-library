@@ -9,17 +9,17 @@ const StyledSearchBar = styled.div`
   width: 50%;
   margin: 0 auto;
 
-  /* @include mqMax(360px) {
+  @media screen and (max-width: 360px) {
     width: 80%;
-  };
+  }
 
-  @include mqMax(700px) {
+  @media screen and (max-width: 700px) {
     width: 70%;
-  };
+  }
 
-  @include mqMax(900px) {
+  @media screen and (max-width: 900px) {
     width: 60%;
-  }; */
+  }
 `;
 
 class SearchBar extends Component {

@@ -7,9 +7,9 @@ const StyledSearchBarCheckbox = styled.label`
     margin-right: 5%;
   }
 
-  /* @include mqMax(500px) {
+  @media screen and (max-width: 500px) {
     font-size: 14px;
-  }; */
+  }
 `;
 
 const SearchBarCheckbox = ({
