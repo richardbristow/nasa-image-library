@@ -18,7 +18,9 @@ To create a production build:
 
 ## Demo site
 
-A deployed demo site is available [here](https://richardbristow.github.io/nasa-image-library)
+A deployed demo site is available at the link below:
+
+<https://richardbristow.github.io/nasa-image-library>
 
 ## Notes
 
