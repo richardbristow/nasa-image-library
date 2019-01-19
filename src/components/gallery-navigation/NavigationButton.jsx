@@ -12,7 +12,6 @@ const StyledNavigationButton = styled.button`
   text-align: center;
   text-decoration: none;
   color: ${({ theme }) => theme.ghostWhite};
-  -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 6px;

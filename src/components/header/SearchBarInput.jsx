@@ -5,7 +5,6 @@ import styled from 'styled-components/macro';
 const StyledSearchBarInput = styled.div`
   margin-bottom: 20px;
   display: flex;
-  display: -webkit-flex;
 
   input {
     padding: 10px 16px;
@@ -30,11 +29,10 @@ const StyledSearchBarInput = styled.div`
 
   button {
     .fa-search {
-      font-size: 18px;
       color: ${({ theme }) => theme.grey};
       font-size: 25px;
       text-align: center;
-    };
+    }
     flex-grow: 2;
     outline: none;
     background: ${({ theme }) => theme.lightGrey};

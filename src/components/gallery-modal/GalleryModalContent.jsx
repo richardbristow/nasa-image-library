@@ -8,25 +8,25 @@ const StyledModalContent = styled.div`
   img {
     max-height: 100%;
     max-width: 60%;
-  };
+  }
   video {
     width: 100%;
-  };
+  }
   audio {
     width: 100%;
-  };
+  }
   .modal-text-image {
     float: right;
     width: 38%;
-  };
+  }
   .modal-text-video {
     display: block;
     padding-top: 20px;
-  };
+  }
   .modal-text-audio {
     display: block;
     padding-top: 20px;
-  };
+  }
 `;
 
 class GalleryModalContent extends Component {
