@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 const StyledGalleryItem = styled.div`
-  width: 100%;
-  height: auto;
-  display: inline-block;
-  margin: 0 0 1em;
   cursor: pointer;
+  flex-grow: 1;
+  margin: 0.4em;
+  height: 200px;
 
   img {
-    width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
+    max-width: 100%;
+    min-width: 100%;
     &:hover {
       opacity: 0.7;
     }
