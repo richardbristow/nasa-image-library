@@ -29,12 +29,12 @@ class App extends Component {
 
   componentDidMount() {
     const url = 'https://images-api.nasa.gov/search?q=iss&media_type=image';
-    this.handleSearch(url);
+    this.handleSearch(encodeURI(url));
   }
 
   async handleSearch(url, event) {
     if (event) { event.preventDefault(); }
-    const { errorFetching, data } = await getData(encodeURI(url));
+    const { errorFetching, data } = await getData(url);
     this.setState({ errorFetching, searchData: data });
   }
 
