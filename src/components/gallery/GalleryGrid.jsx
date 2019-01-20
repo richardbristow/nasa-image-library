@@ -35,7 +35,7 @@ const GalleryGrid = ({ items, openGalleryModal }) => (
 );
 
 GalleryGrid.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   openGalleryModal: PropTypes.func.isRequired,
 };
 

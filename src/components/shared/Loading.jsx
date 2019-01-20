@@ -32,6 +32,7 @@ Loading.defaultProps = {
 };
 
 Loading.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   error: PropTypes.object,
 };
 

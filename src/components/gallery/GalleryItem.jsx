@@ -70,7 +70,9 @@ GalleryItem.defaultProps = {
 };
 
 GalleryItem.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   itemData: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   imageThumbnail: PropTypes.object,
   openGalleryModal: PropTypes.func.isRequired,
 };

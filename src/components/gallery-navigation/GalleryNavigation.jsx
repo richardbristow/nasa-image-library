@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import NavigationButton from './NavigationButton';
@@ -43,6 +44,17 @@ const GalleryNavigation = ({ searchData, handlePageChange }) => {
       </StyledTotalHits>
     </StyledGalleryNavigation>
   );
+};
+
+GalleryNavigation.propTypes = {
+  handlePageChange: PropTypes.func.isRequired,
+  searchData: PropTypes.shape({
+    href: PropTypes.string,
+    items: PropTypes.array,
+    links: PropTypes.array,
+    metadata: PropTypes.object,
+    version: PropTypes.string,
+  }).isRequired,
 };
 
 export default GalleryNavigation;

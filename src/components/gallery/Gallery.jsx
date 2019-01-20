@@ -58,7 +58,8 @@ class Gallery extends Component {
           <GalleryModal
             clickedModalMetadata={clickedModalMetadata}
             closeGalleryModal={this.closeGalleryModal}
-          />)}
+          />
+          )}
         {/* <Loading /> */}
         <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
         <GalleryNavigation searchData={searchData} handlePageChange={handlePageChange} />
@@ -69,7 +70,13 @@ class Gallery extends Component {
 
 Gallery.propTypes = {
   handlePageChange: PropTypes.func.isRequired,
-  searchData: PropTypes.object.isRequired,
+  searchData: PropTypes.shape({
+    href: PropTypes.string,
+    items: PropTypes.array,
+    links: PropTypes.array,
+    metadata: PropTypes.object,
+    version: PropTypes.string,
+  }).isRequired,
 };
 
 export default Gallery;

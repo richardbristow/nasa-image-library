@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import getData from '../../utils/getData';
@@ -46,21 +47,21 @@ class GalleryModalContent extends Component {
   render() {
     const { modalData } = this.state;
     const { clickedModalMetadata } = this.props;
-    const { mediaType, title, description } = clickedModalMetadata;
-    console.log(modalData && selectLink(mediaType, modalData));
-
+    const {
+      mediaType, title, description, nasaId,
+    } = clickedModalMetadata;
     return (
       <StyledModalContent>
         {modalData && mediaType === 'image' && <img alt={title} src={(selectLink(mediaType, modalData)).imageHref} />}
 
         {modalData && mediaType === 'video'
           && (
-          <video controls poster={(selectLink(mediaType, modalData)).vidThumb}>
-            <source src={(selectLink(mediaType, modalData)).vidHref} />
-            {(selectLink(mediaType, modalData)).subsHref.forEach(sub =>
-              <track src={sub} kind="subtitles" />)}
-            Please use a more modern browser to play this video.
-          </video>)}
+            <video controls poster={(selectLink(mediaType, modalData)).vidThumb} crossOrigin="anonymous" preload="metadata">
+              <source src={(selectLink(mediaType, modalData)).vidHref} />
+              {(selectLink(mediaType, modalData)).subsHref.map(sub => <track key={nasaId} src={sub} kind="subtitles" />)}
+              Please use a more modern browser to play this video.
+            </video>
+          )}
 
         {modalData && mediaType === 'audio'
           && (
@@ -78,5 +79,14 @@ class GalleryModalContent extends Component {
     );
   }
 }
+
+GalleryModalContent.propTypes = {
+  clickedModalMetadata: PropTypes.shape({
+    description: PropTypes.string,
+    mediaType: PropTypes.string,
+    nasaId: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
+};
 
 export default GalleryModalContent;

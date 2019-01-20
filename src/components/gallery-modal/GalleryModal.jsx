@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import GalleryModalContent from './GalleryModalContent';
@@ -40,17 +41,25 @@ const StyledModalCloseButton = styled.button`
   outline: none;
 `;
 
-const GalleryModal = ({ clickedModalMetadata, closeGalleryModal }) => {
-  return (
-    <StyledGalleryModalBackground>
-      <StyledModalWrapper>
-        <StyledModalCloseButton onClick={closeGalleryModal}>
-          &times;
-        </StyledModalCloseButton>
-        <GalleryModalContent clickedModalMetadata={clickedModalMetadata} />
-      </StyledModalWrapper>
-    </StyledGalleryModalBackground>
-  );
+const GalleryModal = ({ clickedModalMetadata, closeGalleryModal }) => (
+  <StyledGalleryModalBackground>
+    <StyledModalWrapper>
+      <StyledModalCloseButton onClick={closeGalleryModal}>
+        &times;
+      </StyledModalCloseButton>
+      <GalleryModalContent clickedModalMetadata={clickedModalMetadata} />
+    </StyledModalWrapper>
+  </StyledGalleryModalBackground>
+);
+
+GalleryModal.propTypes = {
+  closeGalleryModal: PropTypes.func.isRequired,
+  clickedModalMetadata: PropTypes.shape({
+    description: PropTypes.string,
+    mediaType: PropTypes.string,
+    nasaId: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
 };
 
 export default GalleryModal;
