@@ -26,10 +26,6 @@ class Gallery extends Component {
     this.openGalleryModal = this.openGalleryModal.bind(this);
   }
 
-  componentDidUpdate() {
-    window.scrollTo(0, 0);
-  }
-
   closeGalleryModal() {
     this.setState({
       clickedModalMetadata: null,

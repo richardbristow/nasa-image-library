@@ -36,6 +36,7 @@ class App extends Component {
     if (event) { event.preventDefault(); }
     const { errorFetching, data } = await getData(url);
     this.setState({ errorFetching, searchData: data });
+    window.scrollTo(0, 0);
   }
 
   render() {
