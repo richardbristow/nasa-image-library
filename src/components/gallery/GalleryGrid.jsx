@@ -7,6 +7,11 @@ import GalleryItem from './GalleryItem';
 const StyledGalleryGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  &:after {
+    content: '';
+    flex-grow: 999999999;
+  }
 `;
 
 const GalleryGrid = ({ items, openGalleryModal }) => (

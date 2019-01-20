@@ -7,19 +7,22 @@ const StyledGalleryItem = styled.div`
   flex-grow: 1;
   margin: 0.4em;
   height: 200px;
+  background-color: ${({ theme }) => theme.lightGrey};
+  min-width: 200px;
 
   img {
     height: 200px;
     object-fit: cover;
     max-width: 100%;
     min-width: 100%;
+    vertical-align: bottom;
     &:hover {
       opacity: 0.7;
     }
   }
 
   .gallery-item-audio-video {
-    height: 140px;
+    height: 200px;
     width: 100%;
     background: ${({ theme }) => theme.grey};
     text-align: center;
