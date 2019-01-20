@@ -33,12 +33,14 @@ const StyledModalCloseButton = styled.button`
   position: absolute;
   top: 20px;
   right: 40px;
-  color: #aaaaaa;
+  color: ${({ theme }) => theme.lightGrey};
+  background-color: transparent;
   float: right;
   font-size: 46px;
   font-weight: bold;
   cursor: pointer;
   outline: none;
+  border: none;
 `;
 
 const GalleryModal = ({ clickedModalMetadata, closeGalleryModal }) => (
