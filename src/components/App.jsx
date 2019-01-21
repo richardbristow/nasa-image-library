@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import {
+  BrowserRouter as Router, Route, Switch, Redirect,
+} from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
 import '../polyfills';
@@ -8,8 +11,9 @@ import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
 import Loading from './shared/Loading';
+import NoRoute from './shared/NoRoute';
 
-const StyledAppWrapper = styled.div`
+const StyledApp = styled.div`
   width: 100%;
   min-width: 200px;
   margin: 0 auto;
@@ -43,14 +47,36 @@ class App extends Component {
     const { errorFetching, searchData } = this.state;
     return (
       <ThemeProvider theme={globalTheme}>
-        <StyledAppWrapper>
+        <Fragment>
           <GlobalStyle />
-          <Header handleSearch={this.handleSearch} />
-          {searchData
-            ? <Gallery searchData={searchData} handlePageChange={this.handleSearch} />
-            : <Loading error={errorFetching} />
-          }
-        </StyledAppWrapper>
+          <Router>
+            <StyledApp>
+              <Header handleSearch={this.handleSearch} />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to="/search" />}
+                />
+                <Route
+                  path="/search"
+                  render={props => (
+                    searchData
+                      ? (
+                        <Gallery
+                          searchData={searchData}
+                          handlePageChange={this.handleSearch}
+                          {...props}
+                        />
+                      )
+                      : <Loading error={errorFetching} />
+                  )}
+                />
+                <Route component={NoRoute} />
+              </Switch>
+            </StyledApp>
+          </Router>
+        </Fragment>
       </ThemeProvider>
     );
   }

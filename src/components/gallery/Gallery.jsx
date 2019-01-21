@@ -47,6 +47,8 @@ class Gallery extends Component {
     const { clickedModalMetadata } = this.state;
     const { searchData, handlePageChange } = this.props;
     const { items } = searchData;
+    console.log(this.props);
+
     return (
       <StyledGallery>
         {clickedModalMetadata
