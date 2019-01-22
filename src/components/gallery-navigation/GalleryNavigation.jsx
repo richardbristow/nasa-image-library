@@ -21,7 +21,7 @@ const StyledTotalHits = styled.span`
   }
 `;
 
-const GalleryNavigation = ({ searchData, handlePageChange }) => {
+const GalleryNavigation = ({ searchData, handleSearch }) => {
   const { metadata, links } = searchData;
   return (
     <StyledGalleryNavigation>
@@ -29,7 +29,7 @@ const GalleryNavigation = ({ searchData, handlePageChange }) => {
         {links && links.map(link => (
           <NavigationButton
             navType={link.rel.charAt(0).toUpperCase() + link.rel.slice(1)}
-            handlePageChange={handlePageChange}
+            handleSearch={handleSearch}
             url={link.href}
             key={link.rel}
           />
@@ -47,7 +47,7 @@ const GalleryNavigation = ({ searchData, handlePageChange }) => {
 };
 
 GalleryNavigation.propTypes = {
-  handlePageChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
   searchData: PropTypes.shape({
     href: PropTypes.string,
     items: PropTypes.array,

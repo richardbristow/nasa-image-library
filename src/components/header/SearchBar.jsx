@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
+import setSearchParams from '../../utils/setSearchParams';
 
 const StyledSearchBar = styled.div`
   width: 50%;
@@ -29,6 +30,7 @@ class SearchBar extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.updateUrl = this.updateUrl.bind(this);
   }
 
   handleInputChange({ target }) {
@@ -52,13 +54,19 @@ class SearchBar extends Component {
     }
   }
 
-  render() {
-    const { handleSearch } = this.props;
+  updateUrl(event) {
+    if (event) { event.preventDefault(); }
     const { searchTerm, mediaTypes } = this.state;
-    const url = `https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.toString()}`;
+    const { history } = this.props;
+    const url = setSearchParams({ query: searchTerm, mediaTypes: mediaTypes.toString() });
+    history.push(`?${url}`);
+  }
+
+  render() {
+    const { searchTerm, mediaTypes } = this.state;
     return (
       <StyledSearchBar>
-        <form onSubmit={e => handleSearch(url, e)}>
+        <form onSubmit={e => this.updateUrl(e)}>
           <SearchBarInput searchTerm={searchTerm} handleInputChange={this.handleInputChange} />
           <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
           <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />
@@ -70,7 +78,8 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
 
 export default SearchBar;

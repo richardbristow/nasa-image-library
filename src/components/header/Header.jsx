@@ -40,18 +40,19 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ handleSearch }) => (
+const Header = ({ history }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar handleSearch={handleSearch} />
+    <SearchBar history={history} />
   </StyledHeader>
 );
 
 Header.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
 
 export default Header;

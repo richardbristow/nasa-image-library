@@ -28,14 +28,14 @@ const StyledNavigationButton = styled.button`
   }
 `;
 
-const NavigationButton = ({ handlePageChange, navType, url }) => (
-  <StyledNavigationButton onClick={() => handlePageChange(url)}>
+const NavigationButton = ({ handleSearch, navType, url }) => (
+  <StyledNavigationButton onClick={() => handleSearch(url)}>
     {navType}
   </StyledNavigationButton>
 );
 
 NavigationButton.propTypes = {
-  handlePageChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
   navType: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 };
