@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-filename-extension */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Route, Redirect, Switch,
+} from 'react-router-dom';
 
 import App from './components/App';
 import NoRoute from './components/shared/NoRoute';
@@ -12,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <Router>
-    <Fragment>
+    <Switch>
       <Route exact path="/" render={() => <Redirect to="/search" />} />
       <Route
         path="/search"
@@ -22,7 +24,7 @@ ReactDOM.render(
         }}
       />
       <Route component={NoRoute} />
-    </Fragment>
+    </Switch>
   </Router>, document.getElementById('root'),
 );
 registerServiceWorker();
