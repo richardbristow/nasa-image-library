@@ -6,6 +6,7 @@ import GalleryModal from '../gallery-modal/GalleryModal';
 import GalleryNavigation from '../gallery-navigation/GalleryNavigation';
 import GalleryGrid from './GalleryGrid';
 import Error from '../shared/Errors';
+import Loading from '../shared/Loading';
 import getData from '../../utils/getData';
 
 const StyledGallery = styled.div`
@@ -25,6 +26,7 @@ class Gallery extends Component {
       pageLinks: [],
       totalHits: null,
       errorFetching: null,
+      isLoading: true,
     };
 
     this.closeGalleryModal = this.closeGalleryModal.bind(this);
@@ -46,13 +48,14 @@ class Gallery extends Component {
   }
 
   async handleSearch(url, event) {
+    this.setState({ isLoading: true });
     if (event) { event.preventDefault(); }
     const { errorFetching, data } = await getData(url);
     const {
       items: searchData = [], metadata: { total_hits: totalHits } = 0, links: pageLinks = [],
     } = data;
     this.setState({
-      errorFetching, searchData, totalHits, pageLinks,
+      errorFetching, searchData, totalHits, pageLinks, isLoading: false,
     });
     window.scrollTo(0, 0);
   }
@@ -76,30 +79,34 @@ class Gallery extends Component {
 
   render() {
     const {
-      clickedModalMetadata, searchData, totalHits, pageLinks, errorFetching,
+      clickedModalMetadata, searchData, totalHits, pageLinks, errorFetching, isLoading,
     } = this.state;
     return (
-      <StyledGallery>
-        {clickedModalMetadata
-          && (
-          <GalleryModal
-            clickedModalMetadata={clickedModalMetadata}
-            closeGalleryModal={this.closeGalleryModal}
-          />
-          )}
-        {errorFetching
-          ? <Error />
-          : (
-            <Fragment>
-              <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
-              <GalleryNavigation
-                totalHits={totalHits}
-                pageLinks={pageLinks}
-                handleSearch={this.handleSearch}
+      isLoading
+        ? <Loading />
+        : (
+          <StyledGallery>
+            {clickedModalMetadata
+              && (
+              <GalleryModal
+                clickedModalMetadata={clickedModalMetadata}
+                closeGalleryModal={this.closeGalleryModal}
               />
-            </Fragment>
-          )}
-      </StyledGallery>
+              )}
+            {errorFetching
+              ? <Error />
+              : (
+                <Fragment>
+                  <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
+                  <GalleryNavigation
+                    totalHits={totalHits}
+                    pageLinks={pageLinks}
+                    handleSearch={this.handleSearch}
+                  />
+                </Fragment>
+              )}
+          </StyledGallery>
+        )
     );
   }
 }
