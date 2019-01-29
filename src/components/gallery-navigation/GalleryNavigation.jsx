@@ -7,10 +7,8 @@ import NavigationButton from './NavigationButton';
 const StyledGalleryNavigation = styled.div`
   margin: 0 auto;
   padding: 60px;
-  div {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const StyledTotalHits = styled.span`
@@ -21,40 +19,36 @@ const StyledTotalHits = styled.span`
   }
 `;
 
-const GalleryNavigation = ({ searchData, handleSearch }) => {
-  const { metadata, links } = searchData;
-  return (
-    <StyledGalleryNavigation>
-      <div>
-        {links && links.map(link => (
-          <NavigationButton
-            navType={link.rel.charAt(0).toUpperCase() + link.rel.slice(1)}
-            handleSearch={handleSearch}
-            url={link.href}
-            key={link.rel}
-          />
-        ))}
-      </div>
+const GalleryNavigation = ({ totalHits, pageLinks, handleSearch }) => (
+  <StyledGalleryNavigation>
+    {pageLinks.map(link => (
+      <NavigationButton
+        navType={link.rel.charAt(0).toUpperCase() + link.rel.slice(1)}
+        handleSearch={handleSearch}
+        url={link.href}
+        key={link.rel}
+      />
+    ))}
+    {totalHits !== null && (
       <StyledTotalHits>
         Found&nbsp;
-        <span>
-          {metadata.total_hits}
-        </span>
+        <span>{totalHits}</span>
         &nbsp;results.
       </StyledTotalHits>
-    </StyledGalleryNavigation>
-  );
+    )}
+  </StyledGalleryNavigation>
+);
+
+
+GalleryNavigation.defaultProps = {
+  totalHits: 0,
+  pageLinks: [],
 };
 
 GalleryNavigation.propTypes = {
   handleSearch: PropTypes.func.isRequired,
-  searchData: PropTypes.shape({
-    href: PropTypes.string,
-    items: PropTypes.array,
-    links: PropTypes.array,
-    metadata: PropTypes.object,
-    version: PropTypes.string,
-  }).isRequired,
+  totalHits: PropTypes.number,
+  pageLinks: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default GalleryNavigation;

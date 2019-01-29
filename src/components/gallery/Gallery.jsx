@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import GalleryModal from '../gallery-modal/GalleryModal';
 import GalleryNavigation from '../gallery-navigation/GalleryNavigation';
 import GalleryGrid from './GalleryGrid';
+import Error from '../shared/Errors';
 import getData from '../../utils/getData';
 
 const StyledGallery = styled.div`
@@ -21,6 +22,8 @@ class Gallery extends Component {
     this.state = {
       clickedModalMetadata: null,
       searchData: [],
+      pageLinks: [],
+      totalHits: null,
       errorFetching: null,
     };
 
@@ -45,7 +48,12 @@ class Gallery extends Component {
   async handleSearch(url, event) {
     if (event) { event.preventDefault(); }
     const { errorFetching, data } = await getData(url);
-    this.setState({ errorFetching, searchData: data });
+    const {
+      items: searchData = [], metadata: { total_hits: totalHits } = 0, links: pageLinks = [],
+    } = data;
+    this.setState({
+      errorFetching, searchData, totalHits, pageLinks,
+    });
     window.scrollTo(0, 0);
   }
 
@@ -67,8 +75,9 @@ class Gallery extends Component {
   }
 
   render() {
-    const { clickedModalMetadata, searchData } = this.state;
-    const { items } = searchData;
+    const {
+      clickedModalMetadata, searchData, totalHits, pageLinks, errorFetching,
+    } = this.state;
     return (
       <StyledGallery>
         {clickedModalMetadata
@@ -78,12 +87,18 @@ class Gallery extends Component {
             closeGalleryModal={this.closeGalleryModal}
           />
           )}
-        {items && (
-          <Fragment>
-            <GalleryGrid items={items} openGalleryModal={this.openGalleryModal} />
-            <GalleryNavigation searchData={searchData} handleSearch={this.handleSearch} />
-          </Fragment>
-        )}
+        {errorFetching
+          ? <Error />
+          : (
+            <Fragment>
+              <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
+              <GalleryNavigation
+                totalHits={totalHits}
+                pageLinks={pageLinks}
+                handleSearch={this.handleSearch}
+              />
+            </Fragment>
+          )}
       </StyledGallery>
     );
   }

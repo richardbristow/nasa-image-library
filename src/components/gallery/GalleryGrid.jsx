@@ -14,14 +14,12 @@ const StyledGalleryGrid = styled.div`
   }
 `;
 
-const GalleryGrid = ({ items, openGalleryModal }) => (
+const GalleryGrid = ({ searchData, openGalleryModal }) => (
   <StyledGalleryGrid>
-    {items.map((item) => {
+    {searchData.map((item) => {
       const [itemData] = item.data;
       let imageThumbnail;
-      if (item.links) {
-        [imageThumbnail] = item.links;
-      }
+      if (item.links) { [imageThumbnail] = item.links; }
       return (
         <GalleryItem
           key={itemData.nasa_id}
@@ -35,7 +33,7 @@ const GalleryGrid = ({ items, openGalleryModal }) => (
 );
 
 GalleryGrid.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searchData: PropTypes.arrayOf(PropTypes.object).isRequired,
   openGalleryModal: PropTypes.func.isRequired,
 };
 

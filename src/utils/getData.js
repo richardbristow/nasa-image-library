@@ -4,8 +4,8 @@ const getData = async (url) => {
     const data = await response.json();
     return { errorFetching: null, data: data.collection };
   } catch (error) {
-    console.error('Fetch error', error); // eslint-disable-line no-console
-    return { errorFetching: error, data: null };
+    console.error('Fetch error:', error); // eslint-disable-line no-console
+    return { errorFetching: error, data: [] };
   }
 };
 
