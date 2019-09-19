@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
-import '../polyfills';
 import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 
 import Header from './header/Header';
