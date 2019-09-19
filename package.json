@@ -2,18 +2,16 @@
   "name": "nasa-image-library",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://richardbristow.github.io/nasa-image-library",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint:css": "stylelint './src/**/*.jsx'"
+    "lint": "eslint 'src/**/*.{js,jsx}' --ignore-pattern 'node_modules/*' && stylelint './src/**/*.{js,jsx}'",
+    "lint:js": "eslint 'src/**/*.{js,jsx}' --ignore-pattern 'node_modules/*'",
+    "lint:css": "stylelint './src/**/*.{js,jsx}'"
   },
   "dependencies": {
-    "gh-pages": "^2.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
