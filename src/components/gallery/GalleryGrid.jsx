@@ -16,10 +16,12 @@ const StyledGalleryGrid = styled.div`
 
 const GalleryGrid = ({ searchData, openGalleryModal }) => (
   <StyledGalleryGrid>
-    {searchData.map((item) => {
+    {searchData.map(item => {
       const [itemData] = item.data;
       let imageThumbnail;
-      if (item.links) { [imageThumbnail] = item.links; }
+      if (item.links) {
+        [imageThumbnail] = item.links;
+      }
       return (
         <GalleryItem
           key={itemData.nasa_id}

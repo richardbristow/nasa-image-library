@@ -55,10 +55,15 @@ class SearchBar extends Component {
   }
 
   updateUrl(event) {
-    if (event) { event.preventDefault(); }
+    if (event) {
+      event.preventDefault();
+    }
     const { searchTerm, mediaTypes } = this.state;
     const { history } = this.props;
-    const url = setSearchParams({ query: searchTerm, mediaTypes: mediaTypes.toString() });
+    const url = setSearchParams({
+      query: searchTerm,
+      mediaTypes: mediaTypes.toString(),
+    });
     history.push(`?${url}`);
   }
 
@@ -67,10 +72,28 @@ class SearchBar extends Component {
     return (
       <StyledSearchBar>
         <form onSubmit={e => this.updateUrl(e)}>
-          <SearchBarInput searchTerm={searchTerm} handleInputChange={this.handleInputChange} />
-          <SearchBarCheckbox label="Images" name="image" checked={mediaTypes.includes('image')} handleCheckboxChange={this.handleCheckboxChange} />
-          <SearchBarCheckbox label="Videos" name="video" checked={mediaTypes.includes('video')} handleCheckboxChange={this.handleCheckboxChange} />
-          <SearchBarCheckbox label="Audio" name="audio" checked={mediaTypes.includes('audio')} handleCheckboxChange={this.handleCheckboxChange} />
+          <SearchBarInput
+            searchTerm={searchTerm}
+            handleInputChange={this.handleInputChange}
+          />
+          <SearchBarCheckbox
+            label="Images"
+            name="image"
+            checked={mediaTypes.includes('image')}
+            handleCheckboxChange={this.handleCheckboxChange}
+          />
+          <SearchBarCheckbox
+            label="Videos"
+            name="video"
+            checked={mediaTypes.includes('video')}
+            handleCheckboxChange={this.handleCheckboxChange}
+          />
+          <SearchBarCheckbox
+            label="Audio"
+            name="audio"
+            checked={mediaTypes.includes('audio')}
+            handleCheckboxChange={this.handleCheckboxChange}
+          />
         </form>
       </StyledSearchBar>
     );

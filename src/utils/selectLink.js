@@ -3,12 +3,19 @@ const selectLink = (mediaType, assetData) => {
   if (mediaType.toLowerCase() === 'image') {
     // Get a better quality image
     assetObj.imageHref = assetData.items[0].href;
-    assetData.items.forEach((img) => {
+    assetData.items.forEach(img => {
       if (img.href.endsWith('medium.jpg')) {
         assetObj.imageHref = img.href;
-      } else if (img.href.endsWith('large.jpg') && !(assetObj.imageHref.endsWith('medium.jpg'))) {
+      } else if (
+        img.href.endsWith('large.jpg') &&
+        !assetObj.imageHref.endsWith('medium.jpg')
+      ) {
         assetObj.imageHref = img.href;
-      } else if (img.href.endsWith('orig.jpg') && (!(assetObj.imageHref.endsWith('large.jpg')) || !(assetObj.imageHref.endsWith('medium.jpg')))) {
+      } else if (
+        img.href.endsWith('orig.jpg') &&
+        (!assetObj.imageHref.endsWith('large.jpg') ||
+          !assetObj.imageHref.endsWith('medium.jpg'))
+      ) {
         assetObj.imageHref = img.href;
       }
     });
@@ -16,7 +23,7 @@ const selectLink = (mediaType, assetData) => {
     // Get the video link and video thumbnail to display
     assetObj.subsHref = [];
     const vidThumb = [];
-    assetData.items.forEach((vid) => {
+    assetData.items.forEach(vid => {
       if (vid.href.endsWith('orig.mp4')) {
         assetObj.vidHref = vid.href;
       } else if (vid.href.endsWith('.png') || vid.href.endsWith('.jpg')) {
@@ -28,7 +35,7 @@ const selectLink = (mediaType, assetData) => {
     assetObj.vidThumb = vidThumb[Math.floor(vidThumb.length / 2)];
   } else {
     // get the audio link
-    assetObj.audioHref = assetData.items.find((aud) => {
+    assetObj.audioHref = assetData.items.find(aud => {
       if (aud.href.endsWith('128k.mp3') || aud.href.endsWith('128k.m4a')) {
         return aud.href;
       }

@@ -12,9 +12,7 @@ const StyledSearchBarCheckbox = styled.label`
   }
 `;
 
-const SearchBarCheckbox = ({
-  label, name, checked, handleCheckboxChange,
-}) => (
+const SearchBarCheckbox = ({ label, name, checked, handleCheckboxChange }) => (
   <StyledSearchBarCheckbox>
     {label}
     <input

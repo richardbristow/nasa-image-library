@@ -1,4 +1,4 @@
-const getSearchParams = (location) => {
+const getSearchParams = location => {
   const searchParams = new URLSearchParams(location.search);
   return {
     q: searchParams.get('q') || '',

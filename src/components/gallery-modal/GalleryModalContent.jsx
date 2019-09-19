@@ -38,7 +38,9 @@ class GalleryModalContent extends Component {
   }
 
   async componentDidMount() {
-    const { clickedModalMetadata: { nasaId } } = this.props;
+    const {
+      clickedModalMetadata: { nasaId },
+    } = this.props;
     const url = `https://images-api.nasa.gov/asset/${nasaId}`;
     const { errorFetching, data } = await getData(encodeURI(url));
     this.setState({ errorFetching, modalData: data });
@@ -47,30 +49,37 @@ class GalleryModalContent extends Component {
   render() {
     const { modalData } = this.state;
     const { clickedModalMetadata } = this.props;
-    const {
-      mediaType, title, description, nasaId,
-    } = clickedModalMetadata;
+    const { mediaType, title, description, nasaId } = clickedModalMetadata;
     return (
       <StyledModalContent>
-        {modalData && mediaType === 'image' && <img alt={title} src={(selectLink(mediaType, modalData)).imageHref} />}
+        {modalData && mediaType === 'image' && (
+          <img alt={title} src={selectLink(mediaType, modalData).imageHref} />
+        )}
 
-        {modalData && mediaType === 'video'
-          && (
-            <video controls poster={(selectLink(mediaType, modalData)).vidThumb} crossOrigin="anonymous" preload="metadata">
-              <source src={(selectLink(mediaType, modalData)).vidHref} />
-              {(selectLink(mediaType, modalData)).subsHref.map(sub => <track key={nasaId} src={sub} kind="subtitles" />)}
-              Please use a more modern browser to play this video.
-            </video>
-          )}
+        {modalData && mediaType === 'video' && (
+          <video
+            controls
+            poster={selectLink(mediaType, modalData).vidThumb}
+            crossOrigin="anonymous"
+            preload="metadata"
+          >
+            <source src={selectLink(mediaType, modalData).vidHref} />
+            {selectLink(mediaType, modalData).subsHref.map(sub => (
+              <track key={nasaId} src={sub} kind="subtitles" />
+            ))}
+            Please use a more modern browser to play this video.
+          </video>
+        )}
 
-        {modalData && mediaType === 'audio'
-          && (
-            <audio controls>
-              <source src={(selectLink(mediaType, modalData)).audioHref.href} type="audio/mp4" />
-              Please use a more modern browser to play this audio.
-            </audio>
-          )
-        }
+        {modalData && mediaType === 'audio' && (
+          <audio controls>
+            <source
+              src={selectLink(mediaType, modalData).audioHref.href}
+              type="audio/mp4"
+            />
+            Please use a more modern browser to play this audio.
+          </audio>
+        )}
         <div className={`modal-text-${mediaType}`}>
           <h2>{title}</h2>
           <p>{description}</p>

@@ -20,10 +20,7 @@ const StyledLoading = styled.div`
 
 const Loading = ({ error }) => (
   <StyledLoading>
-    {error
-      ? <Errors />
-      : <i className="fa fa-circle-o-notch fa-spin" />
-    }
+    {error ? <Errors /> : <i className="fa fa-circle-o-notch fa-spin" />}
   </StyledLoading>
 );
 

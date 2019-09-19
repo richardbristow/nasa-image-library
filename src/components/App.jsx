@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
@@ -19,13 +19,13 @@ const StyledApp = styled.div`
 
 const App = ({ history, query }) => (
   <ThemeProvider theme={globalTheme}>
-    <Fragment>
+    <>
       <GlobalStyle />
       <StyledApp>
         <Header history={history} />
         <Gallery query={query} />
       </StyledApp>
-    </Fragment>
+    </>
   </ThemeProvider>
 );
 

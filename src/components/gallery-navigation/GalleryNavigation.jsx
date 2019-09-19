@@ -39,7 +39,6 @@ const GalleryNavigation = ({ totalHits, pageLinks, handleSearch }) => (
   </StyledGalleryNavigation>
 );
 
-
 GalleryNavigation.defaultProps = {
   totalHits: 0,
   pageLinks: [],

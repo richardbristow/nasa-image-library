@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
@@ -42,20 +42,30 @@ class Gallery extends Component {
   componentDidUpdate(prevProps) {
     const { query } = this.props;
     if (query !== prevProps.query) {
-      const url = `https://images-api.nasa.gov/search?q=${query.q}&media_type=${query.media_type.toString()}`;
+      const url = `https://images-api.nasa.gov/search?q=${
+        query.q
+      }&media_type=${query.media_type.toString()}`;
       this.handleSearch(url);
     }
   }
 
   async handleSearch(url, event) {
     this.setState({ isLoading: true });
-    if (event) { event.preventDefault(); }
+    if (event) {
+      event.preventDefault();
+    }
     const { errorFetching, data } = await getData(url);
     const {
-      items: searchData = [], metadata: { total_hits: totalHits } = 0, links: pageLinks = [],
+      items: searchData = [],
+      metadata: { total_hits: totalHits } = 0,
+      links: pageLinks = [],
     } = data;
     this.setState({
-      errorFetching, searchData, totalHits, pageLinks, isLoading: false,
+      errorFetching,
+      searchData,
+      totalHits,
+      pageLinks,
+      isLoading: false,
     });
     window.scrollTo(0, 0);
   }
@@ -68,45 +78,56 @@ class Gallery extends Component {
 
   openGalleryModal(itemData) {
     const {
-      media_type: mediaType, title, description, nasa_id: nasaId,
+      media_type: mediaType,
+      title,
+      description,
+      nasa_id: nasaId,
     } = itemData;
     this.setState({
       clickedModalMetadata: {
-        nasaId, title, description, mediaType,
+        nasaId,
+        title,
+        description,
+        mediaType,
       },
     });
   }
 
   render() {
     const {
-      clickedModalMetadata, searchData, totalHits, pageLinks, errorFetching, isLoading,
+      clickedModalMetadata,
+      searchData,
+      totalHits,
+      pageLinks,
+      errorFetching,
+      isLoading,
     } = this.state;
-    return (
-      isLoading
-        ? <Loading />
-        : (
-          <StyledGallery>
-            {clickedModalMetadata
-              && (
-              <GalleryModal
-                clickedModalMetadata={clickedModalMetadata}
-                closeGalleryModal={this.closeGalleryModal}
-              />
-              )}
-            {errorFetching
-              ? <Error />
-              : (
-                <Fragment>
-                  <GalleryGrid searchData={searchData} openGalleryModal={this.openGalleryModal} />
-                  <GalleryNavigation
-                    totalHits={totalHits}
-                    pageLinks={pageLinks}
-                    handleSearch={this.handleSearch}
-                  />
-                </Fragment>
-              )}
-          </StyledGallery>
-        )
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <StyledGallery>
+        {clickedModalMetadata && (
+          <GalleryModal
+            clickedModalMetadata={clickedModalMetadata}
+            closeGalleryModal={this.closeGalleryModal}
+          />
+        )}
+        {errorFetching ? (
+          <Error />
+        ) : (
+          <>
+            <GalleryGrid
+              searchData={searchData}
+              openGalleryModal={this.openGalleryModal}
+            />
+            <GalleryNavigation
+              totalHits={totalHits}
+              pageLinks={pageLinks}
+              handleSearch={this.handleSearch}
+            />
+          </>
+        )}
+      </StyledGallery>
     );
   }
 }

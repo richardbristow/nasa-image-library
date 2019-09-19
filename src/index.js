@@ -3,7 +3,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router, Route, Redirect, Switch,
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
 } from 'react-router-dom';
 
 import App from './components/App';
@@ -25,6 +28,7 @@ ReactDOM.render(
       />
       <Route component={NoRoute} />
     </Switch>
-  </Router>, document.getElementById('root'),
+  </Router>,
+  document.getElementById('root'),
 );
 registerServiceWorker();

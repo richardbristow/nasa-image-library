@@ -51,15 +51,19 @@ const GalleryItem = ({ itemData, imageThumbnail, openGalleryModal }) => {
       role="presentation"
       onClick={() => openGalleryModal(itemData)}
     >
-      {mediaType === 'image'
-        ? <img src={imageThumbnail.href} alt={title} />
-        : (
-          <div className="gallery-item-audio-video">
-            <i className={`fa ${mediaType === 'audio' ? 'fa-volume-up' : 'fa-video-camera'}`} aria-hidden="true" />
-            <p>{title}</p>
-          </div>
-        )
-      }
+      {mediaType === 'image' ? (
+        <img src={imageThumbnail.href} alt={title} />
+      ) : (
+        <div className="gallery-item-audio-video">
+          <i
+            className={`fa ${
+              mediaType === 'audio' ? 'fa-volume-up' : 'fa-video-camera'
+            }`}
+            aria-hidden="true"
+          />
+          <p>{title}</p>
+        </div>
+      )}
     </StyledGalleryItem>
   );
 };
