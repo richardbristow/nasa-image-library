@@ -1,7 +1,6 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 
-import { GlobalStyle, globalTheme } from '../theme/globalStyle';
 import useFetch from '../hooks/useFetch';
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
@@ -25,16 +24,11 @@ const App = () => {
   );
 
   return (
-    <ThemeProvider theme={globalTheme}>
-      <>
-        <GlobalStyle />
-        <StyledApp>
-          <Header doFetch={doFetch} />
-          {isError && <Error />}
-          {isLoading ? <Loading /> : <Gallery data={data} doFetch={doFetch} />}
-        </StyledApp>
-      </>
-    </ThemeProvider>
+    <StyledApp>
+      <Header doFetch={doFetch} />
+      {isError && <Error />}
+      {isLoading ? <Loading /> : <Gallery data={data} doFetch={doFetch} />}
+    </StyledApp>
   );
 };
 
