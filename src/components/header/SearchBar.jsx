@@ -23,12 +23,12 @@ const StyledSearchBar = styled.div`
 `;
 
 const SearchBar = ({ doFetch }) => {
-    const [searchValues, setSearchValues] = useState({
-      searchTerm: '',
-      searchImages: true,
-      searchVideos: false,
-      searchAudio: false,
-    });
+  const [searchValues, setSearchValues] = useState({
+    searchTerm: '',
+    searchImages: true,
+    searchVideos: false,
+    searchAudio: false,
+  });
 
   const handleInputChange = ({ target }) => {
     const { name } = target;
