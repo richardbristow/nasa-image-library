@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
 import { GlobalStyle, globalTheme } from '../theme/globalStyle';
@@ -19,13 +19,6 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-  const [searchValues, setSearchValues] = useState({
-    searchTerm: '',
-    searchImages: true,
-    searchVideo: false,
-    searchAudio: false,
-  });
-
   const [{ data, isLoading, isError }, doFetch] = useFetch(
     'https://images-api.nasa.gov/search?q=iss&media_type=image',
     { collection: { items: [] } },
@@ -36,11 +29,7 @@ const App = () => {
       <>
         <GlobalStyle />
         <StyledApp>
-          <Header
-            searchValues={searchValues}
-            setSearchValues={setSearchValues}
-            doFetch={doFetch}
-          />
+          <Header doFetch={doFetch} />
           {isError && <Error />}
           {isLoading ? <Loading /> : <Gallery data={data} doFetch={doFetch} />}
         </StyledApp>

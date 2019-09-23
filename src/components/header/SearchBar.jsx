@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
@@ -22,7 +22,14 @@ const StyledSearchBar = styled.div`
   }
 `;
 
-const SearchBar = ({ searchValues, setSearchValues, doFetch }) => {
+const SearchBar = ({ doFetch }) => {
+    const [searchValues, setSearchValues] = useState({
+      searchTerm: '',
+      searchImages: true,
+      searchVideos: false,
+      searchAudio: false,
+    });
+
   const handleInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -31,12 +38,17 @@ const SearchBar = ({ searchValues, setSearchValues, doFetch }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const { searchTerm, searchImages, searchVideo, searchAudio } = searchValues;
+    const {
+      searchTerm,
+      searchImages,
+      searchVideos,
+      searchAudio,
+    } = searchValues;
     const mediaTypes = [];
     if (searchImages) {
       mediaTypes.push('image');
     }
-    if (searchVideo) {
+    if (searchVideos) {
       mediaTypes.push('video');
     }
     if (searchAudio) {
@@ -47,6 +59,7 @@ const SearchBar = ({ searchValues, setSearchValues, doFetch }) => {
     );
   };
 
+  const checkboxes = ['Images', 'Videos', 'Audio'];
   return (
     <StyledSearchBar>
       <form onSubmit={handleSubmit}>
@@ -54,37 +67,21 @@ const SearchBar = ({ searchValues, setSearchValues, doFetch }) => {
           searchTerm={searchValues.searchTerm}
           handleInputChange={handleInputChange}
         />
-        <SearchBarCheckbox
-          label="Images"
-          name="searchImages"
-          checked={searchValues.searchImages}
-          handleInputChange={handleInputChange}
-        />
-        <SearchBarCheckbox
-          label="Videos"
-          name="searchVideo"
-          checked={searchValues.searchVideo}
-          handleInputChange={handleInputChange}
-        />
-        <SearchBarCheckbox
-          label="Audio"
-          name="searchAudio"
-          checked={searchValues.searchAudio}
-          handleInputChange={handleInputChange}
-        />
+        {checkboxes.map(checkbox => (
+          <SearchBarCheckbox
+            key={checkbox}
+            label={checkbox}
+            name={`search${checkbox}`}
+            checked={searchValues[`search${checkbox}`]}
+            handleInputChange={handleInputChange}
+          />
+        ))}
       </form>
     </StyledSearchBar>
   );
 };
 
 SearchBar.propTypes = {
-  searchValues: PropTypes.shape({
-    searchTerm: PropTypes.string,
-    searchImages: PropTypes.bool,
-    searchVideo: PropTypes.bool,
-    searchAudio: PropTypes.bool,
-  }).isRequired,
-  setSearchValues: PropTypes.func.isRequired,
   doFetch: PropTypes.func.isRequired,
 };
 

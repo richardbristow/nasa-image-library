@@ -40,28 +40,17 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ searchValues, setSearchValues, doFetch }) => (
+const Header = ({ doFetch }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar
-      doFetch={doFetch}
-      searchValues={searchValues}
-      setSearchValues={setSearchValues}
-    />
+    <SearchBar doFetch={doFetch} />
   </StyledHeader>
 );
 
 Header.propTypes = {
-  searchValues: PropTypes.shape({
-    searchTerm: PropTypes.string,
-    searchImages: PropTypes.bool,
-    searchVideo: PropTypes.bool,
-    searchAudio: PropTypes.bool,
-  }).isRequired,
-  setSearchValues: PropTypes.func.isRequired,
   doFetch: PropTypes.func.isRequired,
 };
 
