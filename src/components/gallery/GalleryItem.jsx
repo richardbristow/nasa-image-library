@@ -43,13 +43,12 @@ const StyledGalleryItem = styled.div`
   }
 `;
 
-const GalleryItem = ({ itemData, imageThumbnail, openGalleryModal }) => {
+const GalleryItem = ({ itemData, imageThumbnail, setClickedModalMetadata }) => {
   const { media_type: mediaType, title } = itemData;
   return (
     <StyledGalleryItem
-      // className={`gallery-item-${mediaType !== 'image' && 'audio-video'}`}
       role="presentation"
-      onClick={() => openGalleryModal(itemData)}
+      onClick={() => setClickedModalMetadata(itemData)}
     >
       {mediaType === 'image' ? (
         <img src={imageThumbnail.href} alt={title} />
@@ -78,7 +77,7 @@ GalleryItem.propTypes = {
   itemData: PropTypes.object.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   imageThumbnail: PropTypes.object,
-  openGalleryModal: PropTypes.func.isRequired,
+  setClickedModalMetadata: PropTypes.func.isRequired,
 };
 
 export default GalleryItem;

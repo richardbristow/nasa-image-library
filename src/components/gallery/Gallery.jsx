@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import GalleryModal from '../gallery-modal/GalleryModal';
-import GalleryNavigation from '../gallery-navigation/GalleryNavigation';
-import GalleryGrid from './GalleryGrid';
-import Error from '../shared/Errors';
-import Loading from '../shared/Loading';
-import getData from '../../utils/getData';
+import GalleryModal from './GalleryModal';
+import GalleryNavigation from './GalleryNavigation';
+import GalleryItem from './GalleryItem';
 
 const StyledGallery = styled.div`
   background: ${({ theme }) => theme.ghostWhite};
@@ -17,126 +14,59 @@ const StyledGallery = styled.div`
   height: 100%;
 `;
 
-class Gallery extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clickedModalMetadata: null,
-      searchData: [],
-      pageLinks: [],
-      totalHits: null,
-      errorFetching: null,
-      isLoading: true,
-    };
+const StyledGalleryGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 
-    this.closeGalleryModal = this.closeGalleryModal.bind(this);
-    this.openGalleryModal = this.openGalleryModal.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+  &:after {
+    content: '';
+    flex-grow: 999999999;
   }
+`;
 
-  componentDidMount() {
-    const url = 'https://images-api.nasa.gov/search?q=iss&media_type=image';
-    this.handleSearch(encodeURI(url));
-  }
-
-  componentDidUpdate(prevProps) {
-    const { query } = this.props;
-    if (query !== prevProps.query) {
-      const url = `https://images-api.nasa.gov/search?q=${
-        query.q
-      }&media_type=${query.media_type.toString()}`;
-      this.handleSearch(url);
-    }
-  }
-
-  async handleSearch(url, event) {
-    this.setState({ isLoading: true });
-    if (event) {
-      event.preventDefault();
-    }
-    const { errorFetching, data } = await getData(url);
-    const {
-      items: searchData = [],
-      metadata: { total_hits: totalHits } = 0,
-      links: pageLinks = [],
-    } = data;
-    this.setState({
-      errorFetching,
-      searchData,
-      totalHits,
-      pageLinks,
-      isLoading: false,
-    });
-    window.scrollTo(0, 0);
-  }
-
-  closeGalleryModal() {
-    this.setState({
-      clickedModalMetadata: null,
-    });
-  }
-
-  openGalleryModal(itemData) {
-    const {
-      media_type: mediaType,
-      title,
-      description,
-      nasa_id: nasaId,
-    } = itemData;
-    this.setState({
-      clickedModalMetadata: {
-        nasaId,
-        title,
-        description,
-        mediaType,
-      },
-    });
-  }
-
-  render() {
-    const {
-      clickedModalMetadata,
-      searchData,
-      totalHits,
-      pageLinks,
-      errorFetching,
-      isLoading,
-    } = this.state;
-    return isLoading ? (
-      <Loading />
-    ) : (
-      <StyledGallery>
-        {clickedModalMetadata && (
-          <GalleryModal
-            clickedModalMetadata={clickedModalMetadata}
-            closeGalleryModal={this.closeGalleryModal}
-          />
-        )}
-        {errorFetching ? (
-          <Error />
-        ) : (
-          <>
-            <GalleryGrid
-              searchData={searchData}
-              openGalleryModal={this.openGalleryModal}
+const Gallery = ({ data, doFetch }) => {
+  const [clickedModalMetadata, setClickedModalMetadata] = useState(null);
+  return (
+    <StyledGallery>
+      {clickedModalMetadata && (
+        <GalleryModal
+          clickedModalMetadata={clickedModalMetadata}
+          setClickedModalMetadata={setClickedModalMetadata}
+        />
+      )}
+      <StyledGalleryGrid>
+        {data.collection.items.map(item => {
+          const [itemData] = item.data;
+          let imageThumbnail;
+          if (item.links) {
+            [imageThumbnail] = item.links;
+          }
+          return (
+            <GalleryItem
+              key={itemData.nasa_id}
+              itemData={itemData}
+              imageThumbnail={imageThumbnail}
+              setClickedModalMetadata={setClickedModalMetadata}
             />
-            <GalleryNavigation
-              totalHits={totalHits}
-              pageLinks={pageLinks}
-              handleSearch={this.handleSearch}
-            />
-          </>
-        )}
-      </StyledGallery>
-    );
-  }
-}
+          );
+        })}
+      </StyledGalleryGrid>
+      <GalleryNavigation data={data} doFetch={doFetch} />
+    </StyledGallery>
+  );
+};
 
 Gallery.propTypes = {
-  query: PropTypes.shape({
-    q: PropTypes.string,
-    media_type: PropTypes.string,
+  data: PropTypes.shape({
+    collection: PropTypes.shape({
+      href: PropTypes.string,
+      items: PropTypes.array,
+      links: PropTypes.array,
+      metadata: PropTypes.object,
+      version: PropTypes.string,
+    }),
   }).isRequired,
+  doFetch: PropTypes.func.isRequired,
 };
 
 export default Gallery;

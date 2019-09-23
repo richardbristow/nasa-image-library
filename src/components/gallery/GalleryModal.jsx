@@ -43,10 +43,10 @@ const StyledModalCloseButton = styled.button`
   border: none;
 `;
 
-const GalleryModal = ({ clickedModalMetadata, closeGalleryModal }) => (
+const GalleryModal = ({ clickedModalMetadata, setClickedModalMetadata }) => (
   <StyledGalleryModalBackground>
     <StyledModalWrapper>
-      <StyledModalCloseButton onClick={closeGalleryModal}>
+      <StyledModalCloseButton onClick={() => setClickedModalMetadata(null)}>
         &times;
       </StyledModalCloseButton>
       <GalleryModalContent clickedModalMetadata={clickedModalMetadata} />
@@ -55,7 +55,7 @@ const GalleryModal = ({ clickedModalMetadata, closeGalleryModal }) => (
 );
 
 GalleryModal.propTypes = {
-  closeGalleryModal: PropTypes.func.isRequired,
+  setClickedModalMetadata: PropTypes.func.isRequired,
   clickedModalMetadata: PropTypes.shape({
     description: PropTypes.string,
     mediaType: PropTypes.string,

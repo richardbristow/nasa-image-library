@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components/macro';
 
 import { GlobalStyle, globalTheme } from '../theme/globalStyle';
-
+import useFetch from '../hooks/useFetch';
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
+import Loading from './shared/Loading';
+import Error from './shared/Error';
 
 const StyledApp = styled.div`
   width: 100%;
@@ -17,25 +18,35 @@ const StyledApp = styled.div`
   height: 100vh;
 `;
 
-const App = ({ history, query }) => (
-  <ThemeProvider theme={globalTheme}>
-    <>
-      <GlobalStyle />
-      <StyledApp>
-        <Header history={history} />
-        <Gallery query={query} />
-      </StyledApp>
-    </>
-  </ThemeProvider>
-);
+const App = () => {
+  const [searchValues, setSearchValues] = useState({
+    searchTerm: '',
+    searchImages: true,
+    searchVideo: false,
+    searchAudio: false,
+  });
 
-App.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object.isRequired,
-  query: PropTypes.shape({
-    q: PropTypes.string,
-    media_type: PropTypes.string,
-  }).isRequired,
+  const [{ data, isLoading, isError }, doFetch] = useFetch(
+    'https://images-api.nasa.gov/search?q=iss&media_type=image',
+    { collection: { items: [] } },
+  );
+
+  return (
+    <ThemeProvider theme={globalTheme}>
+      <>
+        <GlobalStyle />
+        <StyledApp>
+          <Header
+            searchValues={searchValues}
+            setSearchValues={setSearchValues}
+            doFetch={doFetch}
+          />
+          {isError && <Error />}
+          {isLoading ? <Loading /> : <Gallery data={data} doFetch={doFetch} />}
+        </StyledApp>
+      </>
+    </ThemeProvider>
+  );
 };
 
 export default App;

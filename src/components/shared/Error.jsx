@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-const StyledErrors = styled.div`
+const StyledError = styled.div`
   margin-top: 30px;
   text-align: center;
 `;
 
-const Errors = () => (
-  <StyledErrors>
+const Error = () => (
+  <StyledError>
     <p>Houston we have a problem.</p>
     <p>Something went wrong.</p>
-  </StyledErrors>
+  </StyledError>
 );
 
-export default Errors;
+export default Error;

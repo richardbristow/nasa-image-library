@@ -40,19 +40,29 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ history }) => (
+const Header = ({ searchValues, setSearchValues, doFetch }) => (
   <StyledHeader>
     <h1>
       NASA&nbsp;
       <span>Media Library</span>
     </h1>
-    <SearchBar history={history} />
+    <SearchBar
+      doFetch={doFetch}
+      searchValues={searchValues}
+      setSearchValues={setSearchValues}
+    />
   </StyledHeader>
 );
 
 Header.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object.isRequired,
+  searchValues: PropTypes.shape({
+    searchTerm: PropTypes.string,
+    searchImages: PropTypes.bool,
+    searchVideo: PropTypes.bool,
+    searchAudio: PropTypes.bool,
+  }).isRequired,
+  setSearchValues: PropTypes.func.isRequired,
+  doFetch: PropTypes.func.isRequired,
 };
 
 export default Header;
