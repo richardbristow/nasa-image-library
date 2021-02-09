@@ -42,7 +42,9 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   } = clickedModalMetadata;
   const [{ data, isLoading, isError }] = useFetch(
     `https://images-api.nasa.gov/asset/${nasaId}`,
-    { collection: { items: [] } },
+    {
+      collection: { items: [] },
+    },
   );
 
   return (
@@ -60,7 +62,7 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
           preload="metadata"
         >
           <source src={selectLink(mediaType, data).vidHref} />
-          {selectLink(mediaType, data).subsHref.map(sub => (
+          {selectLink(mediaType, data).subsHref.map((sub) => (
             <track key={nasaId} src={sub} kind="subtitles" />
           ))}
           Please use a more modern browser to play this video.

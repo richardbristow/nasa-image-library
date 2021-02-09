@@ -35,7 +35,7 @@ const Gallery = ({ data, doFetch }) => {
         />
       )}
       <StyledGalleryGrid>
-        {data.collection.items.map(item => {
+        {data.collection.items.map((item) => {
           const [itemData] = item.data;
           let imageThumbnail;
           if (item.links) {
@@ -60,8 +60,11 @@ Gallery.propTypes = {
   data: PropTypes.shape({
     collection: PropTypes.shape({
       href: PropTypes.string,
+      // eslint-disable-next-line react/forbid-prop-types
       items: PropTypes.array,
+      // eslint-disable-next-line react/forbid-prop-types
       links: PropTypes.array,
+      // eslint-disable-next-line react/forbid-prop-types
       metadata: PropTypes.object,
       version: PropTypes.string,
     }),

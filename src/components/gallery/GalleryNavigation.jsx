@@ -51,7 +51,7 @@ const GalleryNavigation = ({ data, doFetch }) => {
 
   return (
     <StyledGalleryNavigation>
-      {pageLinks.map(link => (
+      {pageLinks.map((link) => (
         <StyledNavigationButton
           key={link.rel}
           onClick={() => doFetch(link.href)}
@@ -84,7 +84,9 @@ GalleryNavigation.defaultProps = {
 GalleryNavigation.propTypes = {
   data: PropTypes.shape({
     collection: PropTypes.shape({
+      // eslint-disable-next-line react/forbid-prop-types
       links: PropTypes.array,
+      // eslint-disable-next-line react/forbid-prop-types
       metadata: PropTypes.object,
     }),
   }),

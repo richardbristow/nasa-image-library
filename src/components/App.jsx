@@ -20,7 +20,9 @@ const StyledApp = styled.div`
 const App = () => {
   const [{ data, isLoading, isError }, doFetch] = useFetch(
     'https://images-api.nasa.gov/search?q=iss&media_type=image',
-    { collection: { items: [] } },
+    {
+      collection: { items: [] },
+    },
   );
 
   return (

@@ -36,7 +36,7 @@ const SearchBar = ({ doFetch }) => {
     setSearchValues({ ...searchValues, [name]: value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const {
       searchTerm,
@@ -67,7 +67,7 @@ const SearchBar = ({ doFetch }) => {
           searchTerm={searchValues.searchTerm}
           handleInputChange={handleInputChange}
         />
-        {checkboxes.map(checkbox => (
+        {checkboxes.map((checkbox) => (
           <SearchBarCheckbox
             key={checkbox}
             label={checkbox}
