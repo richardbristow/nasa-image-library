@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
-import setSearchParams from '../../utils/setSearchParams';
 
 const StyledSearchBar = styled.div`
   width: 50%;
@@ -23,86 +22,67 @@ const StyledSearchBar = styled.div`
   }
 `;
 
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { searchTerm: '', mediaTypes: ['image'] };
+const SearchBar = ({ doFetch }) => {
+  const [searchValues, setSearchValues] = useState({
+    searchTerm: '',
+    searchImages: true,
+    searchVideos: false,
+    searchAudio: false,
+  });
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.updateUrl = this.updateUrl.bind(this);
-  }
-
-  handleInputChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleCheckboxChange({ target }) {
+  const handleInputChange = ({ target }) => {
     const { name } = target;
-    const { mediaTypes } = this.state;
-    if (mediaTypes.includes(name)) {
-      this.setState(prevState => ({
-        mediaTypes: prevState.mediaTypes.filter(type => type !== name),
-      }));
-    } else {
-      this.setState(prevState => ({
-        mediaTypes: [...prevState.mediaTypes, name],
-      }));
-    }
-  }
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    setSearchValues({ ...searchValues, [name]: value });
+  };
 
-  updateUrl(event) {
-    if (event) {
-      event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const {
+      searchTerm,
+      searchImages,
+      searchVideos,
+      searchAudio,
+    } = searchValues;
+    const mediaTypes = [];
+    if (searchImages) {
+      mediaTypes.push('image');
     }
-    const { searchTerm, mediaTypes } = this.state;
-    const { history } = this.props;
-    const url = setSearchParams({
-      query: searchTerm,
-      mediaTypes: mediaTypes.toString(),
-    });
-    history.push(`?${url}`);
-  }
-
-  render() {
-    const { searchTerm, mediaTypes } = this.state;
-    return (
-      <StyledSearchBar>
-        <form onSubmit={e => this.updateUrl(e)}>
-          <SearchBarInput
-            searchTerm={searchTerm}
-            handleInputChange={this.handleInputChange}
-          />
-          <SearchBarCheckbox
-            label="Images"
-            name="image"
-            checked={mediaTypes.includes('image')}
-            handleCheckboxChange={this.handleCheckboxChange}
-          />
-          <SearchBarCheckbox
-            label="Videos"
-            name="video"
-            checked={mediaTypes.includes('video')}
-            handleCheckboxChange={this.handleCheckboxChange}
-          />
-          <SearchBarCheckbox
-            label="Audio"
-            name="audio"
-            checked={mediaTypes.includes('audio')}
-            handleCheckboxChange={this.handleCheckboxChange}
-          />
-        </form>
-      </StyledSearchBar>
+    if (searchVideos) {
+      mediaTypes.push('video');
+    }
+    if (searchAudio) {
+      mediaTypes.push('audio');
+    }
+    doFetch(
+      `https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.join()}`,
     );
-  }
-}
+  };
+
+  const checkboxes = ['Images', 'Videos', 'Audio'];
+  return (
+    <StyledSearchBar>
+      <form onSubmit={handleSubmit}>
+        <SearchBarInput
+          searchTerm={searchValues.searchTerm}
+          handleInputChange={handleInputChange}
+        />
+        {checkboxes.map((checkbox) => (
+          <SearchBarCheckbox
+            key={checkbox}
+            label={checkbox}
+            name={`search${checkbox}`}
+            checked={searchValues[`search${checkbox}`]}
+            handleInputChange={handleInputChange}
+          />
+        ))}
+      </form>
+    </StyledSearchBar>
+  );
+};
 
 SearchBar.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object.isRequired,
+  doFetch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

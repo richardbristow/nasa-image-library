@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import Errors from './Errors';
+import Error from './Error';
 
 const StyledLoading = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ const StyledLoading = styled.div`
 
 const Loading = ({ error }) => (
   <StyledLoading>
-    {error ? <Errors /> : <i className="fa fa-circle-o-notch fa-spin" />}
+    {error ? <Error /> : <i className="fa fa-circle-o-notch fa-spin" />}
   </StyledLoading>
 );
 

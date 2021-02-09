@@ -12,14 +12,14 @@ const StyledSearchBarCheckbox = styled.label`
   }
 `;
 
-const SearchBarCheckbox = ({ label, name, checked, handleCheckboxChange }) => (
+const SearchBarCheckbox = ({ label, name, checked, handleInputChange }) => (
   <StyledSearchBarCheckbox>
     {label}
     <input
       name={name}
       type="checkbox"
       checked={checked}
-      onChange={handleCheckboxChange}
+      onChange={handleInputChange}
     />
   </StyledSearchBarCheckbox>
 );
@@ -28,7 +28,7 @@ SearchBarCheckbox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  handleCheckboxChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
 };
 
 export default SearchBarCheckbox;
