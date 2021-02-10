@@ -47,7 +47,7 @@ const StyledNavigationButton = styled.button`
 
 const GalleryNavigation = ({ data, doFetch }) => {
   const {
-    metadata: { total_hits: totalHits },
+    metadata: { total_hits: totalHits } = {},
     links: pageLinks,
   } = data.collection;
 
@@ -62,22 +62,13 @@ const GalleryNavigation = ({ data, doFetch }) => {
             {link.prompt}
           </StyledNavigationButton>
         ))}
-      <StyledTotalHits>
-        Found <strong>{totalHits}</strong> results.
-      </StyledTotalHits>
+      {totalHits && (
+        <StyledTotalHits>
+          Found <strong>{totalHits}</strong> results.
+        </StyledTotalHits>
+      )}
     </StyledGalleryNavigation>
   );
-};
-
-GalleryNavigation.defaultProps = {
-  data: {
-    collection: {
-      links: [],
-      metadata: {
-        total_hits: 0,
-      },
-    },
-  },
 };
 
 GalleryNavigation.propTypes = {
@@ -88,7 +79,7 @@ GalleryNavigation.propTypes = {
       // eslint-disable-next-line react/forbid-prop-types
       metadata: PropTypes.object,
     }),
-  }),
+  }).isRequired,
   doFetch: PropTypes.func.isRequired,
 };
 
