@@ -46,10 +46,7 @@ const StyledNavigationButton = styled.button`
 `;
 
 const GalleryNavigation = ({ data, doFetch }) => {
-  const {
-    metadata: { total_hits: totalHits } = {},
-    links: pageLinks,
-  } = data.collection;
+  const { metadata: { total_hits: totalHits } = {}, links: pageLinks } = data;
 
   return (
     <StyledGalleryNavigation>
@@ -62,7 +59,7 @@ const GalleryNavigation = ({ data, doFetch }) => {
             {link.prompt}
           </StyledNavigationButton>
         ))}
-      {totalHits && (
+      {totalHits >= 0 && (
         <StyledTotalHits>
           Found <strong>{totalHits}</strong> results.
         </StyledTotalHits>
@@ -73,11 +70,9 @@ const GalleryNavigation = ({ data, doFetch }) => {
 
 GalleryNavigation.propTypes = {
   data: PropTypes.shape({
-    collection: PropTypes.shape({
-      // eslint-disable-next-line react/forbid-prop-types
-      links: PropTypes.array,
-      // eslint-disable-next-line react/forbid-prop-types
-      metadata: PropTypes.object,
+    links: PropTypes.arrayOf(PropTypes.object),
+    metadata: PropTypes.shape({
+      total_hits: PropTypes.number,
     }),
   }).isRequired,
   doFetch: PropTypes.func.isRequired,

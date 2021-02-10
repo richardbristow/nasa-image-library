@@ -22,7 +22,7 @@ Object {
           >
             <form>
               <div
-                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cHVtIx"
+                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cwSlIM"
               >
                 <input
                   name="searchTerm"
@@ -40,7 +40,7 @@ Object {
                 </button>
               </div>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
               >
                 Images
                 <input
@@ -50,7 +50,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
               >
                 Videos
                 <input
@@ -59,7 +59,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
               >
                 Audio
                 <input
@@ -98,7 +98,7 @@ Object {
         >
           <form>
             <div
-              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cHVtIx"
+              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cwSlIM"
             >
               <input
                 name="searchTerm"
@@ -116,7 +116,7 @@ Object {
               </button>
             </div>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
             >
               Images
               <input
@@ -126,7 +126,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
             >
               Videos
               <input
@@ -135,7 +135,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 jgRNZz"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
             >
               Audio
               <input

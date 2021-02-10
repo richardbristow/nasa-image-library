@@ -25,6 +25,7 @@ const StyledGalleryGrid = styled.div`
 `;
 
 const Gallery = ({ data, doFetch }) => {
+  const { items } = data;
   const [clickedModalMetadata, setClickedModalMetadata] = useState(null);
   return (
     <StyledGallery>
@@ -34,9 +35,9 @@ const Gallery = ({ data, doFetch }) => {
           setClickedModalMetadata={setClickedModalMetadata}
         />
       )}
-      {data.collection.items && (
+      {items && (
         <StyledGalleryGrid>
-          {data.collection.items.map((item) => {
+          {items.map((item) => {
             const [itemData] = item.data;
             let imageThumbnail;
             if (item.links) {
@@ -60,16 +61,13 @@ const Gallery = ({ data, doFetch }) => {
 
 Gallery.propTypes = {
   data: PropTypes.shape({
-    collection: PropTypes.shape({
-      href: PropTypes.string,
-      // eslint-disable-next-line react/forbid-prop-types
-      items: PropTypes.array,
-      // eslint-disable-next-line react/forbid-prop-types
-      links: PropTypes.array,
-      // eslint-disable-next-line react/forbid-prop-types
-      metadata: PropTypes.object,
-      version: PropTypes.string,
+    href: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object),
+    links: PropTypes.arrayOf(PropTypes.object),
+    metadata: PropTypes.shape({
+      total_hits: PropTypes.number,
     }),
+    version: PropTypes.string,
   }).isRequired,
   doFetch: PropTypes.func.isRequired,
 };
