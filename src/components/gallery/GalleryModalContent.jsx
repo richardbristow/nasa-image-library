@@ -40,12 +40,15 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
     description,
     nasa_id: nasaId,
   } = clickedModalMetadata;
-  const [{ data, isLoading, isError }] = useFetch(
+
+  const [{ fetchedData, isLoading, isError }] = useFetch(
     `https://images-api.nasa.gov/asset/${nasaId}`,
     {
       collection: { items: [] },
     },
   );
+
+  const { collection: data } = fetchedData;
 
   return (
     <StyledModalContent>

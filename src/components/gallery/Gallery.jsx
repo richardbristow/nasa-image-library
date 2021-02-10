@@ -38,11 +38,8 @@ const Gallery = ({ data, doFetch }) => {
       {items && (
         <StyledGalleryGrid>
           {items.map((item) => {
-            const [itemData] = item.data;
-            let imageThumbnail;
-            if (item.links) {
-              [imageThumbnail] = item.links;
-            }
+            const { data: [itemData] = [] } = item;
+            const { links: [imageThumbnail] = [] } = item;
             return (
               <GalleryItem
                 key={itemData.nasa_id}
