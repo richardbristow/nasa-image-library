@@ -55,7 +55,9 @@ const SearchBar = ({ doFetch }) => {
       mediaTypes.push('audio');
     }
     doFetch(
-      `https://images-api.nasa.gov/search?q=${searchTerm}&media_type=${mediaTypes.join()}`,
+      `https://images-api.nasa.gov/search?q=${encodeURIComponent(
+        searchTerm,
+      )}&media_type=${mediaTypes.join()}`,
     );
   };
 
