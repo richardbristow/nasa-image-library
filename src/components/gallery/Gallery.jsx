@@ -34,23 +34,25 @@ const Gallery = ({ data, doFetch }) => {
           setClickedModalMetadata={setClickedModalMetadata}
         />
       )}
-      <StyledGalleryGrid>
-        {data.collection.items.map((item) => {
-          const [itemData] = item.data;
-          let imageThumbnail;
-          if (item.links) {
-            [imageThumbnail] = item.links;
-          }
-          return (
-            <GalleryItem
-              key={itemData.nasa_id}
-              itemData={itemData}
-              imageThumbnail={imageThumbnail}
-              setClickedModalMetadata={setClickedModalMetadata}
-            />
-          );
-        })}
-      </StyledGalleryGrid>
+      {data.collection.items && (
+        <StyledGalleryGrid>
+          {data.collection.items.map((item) => {
+            const [itemData] = item.data;
+            let imageThumbnail;
+            if (item.links) {
+              [imageThumbnail] = item.links;
+            }
+            return (
+              <GalleryItem
+                key={itemData.nasa_id}
+                itemData={itemData}
+                imageThumbnail={imageThumbnail}
+                setClickedModalMetadata={setClickedModalMetadata}
+              />
+            );
+          })}
+        </StyledGalleryGrid>
+      )}
       <GalleryNavigation data={data} doFetch={doFetch} />
     </StyledGallery>
   );
