@@ -40,6 +40,11 @@ const StyledSearchBarInput = styled.div`
     border-radius: 0 4px 4px 0;
     cursor: pointer;
   }
+
+  span {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 `;
 
 const SearchBarInput = ({ searchTerm, handleInputChange }) => (
