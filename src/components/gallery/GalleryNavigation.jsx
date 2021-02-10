@@ -20,16 +20,18 @@ const StyledTotalHits = styled.span`
 const StyledNavigationButton = styled.button`
   display: inline-block;
   margin-right: 20px;
+  margin-bottom: 20px;
   background-color: ${({ theme }) => theme.grey};
   border: 2px solid ${({ theme }) => theme.lightGrey};
-  font-size: 24px;
-  padding: 18px 32px;
+  font-size: 22px;
   text-align: center;
   text-decoration: none;
   color: ${({ theme }) => theme.ghostWhite};
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 6px;
+  height: 60px;
+  width: 150px;
 
   &:hover {
     background-color: ${({ theme }) => theme.lightGrey};
