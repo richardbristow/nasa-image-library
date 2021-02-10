@@ -53,21 +53,18 @@ const GalleryNavigation = ({ data, doFetch }) => {
 
   return (
     <StyledGalleryNavigation>
-      {pageLinks.map((link) => (
-        <StyledNavigationButton
-          key={link.rel}
-          onClick={() => doFetch(link.href)}
-        >
-          {link.prompt}
-        </StyledNavigationButton>
-      ))}
-      {totalHits && (
-        <StyledTotalHits>
-          Found&nbsp;
-          <span>{totalHits}</span>
-          &nbsp;results.
-        </StyledTotalHits>
-      )}
+      {pageLinks &&
+        pageLinks.map((link) => (
+          <StyledNavigationButton
+            key={link.rel}
+            onClick={() => doFetch(link.href)}
+          >
+            {link.prompt}
+          </StyledNavigationButton>
+        ))}
+      <StyledTotalHits>
+        Found <strong>{totalHits}</strong> results.
+      </StyledTotalHits>
     </StyledGalleryNavigation>
   );
 };
