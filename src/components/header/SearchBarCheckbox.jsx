@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 const StyledSearchBarCheckbox = styled.label`
   input {
     margin-right: 5%;
+    margin-left: 6px;
+    vertical-align: middle;
   }
 
   @media screen and (max-width: 500px) {
