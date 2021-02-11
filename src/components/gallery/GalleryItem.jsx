@@ -9,6 +9,8 @@ const StyledGalleryItem = styled.div`
   height: 200px;
   background-color: ${({ theme }) => theme.lightGrey};
   min-width: 200px;
+  border-radius: 4px;
+  ${({ mediaType }) => mediaType === 'audio' && 'width: 200px;'}
 
   img {
     height: 200px;
@@ -19,15 +21,23 @@ const StyledGalleryItem = styled.div`
     &:hover {
       opacity: 0.7;
     }
+    border-radius: 4px;
   }
 
-  .gallery-item-audio-video {
+  .gallery-item-audio {
+    display: flex;
+    justify-content: center;
     height: 200px;
     width: 100%;
     background: ${({ theme }) => theme.grey};
     text-align: center;
     color: ${({ theme }) => theme.lightGrey};
     overflow: hidden;
+    border-radius: 4px;
+
+    div {
+      align-self: center;
+    }
 
     i {
       padding: 3%;
@@ -45,38 +55,45 @@ const StyledGalleryItem = styled.div`
 
 const GalleryItem = ({ itemData, imageThumbnail, setClickedModalMetadata }) => {
   const { media_type: mediaType, title } = itemData;
+  const { href } = imageThumbnail;
   return (
     <StyledGalleryItem
       role="presentation"
       onClick={() => setClickedModalMetadata(itemData)}
+      mediaType={mediaType}
     >
-      {mediaType === 'image' ? (
-        <img src={imageThumbnail.href} alt={title} />
+      {mediaType !== 'audio' ? (
+        <img
+          onError={(e) => {
+            e.target.parentNode.style.display = 'none';
+          }}
+          src={href}
+          alt={title}
+        />
       ) : (
-        <div className="gallery-item-audio-video">
-          <i
-            className={`fa ${
-              mediaType === 'audio' ? 'fa-volume-up' : 'fa-video-camera'
-            }`}
-            aria-hidden="true"
-          />
-          <p>{title}</p>
+        <div className="gallery-item-audio">
+          <div>
+            <i className="fa fa-volume-up" aria-hidden="true" />
+            <p>{title}</p>
+          </div>
         </div>
       )}
     </StyledGalleryItem>
   );
 };
 
-// TODO: add an image thumbnail image here
 GalleryItem.defaultProps = {
   imageThumbnail: { href: '#' },
 };
 
 GalleryItem.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  itemData: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  imageThumbnail: PropTypes.object,
+  itemData: PropTypes.shape({
+    media_type: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
+  imageThumbnail: PropTypes.shape({
+    href: PropTypes.string,
+  }),
   setClickedModalMetadata: PropTypes.func.isRequired,
 };
 
