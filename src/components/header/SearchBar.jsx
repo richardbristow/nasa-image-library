@@ -57,7 +57,7 @@ const SearchBar = ({ doFetch }) => {
     doFetch(
       `https://images-api.nasa.gov/search?q=${encodeURIComponent(
         searchTerm,
-      )}&media_type=${mediaTypes.join()}`,
+      )}&media_type=${encodeURIComponent(mediaTypes.join())}`,
     );
   };
 

@@ -42,7 +42,7 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   } = clickedModalMetadata;
 
   const [{ fetchedData, isLoading, isError }] = useFetch(
-    `https://images-api.nasa.gov/asset/${nasaId}`,
+    `https://images-api.nasa.gov/asset/${encodeURIComponent(nasaId)}`,
     {
       collection: { items: [] },
     },
