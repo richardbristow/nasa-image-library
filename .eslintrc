@@ -3,5 +3,5 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"]
+  "extends": ["airbnb", "plugin:prettier/recommended"]
 }

@@ -49,15 +49,15 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   );
 
   const { collection: data } = fetchedData;
-
+  console.log('modal', data);
   return (
     <StyledModalContent>
       {isError && <Error />}
-      {!isLoading && mediaType === 'image' && (
+      {!isLoading && mediaType === 'image' && data && (
         <img alt={title} src={selectLink(mediaType, data).imageHref} />
       )}
 
-      {!isLoading && mediaType === 'video' && (
+      {!isLoading && mediaType === 'video' && data && (
         <video
           controls
           poster={selectLink(mediaType, data).vidThumb}
@@ -72,7 +72,7 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
         </video>
       )}
 
-      {!isLoading && mediaType === 'audio' && (
+      {!isLoading && mediaType === 'audio' && data && (
         <audio controls>
           <source
             src={selectLink(mediaType, data).audioHref.href}
