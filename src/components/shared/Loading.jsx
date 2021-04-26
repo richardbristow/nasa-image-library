@@ -9,13 +9,7 @@ const StyledLoading = styled.div`
   font-size: 100px;
   color: ${({ modal, theme }) => (modal ? theme.grey : theme.lightGrey)};
   text-align: center;
-  margin-top: 20%;
-
-  /* This was in App scss */
-  /* background: ${({ theme }) => theme.ghostWhite};
-  max-width: 100%;
-  // max-width: 1200px;
-  margin: 0 auto; */
+  ${({ modal }) => !modal && 'margin-top: 20%;'};
 `;
 
 const Loading = ({ error, modal }) => (

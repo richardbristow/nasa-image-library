@@ -6,10 +6,10 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="App__StyledApp-oine8m-0 esztOr"
+        class="App__StyledApp-oine8m-0 gGdzqt"
       >
         <div
-          class="Header__StyledHeader-sc-19c87cm-0 OpKvg"
+          class="Header__StyledHeader-sc-19c87cm-0 jqpXiy"
         >
           <h1>
             NASA 
@@ -18,11 +18,11 @@ Object {
             </span>
           </h1>
           <div
-            class="SearchBar__StyledSearchBar-f1a6f2-0 kDgXoI"
+            class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
           >
             <form>
               <div
-                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cwSlIM"
+                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 URyXi"
               >
                 <input
                   name="searchTerm"
@@ -40,7 +40,7 @@ Object {
                 </button>
               </div>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
               >
                 Images
                 <input
@@ -50,7 +50,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
               >
                 Videos
                 <input
@@ -59,7 +59,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
               >
                 Audio
                 <input
@@ -71,7 +71,7 @@ Object {
           </div>
         </div>
         <div
-          class="Loading__StyledLoading-sc-119z7o2-0 pokys"
+          class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
         >
           <i
             class="fa fa-circle-o-notch fa-spin"
@@ -82,10 +82,10 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="App__StyledApp-oine8m-0 esztOr"
+      class="App__StyledApp-oine8m-0 gGdzqt"
     >
       <div
-        class="Header__StyledHeader-sc-19c87cm-0 OpKvg"
+        class="Header__StyledHeader-sc-19c87cm-0 jqpXiy"
       >
         <h1>
           NASA 
@@ -94,11 +94,11 @@ Object {
           </span>
         </h1>
         <div
-          class="SearchBar__StyledSearchBar-f1a6f2-0 kDgXoI"
+          class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
         >
           <form>
             <div
-              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 cwSlIM"
+              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 URyXi"
             >
               <input
                 name="searchTerm"
@@ -116,7 +116,7 @@ Object {
               </button>
             </div>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
             >
               Images
               <input
@@ -126,7 +126,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
             >
               Videos
               <input
@@ -135,7 +135,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 eBwzpW"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
             >
               Audio
               <input
@@ -147,7 +147,7 @@ Object {
         </div>
       </div>
       <div
-        class="Loading__StyledLoading-sc-119z7o2-0 pokys"
+        class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
       >
         <i
           class="fa fa-circle-o-notch fa-spin"

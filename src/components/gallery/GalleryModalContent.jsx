@@ -10,6 +10,9 @@ import Error from '../shared/Error';
 import Loading from '../shared/Loading';
 
 const StyledModalContent = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   img,
   video,
   audio {
@@ -20,7 +23,8 @@ const StyledModalContent = styled.div`
     max-width: 60%;
   }
   video {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
   }
   audio {
     width: 100%;
@@ -30,12 +34,12 @@ const StyledModalContent = styled.div`
     width: 38%;
   }
   .modal-text-video {
-    display: block;
-    padding-top: 20px;
+    overflow: auto;
+    margin: 0;
   }
   .modal-text-audio {
-    display: block;
-    padding-top: 20px;
+    overflow: auto;
+    margin: 0;
   }
 `;
 
@@ -83,21 +87,22 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
           Please use a more modern browser to play this video.
         </video>
       )}
-
       {!isLoading && mediaType === 'audio' && data && (
-        <audio controls onCanPlay={() => setIsModalContentLoading(false)}>
-          <source
-            src={selectLink(mediaType, data).audioHref.href}
-            type="audio/mp4"
-          />
-          Please use a more modern browser to play this audio.
-        </audio>
+        <div>
+          <audio controls onCanPlay={() => setIsModalContentLoading(false)}>
+            <source
+              src={selectLink(mediaType, data).audioHref.href}
+              type="audio/mp4"
+            />
+            Please use a more modern browser to play this audio.
+          </audio>
+        </div>
       )}
       {!isModalContentLoading && (
-        <div className={`modal-text-${mediaType}`}>
+        <>
           <h2>{title}</h2>
-          <p>{description}</p>
-        </div>
+          <p className={`modal-text-${mediaType}`}>{description}</p>
+        </>
       )}
     </StyledModalContent>
   );

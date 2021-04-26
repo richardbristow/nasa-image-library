@@ -5,9 +5,9 @@ import styled from 'styled-components/macro';
 import GalleryModalContent from './GalleryModalContent';
 
 const StyledGalleryModalBackground = styled.div`
+  display: flex;
   position: fixed;
   z-index: 1;
-  padding-top: 80px;
   left: 0;
   top: 0;
   width: 100%;
@@ -18,12 +18,14 @@ const StyledGalleryModalBackground = styled.div`
 `;
 
 const StyledModalWrapper = styled.div`
-  display: block;
+  display: flex;
   background-color: ${({ theme }) => theme.lightGrey};
   margin: auto;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid ${({ theme }) => theme.grey};
-  height: 80%;
+  height: auto;
+  max-height: 80%;
+  width: auto;
   max-width: 80%;
   border-radius: 6px;
   overflow: auto;
