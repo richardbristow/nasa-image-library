@@ -1,14 +1,20 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 import useFetch from '../../hooks/useFetch';
 import selectLink from '../../utils/selectLink';
 import Error from '../shared/Error';
+import Loading from '../shared/Loading';
 
 const StyledModalContent = styled.div`
+  img,
+  video,
+  audio {
+    ${({ isModalContentLoading }) => isModalContentLoading && 'display: none;'}
+  }
   img {
     max-height: 100%;
     max-width: 60%;
@@ -34,6 +40,7 @@ const StyledModalContent = styled.div`
 `;
 
 const GalleryModalContent = ({ clickedModalMetadata }) => {
+  const [isModalContentLoading, setIsModalContentLoading] = useState(true);
   const {
     media_type: mediaType,
     title,
@@ -49,20 +56,25 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   );
 
   const { collection: data } = fetchedData;
-  console.log('modal', data);
-  return (
-    <StyledModalContent>
-      {isError && <Error />}
-      {!isLoading && mediaType === 'image' && data && (
-        <img alt={title} src={selectLink(mediaType, data).imageHref} />
-      )}
 
+  return (
+    <StyledModalContent isModalContentLoading={isModalContentLoading}>
+      {isError && <Error />}
+      {isModalContentLoading && <Loading modal />}
+      {!isLoading && mediaType === 'image' && data && (
+        <img
+          alt={title}
+          src={selectLink(mediaType, data).imageHref}
+          onLoad={() => setIsModalContentLoading(false)}
+        />
+      )}
       {!isLoading && mediaType === 'video' && data && (
         <video
           controls
           poster={selectLink(mediaType, data).vidThumb}
           crossOrigin="anonymous"
           preload="metadata"
+          onCanPlay={() => setIsModalContentLoading(false)}
         >
           <source src={selectLink(mediaType, data).vidHref} />
           {selectLink(mediaType, data).subsHref.map((sub) => (
@@ -73,7 +85,7 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
       )}
 
       {!isLoading && mediaType === 'audio' && data && (
-        <audio controls>
+        <audio controls onCanPlay={() => setIsModalContentLoading(false)}>
           <source
             src={selectLink(mediaType, data).audioHref.href}
             type="audio/mp4"
@@ -81,10 +93,12 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
           Please use a more modern browser to play this audio.
         </audio>
       )}
-      <div className={`modal-text-${mediaType}`}>
-        <h2>{title}</h2>
-        <p>{description}</p>
-      </div>
+      {!isModalContentLoading && (
+        <div className={`modal-text-${mediaType}`}>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
+      )}
     </StyledModalContent>
   );
 };
