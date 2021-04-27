@@ -45,6 +45,7 @@ const StyledModalContent = styled.div`
 
 const GalleryModalContent = ({ clickedModalMetadata }) => {
   const [isModalContentLoading, setIsModalContentLoading] = useState(true);
+  const [mediaDimensions, setMediaDimensions] = useState(null);
   const {
     media_type: mediaType,
     title,
@@ -59,26 +60,43 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
     },
   );
 
+  const onMediaLoad = ({ target }, type) => {
+    setMediaDimensions({
+      naturalWidth: type === 'image' ? target.naturalWidth : target.videoWidth,
+      naturalHeight:
+        type === 'image' ? target.naturalHeight : target.videoHeight,
+      width: type === 'image' ? target.width : target.videoWidth,
+      height: type === 'image' ? target.height : target.videoHeight,
+      isPortrait:
+        type === 'image'
+          ? target.naturalHeight >= target.naturalWidth
+          : target.videoHeight >= target.videoWidth,
+    });
+    setIsModalContentLoading(false);
+  };
+
   const { collection: data } = fetchedData;
 
   return (
-    <StyledModalContent isModalContentLoading={isModalContentLoading}>
+    <StyledModalContent
+      isModalContentLoading={isModalContentLoading}
+      mediaDimensions={mediaDimensions}
+    >
       {isError && <Error />}
-      {isModalContentLoading && <Loading modal />}
+      {isModalContentLoading && !mediaDimensions && <Loading modal />}
       {!isLoading && mediaType === 'image' && data && (
         <img
           alt={title}
           src={selectLink(mediaType, data).imageHref}
-          onLoad={() => setIsModalContentLoading(false)}
+          onLoad={(event) => onMediaLoad(event, mediaType)}
         />
       )}
       {!isLoading && mediaType === 'video' && data && (
         <video
           controls
-          poster={selectLink(mediaType, data).vidThumb}
           crossOrigin="anonymous"
           preload="metadata"
-          onCanPlay={() => setIsModalContentLoading(false)}
+          onLoadedMetadata={(event) => onMediaLoad(event, mediaType)}
         >
           <source src={selectLink(mediaType, data).vidHref} />
           {selectLink(mediaType, data).subsHref.map((sub) => (
