@@ -31,7 +31,7 @@ const StyledModalCloseButton = styled.button`
   border: none;
 `;
 
-const GalleryModal = ({ children, setClickedModalMetadata }) =>
+const Modal = ({ children, setClickedModalMetadata }) =>
   ReactDOM.createPortal(
     <ThemeProvider theme={globalTheme}>
       <GlobalStyle />
@@ -43,4 +43,4 @@ const GalleryModal = ({ children, setClickedModalMetadata }) =>
     document.querySelector('#modal-root'),
   );
 
-export default GalleryModal;
+export default Modal;

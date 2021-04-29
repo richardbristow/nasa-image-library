@@ -70,7 +70,7 @@ const StyledModalContentWrapper = styled.div`
   }
 `;
 
-const GalleryModalContent = ({ clickedModalMetadata }) => {
+const ModalContent = ({ clickedModalMetadata }) => {
   const [isModalContentLoading, setIsModalContentLoading] = useState(true);
   const [mediaDimensions, setMediaDimensions] = useState(null);
   const {
@@ -154,7 +154,7 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   );
 };
 
-GalleryModalContent.propTypes = {
+ModalContent.propTypes = {
   clickedModalMetadata: PropTypes.shape({
     description: PropTypes.string,
     media_type: PropTypes.string,
@@ -163,4 +163,4 @@ GalleryModalContent.propTypes = {
   }).isRequired,
 };
 
-export default GalleryModalContent;
+export default ModalContent;

@@ -6,8 +6,8 @@ import Header from './header/Header';
 import Gallery from './gallery/Gallery';
 import Loading from './shared/Loading';
 import Error from './shared/Error';
-import GalleryModal from './modal/GalleryModal';
-import GalleryModalContent from './modal/GalleryModalContent';
+import Modal from './modal/Modal';
+import ModalContent from './modal/ModalContent';
 
 const StyledApp = styled.div`
   width: 100%;
@@ -45,9 +45,9 @@ const App = () => {
         />
       )}
       {clickedModalMetadata && (
-        <GalleryModal setClickedModalMetadata={setClickedModalMetadata}>
-          <GalleryModalContent clickedModalMetadata={clickedModalMetadata} />
-        </GalleryModal>
+        <Modal setClickedModalMetadata={setClickedModalMetadata}>
+          <ModalContent clickedModalMetadata={clickedModalMetadata} />
+        </Modal>
       )}
     </StyledApp>
   );
