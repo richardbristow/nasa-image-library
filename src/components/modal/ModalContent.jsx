@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -13,11 +12,6 @@ import Loading from '../shared/Loading';
 //   overflow: hidden;
 //   display: flex;
 //   flex-direction: column;
-//   img,
-//   video,
-//   audio {
-//     ${({ isModalContentLoading }) => isModalContentLoading && 'display: none;'}
-//   }
 //   img {
 //     max-height: 100%;
 //     max-width: 60%;
@@ -59,14 +53,24 @@ const StyledModalContentWrapper = styled.div`
     ${({ isModalContentLoading }) => isModalContentLoading && 'display: none;'}
   }
 
-  img {
+  img,
+  video {
     min-height: 80%;
     margin: 0 auto;
     max-width: 100%;
   }
 
+  audio {
+    width: 100%;
+  }
+
   #modal-text {
+    display: flex;
+    flex-direction: column;
     min-height: 20%;
+    p {
+      overflow: scroll;
+    }
   }
 `;
 
