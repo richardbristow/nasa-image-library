@@ -100,7 +100,7 @@ const ModalContent = ({ clickedModalMetadata }) => {
       height: type === 'image' ? target.height : target.videoHeight,
       isPortrait:
         type === 'image'
-          ? target.naturalHeight >= target.naturalWidth
+          ? target.naturalWidth / target.naturalHeight <= 1.4
           : target.videoHeight >= target.videoWidth,
     });
     setIsModalContentLoading(false);
