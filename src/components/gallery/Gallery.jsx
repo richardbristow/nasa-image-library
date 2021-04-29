@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import GalleryModal from './GalleryModal';
 import GalleryNavigation from './GalleryNavigation';
 import GalleryItem from './GalleryItem';
 
@@ -24,17 +23,10 @@ const StyledGalleryGrid = styled.div`
   }
 `;
 
-const Gallery = ({ data, doFetch }) => {
+const Gallery = ({ data, doFetch, setClickedModalMetadata }) => {
   const { items } = data;
-  const [clickedModalMetadata, setClickedModalMetadata] = useState(null);
   return (
     <StyledGallery>
-      {clickedModalMetadata && (
-        <GalleryModal
-          clickedModalMetadata={clickedModalMetadata}
-          setClickedModalMetadata={setClickedModalMetadata}
-        />
-      )}
       {items && (
         <StyledGalleryGrid>
           {items.map((item) => {
@@ -67,6 +59,7 @@ Gallery.propTypes = {
     version: PropTypes.string,
   }).isRequired,
   doFetch: PropTypes.func.isRequired,
+  setClickedModalMetadata: PropTypes.func.isRequired,
 };
 
 export default Gallery;

@@ -9,37 +9,64 @@ import selectLink from '../../utils/selectLink';
 import Error from '../shared/Error';
 import Loading from '../shared/Loading';
 
-const StyledModalContent = styled.div`
-  overflow: hidden;
+// const StyledModalContent = styled.div`
+//   overflow: hidden;
+//   display: flex;
+//   flex-direction: column;
+//   img,
+//   video,
+//   audio {
+//     ${({ isModalContentLoading }) => isModalContentLoading && 'display: none;'}
+//   }
+//   img {
+//     max-height: 100%;
+//     max-width: 60%;
+//   }
+//   video {
+//     max-width: 100%;
+//     height: auto;
+//   }
+//   audio {
+//     width: 100%;
+//   }
+//   .modal-text-image {
+//     float: right;
+//     width: 38%;
+//   }
+//   .modal-text-video {
+//     overflow: auto;
+//     margin: 0;
+//   }
+//   .modal-text-audio {
+//     overflow: auto;
+//     margin: 0;
+//   }
+// `;
+
+const StyledModalContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.lightGrey};
+  border: 1px solid ${({ theme }) => theme.grey};
+  padding: 15px;
+  max-height: 80%;
+  max-width: 80%;
+  border-radius: 6px;
+
   img,
   video,
   audio {
     ${({ isModalContentLoading }) => isModalContentLoading && 'display: none;'}
   }
+
   img {
-    max-height: 100%;
-    max-width: 60%;
-  }
-  video {
+    min-height: 80%;
+    margin: 0 auto;
     max-width: 100%;
-    height: auto;
   }
-  audio {
-    width: 100%;
-  }
-  .modal-text-image {
-    float: right;
-    width: 38%;
-  }
-  .modal-text-video {
-    overflow: auto;
-    margin: 0;
-  }
-  .modal-text-audio {
-    overflow: auto;
-    margin: 0;
+
+  #modal-text {
+    min-height: 20%;
   }
 `;
 
@@ -78,9 +105,10 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
   const { collection: data } = fetchedData;
 
   return (
-    <StyledModalContent
+    <StyledModalContentWrapper
       isModalContentLoading={isModalContentLoading}
       mediaDimensions={mediaDimensions}
+      onClick={(event) => event.stopPropagation()}
     >
       {isError && <Error />}
       {isModalContentLoading && !mediaDimensions && <Loading modal />}
@@ -117,12 +145,12 @@ const GalleryModalContent = ({ clickedModalMetadata }) => {
         </div>
       )}
       {!isModalContentLoading && (
-        <>
+        <div id="modal-text">
           <h2>{title}</h2>
           <p className={`modal-text-${mediaType}`}>{description}</p>
-        </>
+        </div>
       )}
-    </StyledModalContent>
+    </StyledModalContentWrapper>
   );
 };
 
