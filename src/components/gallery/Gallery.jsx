@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+import Error from '../shared/Error';
+import Loading from '../shared/Loading';
 import GalleryNavigation from './GalleryNavigation';
 import GalleryItem from './GalleryItem';
 
@@ -23,29 +25,46 @@ const StyledGalleryGrid = styled.div`
   }
 `;
 
-const Gallery = ({ data, doFetch, setClickedModalMetadata }) => {
+const Gallery = ({
+  data,
+  doFetch,
+  setClickedModalMetadata,
+  isError,
+  isLoading,
+}) => {
   const { items } = data;
   return (
-    <StyledGallery>
-      {items && (
-        <StyledGalleryGrid>
-          {items.map((item) => {
-            const { data: [itemData] = [] } = item;
-            const { links: [imageThumbnail] = [] } = item;
-            return (
-              <GalleryItem
-                key={itemData.nasa_id}
-                itemData={itemData}
-                imageThumbnail={imageThumbnail}
-                setClickedModalMetadata={setClickedModalMetadata}
-              />
-            );
-          })}
-        </StyledGalleryGrid>
+    <>
+      {isError && <Error />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <StyledGallery>
+          {items && (
+            <StyledGalleryGrid>
+              {items.map((item) => {
+                const { data: [itemData] = [] } = item;
+                const { links: [imageThumbnail] = [] } = item;
+                return (
+                  <GalleryItem
+                    key={itemData.nasa_id}
+                    itemData={itemData}
+                    imageThumbnail={imageThumbnail}
+                    setClickedModalMetadata={setClickedModalMetadata}
+                  />
+                );
+              })}
+            </StyledGalleryGrid>
+          )}
+          <GalleryNavigation data={data} doFetch={doFetch} />
+        </StyledGallery>
       )}
-      <GalleryNavigation data={data} doFetch={doFetch} />
-    </StyledGallery>
+    </>
   );
+};
+
+Gallery.defaultProps = {
+  isError: null,
 };
 
 Gallery.propTypes = {
@@ -60,6 +79,8 @@ Gallery.propTypes = {
   }).isRequired,
   doFetch: PropTypes.func.isRequired,
   setClickedModalMetadata: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.shape({}),
 };
 
 export default Gallery;

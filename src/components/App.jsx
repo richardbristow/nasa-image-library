@@ -4,8 +4,6 @@ import styled from 'styled-components/macro';
 import useFetch from '../hooks/useFetch';
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
-import Loading from './shared/Loading';
-import Error from './shared/Error';
 import Modal from './modal/Modal';
 import ModalContent from './modal/ModalContent';
 
@@ -34,16 +32,13 @@ const App = () => {
   return (
     <StyledApp clickedModalMetadata={clickedModalMetadata}>
       <Header doFetch={doFetch} />
-      {isError && <Error />}
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Gallery
-          setClickedModalMetadata={setClickedModalMetadata}
-          data={data}
-          doFetch={doFetch}
-        />
-      )}
+      <Gallery
+        setClickedModalMetadata={setClickedModalMetadata}
+        data={data}
+        doFetch={doFetch}
+        isLoading={isLoading}
+        isError={isError}
+      />
       {clickedModalMetadata && (
         <Modal setClickedModalMetadata={setClickedModalMetadata}>
           <ModalContent clickedModalMetadata={clickedModalMetadata} />
