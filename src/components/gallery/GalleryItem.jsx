@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+
+import Modal from '../modal/Modal';
+import ModalContent from '../modal/ModalContent';
 
 const StyledGalleryItem = styled.div`
   cursor: pointer;
@@ -53,32 +56,40 @@ const StyledGalleryItem = styled.div`
   }
 `;
 
-const GalleryItem = ({ itemData, imageThumbnail, setClickedModalMetadata }) => {
+const GalleryItem = ({ itemData, imageThumbnail }) => {
+  const [clickedModalMetadata, setClickedModalMetadata] = useState(null);
   const { media_type: mediaType, title } = itemData;
   const { href } = imageThumbnail;
   return (
-    <StyledGalleryItem
-      role="presentation"
-      onClick={() => setClickedModalMetadata(itemData)}
-      mediaType={mediaType}
-    >
-      {mediaType !== 'audio' ? (
-        <img
-          onError={(e) => {
-            e.target.parentNode.style.display = 'none';
-          }}
-          src={href}
-          alt={title}
-        />
-      ) : (
-        <div className="gallery-item-audio">
-          <div>
-            <i className="fa fa-volume-up" aria-hidden="true" />
-            <p>{title}</p>
+    <>
+      <StyledGalleryItem
+        role="presentation"
+        onClick={() => setClickedModalMetadata(itemData)}
+        mediaType={mediaType}
+      >
+        {mediaType !== 'audio' ? (
+          <img
+            onError={(e) => {
+              e.target.parentNode.style.display = 'none';
+            }}
+            src={href}
+            alt={title}
+          />
+        ) : (
+          <div className="gallery-item-audio">
+            <div>
+              <i className="fa fa-volume-up" aria-hidden="true" />
+              <p>{title}</p>
+            </div>
           </div>
-        </div>
+        )}
+      </StyledGalleryItem>
+      {clickedModalMetadata && (
+        <Modal setClickedModalMetadata={setClickedModalMetadata}>
+          <ModalContent clickedModalMetadata={clickedModalMetadata} />
+        </Modal>
       )}
-    </StyledGalleryItem>
+    </>
   );
 };
 
@@ -94,7 +105,6 @@ GalleryItem.propTypes = {
   imageThumbnail: PropTypes.shape({
     href: PropTypes.string,
   }),
-  setClickedModalMetadata: PropTypes.func.isRequired,
 };
 
 export default GalleryItem;

@@ -25,13 +25,7 @@ const StyledGalleryGrid = styled.div`
   }
 `;
 
-const Gallery = ({
-  data,
-  doFetch,
-  setClickedModalMetadata,
-  isError,
-  isLoading,
-}) => {
+const Gallery = ({ data, doFetch, isError, isLoading }) => {
   const { items } = data;
   return (
     <>
@@ -39,25 +33,26 @@ const Gallery = ({
       {isLoading ? (
         <Loading />
       ) : (
-        <StyledGallery>
-          {items && (
-            <StyledGalleryGrid>
-              {items.map((item) => {
-                const { data: [itemData] = [] } = item;
-                const { links: [imageThumbnail] = [] } = item;
-                return (
-                  <GalleryItem
-                    key={itemData.nasa_id}
-                    itemData={itemData}
-                    imageThumbnail={imageThumbnail}
-                    setClickedModalMetadata={setClickedModalMetadata}
-                  />
-                );
-              })}
-            </StyledGalleryGrid>
-          )}
-          <GalleryNavigation data={data} doFetch={doFetch} />
-        </StyledGallery>
+        <>
+          <StyledGallery>
+            {items && (
+              <StyledGalleryGrid>
+                {items.map((item) => {
+                  const { data: [itemData] = [] } = item;
+                  const { links: [imageThumbnail] = [] } = item;
+                  return (
+                    <GalleryItem
+                      key={itemData.nasa_id}
+                      itemData={itemData}
+                      imageThumbnail={imageThumbnail}
+                    />
+                  );
+                })}
+              </StyledGalleryGrid>
+            )}
+            <GalleryNavigation data={data} doFetch={doFetch} />
+          </StyledGallery>
+        </>
       )}
     </>
   );
@@ -78,7 +73,6 @@ Gallery.propTypes = {
     version: PropTypes.string,
   }).isRequired,
   doFetch: PropTypes.func.isRequired,
-  setClickedModalMetadata: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.shape({}),
 };
