@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { Link, useLocation } from 'react-router-dom';
 
-import Modal from '../modal/Modal';
-import ModalContent from '../modal/ModalContent';
-
-const StyledGalleryItem = styled.div`
+const StyledGalleryItem = styled(Link)`
   cursor: pointer;
   flex-grow: 1;
   margin: 0.4em;
@@ -57,39 +55,33 @@ const StyledGalleryItem = styled.div`
 `;
 
 const GalleryItem = ({ itemData, imageThumbnail }) => {
-  const [clickedModalMetadata, setClickedModalMetadata] = useState(null);
-  const { media_type: mediaType, title } = itemData;
+  const { media_type: mediaType, title, nasa_id: nasaId } = itemData;
   const { href } = imageThumbnail;
+  const location = useLocation();
   return (
-    <>
-      <StyledGalleryItem
-        role="presentation"
-        onClick={() => setClickedModalMetadata(itemData)}
-        mediaType={mediaType}
-      >
-        {mediaType !== 'audio' ? (
-          <img
-            onError={(e) => {
-              e.target.parentNode.style.display = 'none';
-            }}
-            src={href}
-            alt={title}
-          />
-        ) : (
-          <div className="gallery-item-audio">
-            <div>
-              <i className="fa fa-volume-up" aria-hidden="true" />
-              <p>{title}</p>
-            </div>
+    <StyledGalleryItem
+      to={{
+        pathname: `/asset/${nasaId}`,
+        state: { background: location },
+      }}
+    >
+      {mediaType !== 'audio' ? (
+        <img
+          onError={(e) => {
+            e.target.parentNode.style.display = 'none';
+          }}
+          src={href}
+          alt={title}
+        />
+      ) : (
+        <div className="gallery-item-audio">
+          <div>
+            <i className="fa fa-volume-up" aria-hidden="true" />
+            <p>{title}</p>
           </div>
-        )}
-      </StyledGalleryItem>
-      {clickedModalMetadata && (
-        <Modal setClickedModalMetadata={setClickedModalMetadata}>
-          <ModalContent clickedModalMetadata={clickedModalMetadata} />
-        </Modal>
+        </div>
       )}
-    </>
+    </StyledGalleryItem>
   );
 };
 
@@ -101,6 +93,7 @@ GalleryItem.propTypes = {
   itemData: PropTypes.shape({
     media_type: PropTypes.string,
     title: PropTypes.string,
+    nasa_id: PropTypes.string,
   }).isRequired,
   imageThumbnail: PropTypes.shape({
     href: PropTypes.string,

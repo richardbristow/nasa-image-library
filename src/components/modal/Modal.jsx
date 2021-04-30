@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 
 import { GlobalStyle, globalTheme } from '../../theme/globalStyle';
 
@@ -31,16 +32,22 @@ const StyledModalCloseButton = styled.button`
   border: none;
 `;
 
-const Modal = ({ children, setClickedModalMetadata }) =>
-  ReactDOM.createPortal(
+const Modal = ({ children }) => {
+  const history = useHistory();
+  const back = (event) => {
+    event.stopPropagation();
+    history.goBack();
+  };
+
+  return ReactDOM.createPortal(
     <ThemeProvider theme={globalTheme}>
       <GlobalStyle />
-      <StyledModalOverlay onClick={() => setClickedModalMetadata(null)}>
+      <StyledModalOverlay onClick={back}>
         <StyledModalCloseButton>&times;</StyledModalCloseButton>
         {children}
       </StyledModalOverlay>
     </ThemeProvider>,
     document.querySelector('#modal-root'),
   );
-
+};
 export default Modal;
