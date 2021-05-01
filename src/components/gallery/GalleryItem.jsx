@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const StyledGalleryItem = styled(Link)`
   cursor: pointer;
+  text-decoration: none;
   flex-grow: 1;
   margin: 0.4em;
   height: 200px;
