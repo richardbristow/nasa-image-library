@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 
 import SearchBar from './SearchBar';
 
@@ -42,10 +43,17 @@ const StyledHeader = styled.div`
 
 const Header = ({ doFetch }) => (
   <StyledHeader>
-    <h1>
-      NASA&nbsp;
-      <span>Media Library</span>
-    </h1>
+    <Link
+      to="/"
+      css={`
+        text-decoration: none;
+      `}
+    >
+      <h1>
+        NASA&nbsp;
+        <span>Media Library</span>
+      </h1>
+    </Link>
     <SearchBar doFetch={doFetch} />
   </StyledHeader>
 );
