@@ -19,6 +19,14 @@ const StyledApp = styled.div`
   height: 100vh;
 `;
 
+const StyledMain = styled.main`
+  background: ${({ theme }) => theme.ghostWhite};
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+`;
+
 const App = () => {
   const [{ fetchedData, isLoading, isError }, doFetch] = useFetch(
     'https://images-api.nasa.gov/search?q=iss&media_type=image',
@@ -34,29 +42,31 @@ const App = () => {
   return (
     <StyledApp>
       <Header doFetch={doFetch} />
-      <Switch location={background || location}>
-        <Route exact path="/">
-          <Gallery
-            data={data}
-            doFetch={doFetch}
-            isLoading={isLoading}
-            isError={isError}
-          />
-        </Route>
-        <Route path="/asset/:nasaId">
-          <GalleryAssetView />
-        </Route>
-        <Route path="*">
-          <NoRoute />
-        </Route>
-      </Switch>
-      {background && (
-        <Route path="/asset/:nasaId">
-          <Modal>
-            <GalleryAssetView inModal />
-          </Modal>
-        </Route>
-      )}
+      <StyledMain>
+        <Switch location={background || location}>
+          <Route exact path="/">
+            <Gallery
+              data={data}
+              doFetch={doFetch}
+              isLoading={isLoading}
+              isError={isError}
+            />
+          </Route>
+          <Route path="/asset/:nasaId">
+            <GalleryAssetView />
+          </Route>
+          <Route path="*">
+            <NoRoute />
+          </Route>
+        </Switch>
+        {background && (
+          <Route path="/asset/:nasaId">
+            <Modal>
+              <GalleryAssetView inModal />
+            </Modal>
+          </Route>
+        )}
+      </StyledMain>
     </StyledApp>
   );
 };

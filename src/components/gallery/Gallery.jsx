@@ -7,14 +7,6 @@ import Loading from '../shared/Loading';
 import GalleryNavigation from './GalleryNavigation';
 import GalleryItem from './GalleryItem';
 
-const StyledGallery = styled.div`
-  background: ${({ theme }) => theme.ghostWhite};
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
-`;
-
 const StyledGalleryGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -34,24 +26,22 @@ const Gallery = ({ data, doFetch, isError, isLoading }) => {
         <Loading />
       ) : (
         <>
-          <StyledGallery>
-            {items && (
-              <StyledGalleryGrid>
-                {items.map((item) => {
-                  const { data: [itemData] = [] } = item;
-                  const { links: [imageThumbnail] = [] } = item;
-                  return (
-                    <GalleryItem
-                      key={itemData.nasa_id}
-                      itemData={itemData}
-                      imageThumbnail={imageThumbnail}
-                    />
-                  );
-                })}
-              </StyledGalleryGrid>
-            )}
-            <GalleryNavigation data={data} doFetch={doFetch} />
-          </StyledGallery>
+          {items && (
+            <StyledGalleryGrid>
+              {items.map((item) => {
+                const { data: [itemData] = [] } = item;
+                const { links: [imageThumbnail] = [] } = item;
+                return (
+                  <GalleryItem
+                    key={itemData.nasa_id}
+                    itemData={itemData}
+                    imageThumbnail={imageThumbnail}
+                  />
+                );
+              })}
+            </StyledGalleryGrid>
+          )}
+          <GalleryNavigation data={data} doFetch={doFetch} />
         </>
       )}
     </>
