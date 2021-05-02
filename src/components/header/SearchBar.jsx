@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import SearchBarCheckbox from './SearchBarCheckbox';
 import SearchBarInput from './SearchBarInput';
@@ -22,13 +22,32 @@ const StyledSearchBar = styled.div`
   }
 `;
 
-const SearchBar = ({ doFetch }) => {
+const SearchBar = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
   const [searchValues, setSearchValues] = useState({
     searchTerm: '',
     searchImages: true,
     searchVideos: false,
     searchAudio: false,
   });
+
+  useEffect(() => {
+    setSearchValues({
+      searchTerm: queryParams.has('q') ? queryParams.get('q') : '',
+      searchImages: queryParams.has('media_type')
+        ? queryParams.get('media_type').includes('image')
+        : true,
+      searchVideos: queryParams.has('media_type')
+        ? queryParams.get('media_type').includes('video')
+        : false,
+      searchAudio: queryParams.has('media_type')
+        ? queryParams.get('media_type').includes('audio')
+        : false,
+    });
+  }, [location]);
 
   const handleInputChange = ({ target }) => {
     const { name } = target;
@@ -44,7 +63,12 @@ const SearchBar = ({ doFetch }) => {
       searchVideos,
       searchAudio,
     } = searchValues;
+
+    const buildQueryParams = new URLSearchParams();
     const mediaTypes = [];
+    if (searchTerm) {
+      buildQueryParams.append('q', searchTerm);
+    }
     if (searchImages) {
       mediaTypes.push('image');
     }
@@ -54,11 +78,8 @@ const SearchBar = ({ doFetch }) => {
     if (searchAudio) {
       mediaTypes.push('audio');
     }
-    doFetch(
-      `https://images-api.nasa.gov/search?q=${encodeURIComponent(
-        searchTerm,
-      )}&media_type=${encodeURIComponent(mediaTypes.join())}`,
-    );
+    buildQueryParams.append('media_type', mediaTypes.join());
+    history.push(`/search?${buildQueryParams.toString()}`);
   };
 
   const checkboxes = ['Images', 'Videos', 'Audio'];
@@ -81,10 +102,6 @@ const SearchBar = ({ doFetch }) => {
       </form>
     </StyledSearchBar>
   );
-};
-
-SearchBar.propTypes = {
-  doFetch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

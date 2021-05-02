@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +40,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ doFetch }) => (
+const Header = () => (
   <StyledHeader>
     <Link
       to="/"
@@ -54,12 +53,8 @@ const Header = ({ doFetch }) => (
         <span>Media Library</span>
       </h1>
     </Link>
-    <SearchBar doFetch={doFetch} />
+    <SearchBar />
   </StyledHeader>
 );
-
-Header.propTypes = {
-  doFetch: PropTypes.func.isRequired,
-};
 
 export default Header;

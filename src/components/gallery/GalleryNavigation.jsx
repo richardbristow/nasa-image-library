@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 
 const StyledGalleryNavigation = styled.div`
   margin: 0 auto;
@@ -45,8 +46,15 @@ const StyledNavigationButton = styled.button`
   }
 `;
 
-const GalleryNavigation = ({ data, doFetch }) => {
+const GalleryNavigation = ({ data }) => {
+  const history = useHistory();
   const { metadata: { total_hits: totalHits } = {}, links: pageLinks } = data;
+
+  const handleClick = (url) => {
+    const { search } = new URL(url);
+    const params = new URLSearchParams(search);
+    history.push(`/search?${params.toString()}`);
+  };
 
   return (
     <StyledGalleryNavigation>
@@ -54,7 +62,7 @@ const GalleryNavigation = ({ data, doFetch }) => {
         pageLinks.map((link) => (
           <StyledNavigationButton
             key={link.rel}
-            onClick={() => doFetch(link.href)}
+            onClick={() => handleClick(link.href)}
           >
             {link.prompt}
           </StyledNavigationButton>
@@ -75,7 +83,6 @@ GalleryNavigation.propTypes = {
       total_hits: PropTypes.number,
     }),
   }).isRequired,
-  doFetch: PropTypes.func.isRequired,
 };
 
 export default GalleryNavigation;

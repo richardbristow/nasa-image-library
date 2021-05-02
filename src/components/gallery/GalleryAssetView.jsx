@@ -165,8 +165,12 @@ const GalleryAssetView = ({ inModal }) => {
   );
 };
 
+GalleryAssetView.defaultProps = {
+  inModal: false,
+};
+
 GalleryAssetView.propTypes = {
-  inModal: PropTypes.bool.isRequired,
+  inModal: PropTypes.bool,
 };
 
 export default GalleryAssetView;

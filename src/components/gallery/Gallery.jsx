@@ -1,7 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { useLocation } from 'react-router-dom';
 
+import useFetch from '../../hooks/useFetch';
 import Error from '../shared/Error';
 import Loading from '../shared/Loading';
 import GalleryNavigation from './GalleryNavigation';
@@ -17,11 +18,35 @@ const StyledGalleryGrid = styled.div`
   }
 `;
 
-const Gallery = ({ data, doFetch, isError, isLoading }) => {
+const Gallery = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const defaultSearchUrl =
+    'https://images-api.nasa.gov/search?q=iss&media_type=image';
+
+  const [{ fetchedData, isLoading, isError }, doFetch] = useFetch(
+    queryParams.toString() === ''
+      ? defaultSearchUrl
+      : `https://images-api.nasa.gov/search?${queryParams.toString()}`,
+    {
+      collection: { items: [] },
+    },
+  );
+
+  useEffect(() => {
+    if (queryParams.toString() !== '') {
+      doFetch(`https://images-api.nasa.gov/search?${queryParams.toString()}`);
+    } else {
+      doFetch(defaultSearchUrl);
+    }
+  }, [location]);
+
+  const { collection: data } = fetchedData;
   const { items } = data;
+
   return (
     <>
-      {isError && <Error />}
+      {isError && <Error error={isError} />}
       {isLoading ? (
         <Loading />
       ) : (
@@ -41,30 +66,11 @@ const Gallery = ({ data, doFetch, isError, isLoading }) => {
               })}
             </StyledGalleryGrid>
           )}
-          <GalleryNavigation data={data} doFetch={doFetch} />
+          <GalleryNavigation data={data} />
         </>
       )}
     </>
   );
-};
-
-Gallery.defaultProps = {
-  isError: null,
-};
-
-Gallery.propTypes = {
-  data: PropTypes.shape({
-    href: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.object),
-    links: PropTypes.arrayOf(PropTypes.object),
-    metadata: PropTypes.shape({
-      total_hits: PropTypes.number,
-    }),
-    version: PropTypes.string,
-  }).isRequired,
-  doFetch: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isError: PropTypes.shape({}),
 };
 
 export default Gallery;
