@@ -12,12 +12,20 @@ const useFetch = (initialUrl, initialData, getMetaData) => {
       setIsLoading(true);
       try {
         const response = await fetch(url);
+        if (!response.ok) {
+          if (response.status === 400) {
+            throw new Error(`${response.status} - Invalid search query`);
+          }
+        }
         const responseData = await response.json();
         if (getMetaData) {
           const metadataUrl = responseData.collection.items.filter((item) =>
             item.href.includes('metadata.json'),
           )[0].href;
           const metadataResponse = await fetch(metadataUrl);
+          if (!metadataResponse.ok) {
+            throw new Error(response.status);
+          }
           const metadataResponseData = await metadataResponse.json();
           setData({
             responseData,
