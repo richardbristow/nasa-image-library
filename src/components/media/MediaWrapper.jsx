@@ -11,44 +11,19 @@ import StyledImage from './Image';
 import StyledVideo from './Video';
 import StyledAudio from './Audio';
 
-// const StyledModalContent = styled.div`
-//   overflow: hidden;
-//   display: flex;
-//   flex-direction: column;
-//   img {
-//     max-height: 100%;
-//     max-width: 60%;
-//   }
-//   video {
-//     max-width: 100%;
-//     height: auto;
-//   }
-//   audio {
-//     width: 100%;
-//   }
-//   .modal-text-image {
-//     float: right;
-//     width: 38%;
-//   }
-//   .modal-text-video {
-//     overflow: auto;
-//     margin: 0;
-//   }
-//   .modal-text-audio {
-//     overflow: auto;
-//     margin: 0;
-//   }
-// `;
-
 const StyledMediaWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.lightGrey};
-  border: 1px solid ${({ theme }) => theme.grey};
   padding: 15px;
-  max-height: 80%;
   max-width: 80%;
-  border-radius: 6px;
+  ${({ inModal, theme }) =>
+    inModal &&
+    `background-color: ${theme.lightGrey};
+      border: 1px solid ${theme.grey};
+      max-height: 80%;
+      border-radius: 6px;
+  `}
+  margin: 0 auto;
 
   img,
   video,
@@ -61,7 +36,7 @@ const StyledMediaWrapper = styled.div`
     flex-direction: column;
     min-height: 20%;
     p {
-      overflow: scroll;
+      ${({ inModal }) => inModal && 'overflow: scroll;'}
     }
   }
 `;
@@ -110,6 +85,7 @@ const MediaWrapper = ({ inModal }) => {
         isMediaLoading={isMediaLoading}
         mediaDimensions={mediaDimensions}
         onClick={(event) => event.stopPropagation()}
+        inModal={inModal}
       >
         {isError && <Error />}
         {isMediaLoading && !mediaDimensions && <Loading modal={inModal} />}
