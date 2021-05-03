@@ -7,7 +7,9 @@ import styled from 'styled-components/macro';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../shared/Loading';
 import Error from '../shared/Error';
-import selectLink from '../../utils/selectLink';
+import StyledImage from './Image';
+import StyledVideo from './Video';
+import StyledAudio from './Audio';
 
 // const StyledModalContent = styled.div`
 //   overflow: hidden;
@@ -38,7 +40,7 @@ import selectLink from '../../utils/selectLink';
 //   }
 // `;
 
-const StyledGalleryAssetView = styled.div`
+const StyledMediaWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.lightGrey};
@@ -54,18 +56,7 @@ const StyledGalleryAssetView = styled.div`
     ${({ isMediaLoading }) => isMediaLoading && 'display: none;'}
   }
 
-  img,
-  video {
-    min-height: 80%;
-    margin: 0 auto;
-    max-width: 100%;
-  }
-
-  audio {
-    width: 100%;
-  }
-
-  #modal-text {
+  #media-text {
     display: flex;
     flex-direction: column;
     min-height: 20%;
@@ -75,7 +66,7 @@ const StyledGalleryAssetView = styled.div`
   }
 `;
 
-const GalleryAssetView = ({ inModal }) => {
+const MediaWrapper = ({ inModal }) => {
   const [isMediaLoading, setIsMediaLoading] = useState(true);
   const [mediaDimensions, setMediaDimensions] = useState(null);
   const { nasaId } = useParams();
@@ -115,62 +106,57 @@ const GalleryAssetView = ({ inModal }) => {
 
   return (
     <>
-      <StyledGalleryAssetView
+      <StyledMediaWrapper
         isMediaLoading={isMediaLoading}
         mediaDimensions={mediaDimensions}
         onClick={(event) => event.stopPropagation()}
       >
         {isError && <Error />}
         {isMediaLoading && !mediaDimensions && <Loading modal={inModal} />}
+
         {!isLoading && mediaType === 'image' && data && (
-          <img
-            alt={title}
-            src={selectLink(mediaType, data).imageHref}
-            onLoad={(event) => onMediaLoad(event, mediaType)}
+          <StyledImage
+            data={data}
+            title={title}
+            mediaType={mediaType}
+            onMediaLoad={onMediaLoad}
           />
         )}
+
         {!isLoading && mediaType === 'video' && data && (
-          <video
-            controls
-            crossOrigin="anonymous"
-            preload="metadata"
-            onLoadedMetadata={(event) => onMediaLoad(event, mediaType)}
-          >
-            <source src={selectLink(mediaType, data).vidHref} />
-            {selectLink(mediaType, data).subsHref.map((sub) => (
-              <track key={nasaId} src={sub} kind="subtitles" />
-            ))}
-            Please use a more modern browser to play this video.
-          </video>
+          <StyledVideo
+            data={data}
+            mediaType={mediaType}
+            onMediaLoad={onMediaLoad}
+            nasaId={nasaId}
+          />
         )}
+
         {!isLoading && mediaType === 'audio' && data && (
-          <div>
-            <audio controls onCanPlay={() => setIsMediaLoading(false)}>
-              <source
-                src={selectLink(mediaType, data).audioHref.href}
-                type="audio/mp4"
-              />
-              Please use a more modern browser to play this audio.
-            </audio>
-          </div>
+          <StyledAudio
+            setIsMediaLoading={setIsMediaLoading}
+            mediaType={mediaType}
+            data={data}
+          />
         )}
+
         {!isMediaLoading && (
-          <div id="modal-text">
+          <div id="media-text">
             <h2>{title}</h2>
-            <p className={`modal-text-${mediaType}`}>{description}</p>
+            <p className={`media-text-${mediaType}`}>{description}</p>
           </div>
         )}
-      </StyledGalleryAssetView>
+      </StyledMediaWrapper>
     </>
   );
 };
 
-GalleryAssetView.defaultProps = {
+MediaWrapper.defaultProps = {
   inModal: false,
 };
 
-GalleryAssetView.propTypes = {
+MediaWrapper.propTypes = {
   inModal: PropTypes.bool,
 };
 
-export default GalleryAssetView;
+export default MediaWrapper;

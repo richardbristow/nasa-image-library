@@ -4,7 +4,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 
 import Header from './header/Header';
 import Gallery from './gallery/Gallery';
-import GalleryAssetView from './gallery/GalleryAssetView';
+import MediaWrapper from './media/MediaWrapper';
 import Modal from './modal/Modal';
 import NoRoute from './shared/NoRoute';
 
@@ -39,7 +39,7 @@ const App = () => {
             <Gallery />
           </Route>
           <Route path="/asset/:nasaId">
-            <GalleryAssetView />
+            <MediaWrapper />
           </Route>
           <Route path="*">
             <NoRoute />
@@ -48,7 +48,7 @@ const App = () => {
         {background && (
           <Route path="/asset/:nasaId">
             <Modal>
-              <GalleryAssetView inModal />
+              <MediaWrapper inModal />
             </Modal>
           </Route>
         )}
