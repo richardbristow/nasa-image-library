@@ -78,7 +78,7 @@ const GalleryItem = ({ itemData, imageThumbnail }) => {
         pathname: `/asset/${nasaId}`,
         state: { background: location },
       }}
-      mediaType={mediaType}
+      $mediaType={mediaType}
     >
       {mediaType !== 'audio' ? (
         <>
