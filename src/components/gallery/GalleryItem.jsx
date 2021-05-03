@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { Link, useLocation } from 'react-router-dom';
+import { FaPlay } from 'react-icons/fa';
 
 const StyledGalleryItem = styled(Link)`
+  position: relative;
+  display: inline-block;
   cursor: pointer;
   text-decoration: none;
   flex-grow: 1;
@@ -12,6 +15,9 @@ const StyledGalleryItem = styled(Link)`
   background-color: ${({ theme }) => theme.lightGrey};
   min-width: 200px;
   border-radius: 4px;
+  &:hover {
+    opacity: 0.7;
+  }
   ${({ mediaType }) => mediaType === 'audio' && 'width: 200px;'}
 
   img {
@@ -20,10 +26,8 @@ const StyledGalleryItem = styled(Link)`
     max-width: 100%;
     min-width: 100%;
     vertical-align: bottom;
-    &:hover {
-      opacity: 0.7;
-    }
     border-radius: 4px;
+    ${({ mediaType }) => mediaType === 'video' && 'filter: brightness(70%);'}
   }
 
   .gallery-item-audio {
@@ -55,6 +59,15 @@ const StyledGalleryItem = styled(Link)`
   }
 `;
 
+const StyledFaPlay = styled(FaPlay)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  color: ${({ theme }) => theme.ghostWhite};
+`;
+
 const GalleryItem = ({ itemData, imageThumbnail }) => {
   const { media_type: mediaType, title, nasa_id: nasaId } = itemData;
   const { href } = imageThumbnail;
@@ -65,15 +78,19 @@ const GalleryItem = ({ itemData, imageThumbnail }) => {
         pathname: `/asset/${nasaId}`,
         state: { background: location },
       }}
+      mediaType={mediaType}
     >
       {mediaType !== 'audio' ? (
-        <img
-          onError={(e) => {
-            e.target.parentNode.style.display = 'none';
-          }}
-          src={href}
-          alt={title}
-        />
+        <>
+          <img
+            onError={(e) => {
+              e.target.parentNode.style.display = 'none';
+            }}
+            src={href}
+            alt={title}
+          />
+          {mediaType === 'video' && <StyledFaPlay />}
+        </>
       ) : (
         <div className="gallery-item-audio">
           <div>
