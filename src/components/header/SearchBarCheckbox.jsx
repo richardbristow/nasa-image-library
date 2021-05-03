@@ -3,10 +3,13 @@ import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
 const StyledSearchBarCheckbox = styled.label`
+  cursor: pointer;
+
   input {
     margin-right: 5%;
     margin-left: 6px;
     vertical-align: middle;
+    cursor: pointer;
   }
 
   @media screen and (max-width: 500px) {
