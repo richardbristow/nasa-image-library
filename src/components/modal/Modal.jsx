@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
@@ -38,6 +38,13 @@ const Modal = ({ children }) => {
     event.stopPropagation();
     history.goBack();
   };
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'scroll';
+    };
+  }, []);
 
   return ReactDOM.createPortal(
     <ThemeProvider theme={globalTheme}>

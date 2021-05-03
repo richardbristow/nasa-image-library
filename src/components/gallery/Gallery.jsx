@@ -7,6 +7,7 @@ import Error from '../shared/Error';
 import Loading from '../shared/Loading';
 import GalleryNavigation from './GalleryNavigation';
 import GalleryItem from './GalleryItem';
+import ScrollToTop from '../shared/ScrollToTop';
 
 const StyledGalleryGrid = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ const Gallery = () => {
 
   return (
     <>
+      <ScrollToTop />
       {isError && <Error error={isError} />}
       {isLoading ? (
         <Loading />
