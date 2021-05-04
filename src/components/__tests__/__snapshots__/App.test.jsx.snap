@@ -11,12 +11,17 @@ Object {
         <div
           class="Header__StyledHeader-sc-19c87cm-0 jqpXiy"
         >
-          <h1>
-            NASA 
-            <span>
-              Media Library
-            </span>
-          </h1>
+          <a
+            class="Header___StyledLink-sc-19c87cm-1 jdgJVX"
+            href="/"
+          >
+            <h1>
+              NASA 
+              <span>
+                Media Library
+              </span>
+            </h1>
+          </a>
           <div
             class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
           >
@@ -40,7 +45,7 @@ Object {
                 </button>
               </div>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
               >
                 Images
                 <input
@@ -50,7 +55,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
               >
                 Videos
                 <input
@@ -59,7 +64,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
               >
                 Audio
                 <input
@@ -70,13 +75,17 @@ Object {
             </form>
           </div>
         </div>
-        <div
-          class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+        <main
+          class="App__StyledMain-oine8m-1 frUcWr"
         >
-          <i
-            class="fa fa-circle-o-notch fa-spin"
-          />
-        </div>
+          <div
+            class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+          >
+            <i
+              class="fa fa-circle-o-notch fa-spin"
+            />
+          </div>
+        </main>
       </div>
     </div>
   </body>,
@@ -87,12 +96,17 @@ Object {
       <div
         class="Header__StyledHeader-sc-19c87cm-0 jqpXiy"
       >
-        <h1>
-          NASA 
-          <span>
-            Media Library
-          </span>
-        </h1>
+        <a
+          class="Header___StyledLink-sc-19c87cm-1 jdgJVX"
+          href="/"
+        >
+          <h1>
+            NASA 
+            <span>
+              Media Library
+            </span>
+          </h1>
+        </a>
         <div
           class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
         >
@@ -116,7 +130,7 @@ Object {
               </button>
             </div>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
             >
               Images
               <input
@@ -126,7 +140,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
             >
               Videos
               <input
@@ -135,7 +149,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 bjgRKo"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
             >
               Audio
               <input
@@ -146,13 +160,17 @@ Object {
           </form>
         </div>
       </div>
-      <div
-        class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+      <main
+        class="App__StyledMain-oine8m-1 frUcWr"
       >
-        <i
-          class="fa fa-circle-o-notch fa-spin"
-        />
-      </div>
+        <div
+          class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+        >
+          <i
+            class="fa fa-circle-o-notch fa-spin"
+          />
+        </div>
+      </main>
     </div>
   </div>,
   "debug": [Function],
