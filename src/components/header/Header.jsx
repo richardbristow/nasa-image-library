@@ -18,6 +18,7 @@ const StyledHeader = styled.div`
   }
 
   h1 {
+    display: inline-block;
     margin-bottom: 20px;
     font-size: 36px;
     color: ${({ theme }) => theme.ghostWhite};
