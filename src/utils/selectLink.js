@@ -24,8 +24,18 @@ const selectLink = (mediaType, assetData) => {
     assetObj.subsHref = [];
     const vidThumb = [];
     assetData.items.forEach((vid) => {
-      if (vid.href.endsWith('orig.mp4')) {
-        assetObj.vidHref = vid.href;
+      if (vid.href.endsWith('mp4')) {
+        if (vid.href.endsWith('medium.mp4')) {
+          assetObj.vidHref = vid.href;
+        } else if (vid.href.endsWith('large.mp4')) {
+          assetObj.vidHref = vid.href;
+        } else if (vid.href.endsWith('orig.mp4')) {
+          assetObj.vidHref = vid.href;
+        } else if (vid.href.endsWith('mobile.mp4')) {
+          assetObj.vidHref = vid.href;
+        } else if (vid.href.endsWith('small.mp4')) {
+          assetObj.vidHref = vid.href;
+        }
       } else if (vid.href.endsWith('.png') || vid.href.endsWith('.jpg')) {
         vidThumb.push(vid.href);
       } else if (vid.href.endsWith('.srt') || vid.href.endsWith('.vtt')) {
