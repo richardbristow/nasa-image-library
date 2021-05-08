@@ -4,6 +4,10 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4bdfffb8-7e4f-4406-846f-eea31f565a49/deploy-status)](https://app.netlify.com/sites/nasa-image-library/deploys)
 
+A gallery site that gets images/videos/audio from the [NASA Image API](https://api.nasa.gov).
+
+## Install
+
 Install and start the app:
 
 ```shell
