@@ -1,34 +1,48 @@
 # NASA Image Library
 
-[![Build Status](https://travis-ci.org/richardbristow/nasa-image-library.svg?branch=master)](https://travis-ci.org/richardbristow/nasa-image-library)
+[![Lint, test, build, deploy](https://github.com/richardbristow/nasa-image-library/actions/workflows/ci-workflow.yml/badge.svg)](https://github.com/richardbristow/nasa-image-library/actions/workflows/ci-workflow.yml)
 
-To run the code after cloning, install third party modules:
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4bdfffb8-7e4f-4406-846f-eea31f565a49/deploy-status)](https://app.netlify.com/sites/nasa-image-library/deploys)
 
-`npm install`
+Install and start the app:
 
-Then start the development server:
-
-`npm start`
+```shell
+  git clone https://github.com/richardbristow/nasa-image-library.git
+  cd nasa-image-library
+  yarn
+  yarn start
+```
 
 The app will be available at: <http://localhost:3000/>
 
-To create a production build:
+Run tests:
 
-`npm run build`
+```shell
+  yarn test
+```
+
+Lint code:
+
+```shell
+  yarn lint     # lint javascript and css
+  yarn lint:js  # lint javascript
+  yarn lint:css # lint css
+```
+
+Build:
+
+```shell
+  yarn build
+```
 
 ## Demo site
 
 A deployed demo site is available at the link below:
 
-<https://richardbristow.github.io/nasa-image-library>
-
-## Notes
-
-Tested in Chrome 62, IE 11, Edge 40, Safari (macOS & iOS), Firefox
+<https://nasa-image-library.netlify.app>
 
 ## Other Info
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.\
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+Create React App [documentation](https://create-react-app.dev/docs/getting-started).
