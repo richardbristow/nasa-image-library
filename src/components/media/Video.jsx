@@ -16,6 +16,7 @@ const Video = ({ data, mediaType, onMediaLoad, nasaId }) => (
     controls
     crossOrigin="anonymous"
     preload="metadata"
+    poster={selectLink(mediaType, data).vidThumb}
     onLoadedMetadata={(event) => onMediaLoad(event, mediaType)}
   >
     <source src={selectLink(mediaType, data).vidHref} />
