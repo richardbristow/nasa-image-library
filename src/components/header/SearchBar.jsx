@@ -57,12 +57,8 @@ const SearchBar = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const {
-      searchTerm,
-      searchImages,
-      searchVideos,
-      searchAudio,
-    } = searchValues;
+    const { searchTerm, searchImages, searchVideos, searchAudio } =
+      searchValues;
 
     const buildQueryParams = new URLSearchParams();
     const mediaTypes = [];
