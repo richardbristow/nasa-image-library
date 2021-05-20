@@ -6,13 +6,13 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="App__StyledApp-oine8m-0 gGdzqt"
+        class="App__StyledApp-oine8m-0 cMUhQP"
       >
         <div
-          class="Header__StyledHeader-sc-19c87cm-0 gRkUaE"
+          class="Header__StyledHeader-sc-19c87cm-0 jKXScu"
         >
           <a
-            class="Header___StyledLink-sc-19c87cm-1 jdgJVX"
+            class="Header___StyledLink-sc-19c87cm-1 xYgXB"
             href="/"
           >
             <h1>
@@ -23,11 +23,11 @@ Object {
             </h1>
           </a>
           <div
-            class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
+            class="SearchBar__StyledSearchBar-f1a6f2-0 euoegs"
           >
             <form>
               <div
-                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 URyXi"
+                class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 eCSdVc"
               >
                 <input
                   name="searchTerm"
@@ -45,7 +45,7 @@ Object {
                 </button>
               </div>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
               >
                 Images
                 <input
@@ -55,7 +55,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
               >
                 Videos
                 <input
@@ -64,7 +64,7 @@ Object {
                 />
               </label>
               <label
-                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+                class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
               >
                 Audio
                 <input
@@ -76,10 +76,10 @@ Object {
           </div>
         </div>
         <main
-          class="App__StyledMain-oine8m-1 frUcWr"
+          class="App__StyledMain-oine8m-1 jxHxBh"
         >
           <div
-            class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+            class="Loading__StyledLoading-sc-119z7o2-0 gbKpWE"
           >
             <i
               class="fa fa-circle-o-notch fa-spin"
@@ -91,13 +91,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="App__StyledApp-oine8m-0 gGdzqt"
+      class="App__StyledApp-oine8m-0 cMUhQP"
     >
       <div
-        class="Header__StyledHeader-sc-19c87cm-0 gRkUaE"
+        class="Header__StyledHeader-sc-19c87cm-0 jKXScu"
       >
         <a
-          class="Header___StyledLink-sc-19c87cm-1 jdgJVX"
+          class="Header___StyledLink-sc-19c87cm-1 xYgXB"
           href="/"
         >
           <h1>
@@ -108,11 +108,11 @@ Object {
           </h1>
         </a>
         <div
-          class="SearchBar__StyledSearchBar-f1a6f2-0 dJDgne"
+          class="SearchBar__StyledSearchBar-f1a6f2-0 euoegs"
         >
           <form>
             <div
-              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 URyXi"
+              class="SearchBarInput__StyledSearchBarInput-sc-17b1y68-0 eCSdVc"
             >
               <input
                 name="searchTerm"
@@ -130,7 +130,7 @@ Object {
               </button>
             </div>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
             >
               Images
               <input
@@ -140,7 +140,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
             >
               Videos
               <input
@@ -149,7 +149,7 @@ Object {
               />
             </label>
             <label
-              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 gslsDk"
+              class="SearchBarCheckbox__StyledSearchBarCheckbox-vs5p6j-0 fbiyBq"
             >
               Audio
               <input
@@ -161,10 +161,10 @@ Object {
         </div>
       </div>
       <main
-        class="App__StyledMain-oine8m-1 frUcWr"
+        class="App__StyledMain-oine8m-1 jxHxBh"
       >
         <div
-          class="Loading__StyledLoading-sc-119z7o2-0 kwZJmS"
+          class="Loading__StyledLoading-sc-119z7o2-0 gbKpWE"
         >
           <i
             class="fa fa-circle-o-notch fa-spin"
